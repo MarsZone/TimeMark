@@ -1,22 +1,25 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import {routerMode} from '../config/env'
-import HelloWorld from '@/views/HelloWorld'
-import Home from '@/views/Home'
+import home from '@/views/home'
 
-Vue.use(VueRouter)
+// import count from '@/components/count'
+
+Vue.use(VueRouter);
+var path = '';
+if(process.env.NODE_ENV === 'production')
+{
+  path = 'tm';
+}
 
 export default new VueRouter({
   mode: routerMode,
   base: __dirname,
+
   routes: [
       {
-        path: '/',
-        component: Home
-      },
-      {
-        path: '/helloWorld',
-        component: HelloWorld
+        path: '/'+path,
+        component: home
       }
     ]
 })

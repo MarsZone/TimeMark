@@ -55,8 +55,8 @@ module.exports = {
 
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
-    assetsSubDirectory: 'vue/static',
-    assetsPublicPath: '/',
+    assetsSubDirectory: 'static',
+    assetsPublicPath: './',
 
     /**
      * SourceMap
