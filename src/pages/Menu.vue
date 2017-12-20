@@ -1,13 +1,12 @@
 <template>
   <v-ons-page modifier="white">
-    <div class="profile-pic">
-      <img src="../assets/vue-onsenui.png">
-    </div>
+    <!--<div class="profile-pic">-->
+      <!--<img src="../assets/vue-onsenui.png">-->
+    <!--</div>-->
 
     <v-ons-list-title>Access</v-ons-list-title>
     <v-ons-list>
       <v-ons-list-item v-for="(item, index) in access" :key="item.title"
-                       :modifier="md && 'nodivider'"
                        @click="loadView(index)"
       >
         <div class="left">
@@ -25,7 +24,6 @@
     <v-ons-list-title>Links</v-ons-list-title>
     <v-ons-list>
       <v-ons-list-item v-for="item in links" :key="item.title"
-                       :modifier="md && 'nodivider'"
                        @click="loadLink(item.url)"
       >
         <div class="left">
@@ -65,35 +63,20 @@
             title: 'Github',
             icon: 'ion-social-github',
             url: 'https://github.com/OnsenUI/OnsenUI'
-          },
-          {
-            title: 'Code',
-            icon: 'ion-code',
-            url: 'https://github.com/OnsenUI/vue-onsenui-kitchensink'
-          },
-          {
-            title: 'Forum',
-            icon: 'ion-chatboxes',
-            url: 'https://community.onsen.io/'
-          },
-          {
-            title: 'Twitter',
-            icon: 'ion-social-twitter',
-            url: 'https://twitter.com/Onsen_UI'
           }
         ],
         access: [
           {
             title: 'Home',
-            icon: 'ion-home, material:md-home'
+            icon: 'ion-home'
           },
           {
-            title: 'Forms',
-            icon: 'ion-edit, material:md-edit'
+            title: 'Calendar',
+            icon: 'ion-calendar'
           },
           {
             title: 'Animations',
-            icon: 'ion-film-marker, material: md-movie-alt'
+            icon: 'ion-film-marker'
           }
         ]
       };

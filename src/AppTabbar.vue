@@ -11,8 +11,6 @@
 
     <v-ons-tabbar position="auto"
                   swipeable
-                  :modifier="md ? 'autogrow white-content' : null"
-                  :on-swipe="md ? onSwipe : null"
                   :tabbar-style="swipeTheme"
                   :tabs="tabs"
                   :index.sync="index"
@@ -22,10 +20,12 @@
 </template>
 
 <script>
-  import Camera from './pages/Camera.vue';
   import Home from './pages/Home.vue';
-  import Forms from './pages/Forms.vue';
-  import Animations from './pages/Animations.vue';
+  import Task from './pages/Task.vue';
+  import Calendar from './pages/Calendar.vue';
+  import Charts from './pages/Charts.vue';
+  import Account from './pages/Account.vue';
+
   // Just a linear interpolation formula
   const lerp = (x0, x1, t) => parseInt((1 - t) * x0 + t * x1, 10);
   // RGB colors
@@ -43,28 +43,32 @@
         tabs: [
           {
             label: 'Home',
-            icon: this.md ? null : 'ion-home',
+            icon:  'ion-home',
             page: Home,
             theme: red
           },
           {
-            label: this.md ? null : 'Camera',
-            icon: 'ion-camera, material:md-camera',
-            page: Camera,
-            theme: red,
-            style: this.md ? { maxWidth: '60px' } : {},
-            top: -105 // Toolbar + Tabbar heights
+            label: 'Task',
+            icon: 'ion-ios-list',
+            page: Task,
+            theme: red
           },
           {
-            label: 'Forms',
-            icon: this.md ? null : 'ion-edit',
-            page: Forms,
+            label: 'Calendar',
+            icon: 'ion-calendar',
+            page: Calendar,
             theme: blue
           },
           {
-            label: 'Anim',
-            icon: this.md ? null : 'ion-film-marker',
-            page: Animations,
+            label: 'Charts',
+            icon:  'ion-podium',
+            page: Charts,
+            theme: purple
+          },
+          {
+            label: 'Me',
+            icon:  'ion-person',
+            page: Account,
             theme: purple
           }
         ]

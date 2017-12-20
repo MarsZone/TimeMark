@@ -1,6 +1,6 @@
 <template>
   <v-ons-page>
-    <div class="camera">
+    <div class="task">
       <div class="focus"></div>
     </div>
   </v-ons-page>
@@ -12,7 +12,7 @@
 </script>
 
 <style scoped>
-  .camera {
+  .task {
     width: 100%;
     height: 100%;
     background-color: lightgrey;

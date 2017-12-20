@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import {routerMode} from '../config/env'
-import home from '@/views/home'
+import home from '@/views/HelloWorld'
 
 // import count from '@/components/count'
 

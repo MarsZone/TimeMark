@@ -29,13 +29,14 @@ new Vue({
   render: h => h(AppNavigator),
   beforeCreate() {
     //Vue.prototype.md = this.$ons.platform.isAndroid();
-    Vue.prototype.md = null;
+    Vue.prototype.md = this.$ons.platform.isAndroid();
+    //Vue.prototype.md = null;
     // Set iPhoneX flag based on URL
+    this.$ons.disableAutoStyling(); // Or any other method
     if (window.location.search.match(/iphonex/i)) {
       document.documentElement.setAttribute('onsflag-iphonex-portrait', '');
       document.documentElement.setAttribute('onsflag-iphonex-landscape', '');
     }
-    this.$ons.disableAutoStyling(); // Or any other method
   }
   //template: '<App/>',
   //components: { App } //1.0 2.0->render : h => h(App)
