@@ -12,6 +12,7 @@ import VueOnsen from 'vue-onsenui'; // This already imports 'onsenui'
 import CustomToolbar from './partials/CustomToolbar.vue';
 import AppNavigator from './AppNavigator.vue';
 
+
 Vue.use(Vuex);
 Vue.use(VueOnsen);
 Vue.config.productionTip = false;
@@ -29,8 +30,7 @@ new Vue({
   render: h => h(AppNavigator),
   beforeCreate() {
     //Vue.prototype.md = this.$ons.platform.isAndroid();
-    Vue.prototype.md = this.$ons.platform.isAndroid();
-    //Vue.prototype.md = null;
+    Vue.prototype.md = null;
     // Set iPhoneX flag based on URL
     this.$ons.disableAutoStyling(); // Or any other method
     if (window.location.search.match(/iphonex/i)) {

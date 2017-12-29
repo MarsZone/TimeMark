@@ -2,7 +2,7 @@ strict: true;
 namespaced: true;
 
 const state = {
-  index: 1
+  index: 0
 }
 // getters
 const getters = {

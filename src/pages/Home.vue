@@ -1,20 +1,40 @@
 <template>
   <v-ons-page>
-    <p class="intro">
-      This is a kitchen sink example that shows off the Vue bindings for Onsen UI.<br><br>
-    </p>
+    <div class="tabbar tabbar--top tabbar--top-border">
+      <label class="tabbar__item tabbar--top-border__item">
+        <input type="radio" name="top-tabbar-b" checked="checked">
+        <button class="tabbar__button tabbar--top-border__button">
+          <i class="tabbar__icon fa fa-history"></i>
+        </button>
+      </label>
 
-    <v-ons-card v-for="page of pages" :key="page.label"
-                @click="push(page.component, page.label)"
-    >
-      <div class="title">{{ page.label }}</div>
-      <div class="content">{{ page.desc }}</div>
-    </v-ons-card>
+      <label class="tabbar__item tabbar--top-border__item">
+        <input type="radio" name="top-tabbar-b">
+        <button class="tabbar__button tabbar--top-border__button">
+          <i class="tabbar__icon ion-ios-book" ></i>
+        </button>
+      </label>
+
+      <label class="tabbar__item tabbar--top-border__item">
+        <input type="radio" name="top-tabbar-b">
+        <button class="tabbar__button tabbar--top-border__button">
+          <i class="tabbar__icon ion-android-bicycle"></i>
+        </button>
+      </label>
+    </div>
+    <!--<v-ons-card v-for="page of pages" :key="page.label"-->
+                <!--@click="push(page.component, page.label)"-->
+    <!--&gt;-->
+      <!--<div class="title">{{ page.label }}</div>-->
+    <!--</v-ons-card>-->
+
+    <TaskList></TaskList>
+
   </v-ons-page>
 </template>
 
 <script>
-
+  import TaskList from '../components/home/TaskList.vue';
   export default {
     data () {
       return {
@@ -23,21 +43,7 @@
         ]
       };
     },
-    methods: {
-      push(page, key) {
-        this.$store.onsui.commit('navigator/push', {
-          extends: page,
-          data() {
-            return {
-              toolbarInfo: {
-                backLabel: 'Home',
-                title: key
-              }
-            }
-          }
-        });
-      }
-    }
+    components: { TaskList }
   };
 </script>
 

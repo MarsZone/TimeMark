@@ -14,7 +14,8 @@ const debug = process.env.NODE_ENV !== 'production'
 const state = {
   userInfo: null, //用户信息
   login: true,    //是否登录
-  count: 1
+  count: 1,
+  task_id: '0',
 }
 
 export default new Vuex.Store({

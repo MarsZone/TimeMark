@@ -32,11 +32,11 @@
         this.$store.commit('navigator/pop');
       },
       showPopTip() {
-//        !this.shutUp && this.$ons.notification.toast({
-//          message: 'Try swipe-to-pop from left side!',
-//          buttonLabel: 'Shut up!',
-//          timeout: 2000
-//        }).then(i => this.shutUp = i === 0);
+        !this.shutUp && this.$ons.notification.toast({
+          message: 'Demo Version Made by Mars.',
+          buttonLabel: 'Tips',
+          timeout: 1000
+        }).then(i => this.shutUp = i === 0);
       }
     }
   };

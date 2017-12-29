@@ -10,6 +10,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "jquery": "^3.2.1",
     "onsenui": "^2.8.3",
     "vue": "^2.5.9",
     "vue-onsenui": "^2.4.3",

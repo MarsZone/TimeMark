@@ -3,9 +3,9 @@
     <custom-toolbar :style="swipeTheme" modifier="white-content">
       {{ title }}
       <v-ons-toolbar-button slot="right" modifier="white-content"
-                            @click="$store.commit('splitter/toggle'); showTip(null, 'Try dragging from right edge!')"
+                            @click="$store.commit('splitter/toggle'); showTip(null, 'Demo Version Made by Mars.')"
       >
-        <v-ons-icon icon="ion-navicon, material:md-menu"></v-ons-icon>
+        <v-ons-icon icon="ion-navicon"></v-ons-icon>
       </v-ons-toolbar-button>
     </custom-toolbar>
 
@@ -44,32 +44,27 @@
           {
             label: 'Home',
             icon:  'ion-home',
-            page: Home,
-            theme: red
+            page: Home
           },
           {
             label: 'Task',
             icon: 'ion-ios-list',
-            page: Task,
-            theme: red
+            page: Task
           },
           {
             label: 'Calendar',
             icon: 'ion-calendar',
-            page: Calendar,
-            theme: blue
+            page: Calendar
           },
           {
             label: 'Charts',
             icon:  'ion-podium',
-            page: Charts,
-            theme: purple
+            page: Charts
           },
           {
             label: 'Me',
             icon:  'ion-person',
-            page: Account,
-            theme: purple
+            page: Account
           }
         ]
       };
@@ -107,7 +102,7 @@
         }
       },
       title() {
-        return this.md ? 'Onsen UI' : this.tabs[this.index].title || this.tabs[this.index].label;
+        return this.md ? '' : this.tabs[this.index].title || this.tabs[this.index].label;
       },
       swipeTheme() {
         return this.md && {
