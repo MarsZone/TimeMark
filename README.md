@@ -1,7 +1,5 @@
-vue
-vue-router
-vue-loader
-vue-resource
-vuex
+About this Project.
 
-水一下，在做小程序。。木有啥更新呀
+Base on vue2.0
+
+It's a web-apps that record your time.
