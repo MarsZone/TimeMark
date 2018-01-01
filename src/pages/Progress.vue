@@ -2,8 +2,45 @@
     <v-ons-page>
       <custom-toolbar v-bind="toolbarInfo"></custom-toolbar>
       <div class="time-container">
+        <div class="time-label">
+          <div class="time-label-desc">
+            <p style="margin-left: 10%">Hours</p>
+            <p>Minutes</p>
+            <p style="margin-right: 10%">Seconds</p>
+          </div>
+          <div class="countdownHolder">
+              <span class="countHours">
+                <span class="position">
+                  <span class="digit static" style="top: 0px; opacity: 1;">{{hour[0]}}</span>
+                </span>
+                <span class="position">
+                  <span class="digit static" style="top: 0px; opacity: 1;">{{hour[1]}}</span>
+                </span>
+              </span>
 
-        <p>{{hour}}:{{minutes}}:{{seconds}}</p>
+            <span class="countDiv countDiv1"></span>
+
+            <span class="countMinutes">
+              <span class="position">
+                <span class="digit static" style="top: 0px; opacity: 1;">{{minutes[0]}}</span>
+              </span>
+              <span class="position">
+                <span class="digit static" style="top: 0px; opacity: 1;">{{minutes[1]}}</span>
+              </span>
+            </span>
+            <span class="countDiv countDiv2"></span>
+
+            <span class="countSeconds">
+              <span class="position">
+                <span class="digit static" style="top: 0px; opacity: 1;">{{seconds[0]}}</span>
+              </span>
+              <span class="position">
+                <span class="digit static" style="top: 0px; opacity: 1;">{{seconds[1]}}</span>
+              </span>
+            </span>
+          </div>
+
+        </div>
 
         <div class="button-group">
         <transition name="fade" mode="out-in">
@@ -44,6 +81,7 @@
           console.log("Start");
           let self = this;
           self.timer = 0;
+          self.seconds ='00';
           this.si = setInterval(function () {
             self.timer++;
             let d, h, m, s;
@@ -84,7 +122,7 @@
           }, 1000);
         },
         padNumber:function( n ) {
-          return n < 10 ? '0' + String( n ) : n;
+          return n < 10 ? '0' + String( n ) : String(n);
         },
       }
     }
@@ -92,19 +130,92 @@
 
 <style scoped>
   .time-container{
+    width: 100%;
+    height: 100%;
     display: flex;
-    min-height: 100%;
-    flex-flow: row wrap;
+    flex-flow: column wrap;
+    align-items:center;
     justify-content:center;
   }
+  .time-label{
+    margin-bottom: 5%;
+  }
+  .time-label-desc{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+  }
+
+  .countdownHolder{
+    width: 450px;
+    margin: 0 auto;
+    font: 42px/1.5 'Open Sans Condensed',sans-serif;
+    text-align: center;
+    letter-spacing: -3px;
+  }
+  .countDiv {
+    display: inline-block;
+    width: 16px;
+    height: 1.6em;
+    position: relative;
+  }
+  .countDiv:before, .countDiv:after {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background-color: #444;
+    border-radius: 50%;
+    left: 50%;
+    margin-left: -3px;
+    top: 0.5em;
+    box-shadow: 1px 1px 1px rgba(4, 4, 4, 0.5);
+    content: '';
+  }
+  .countDiv:after {
+    top: 0.9em;
+  }
+  .position {
+    display: inline-block;
+    height: 1.6em;
+    overflow: hidden;
+    position: relative;
+    width: 1.05em;
+  }
+  .digit.static {
+    box-shadow: 1px 1px 1px rgba(4, 4, 4, 0.35);
+    background-image: linear-gradient(bottom, #3A3A3A 50%, #444444 50%);
+    background-image: -o-linear-gradient(bottom, #3A3A3A 50%, #444444 50%);
+    background-image: -moz-linear-gradient(bottom, #3A3A3A 50%, #444444 50%);
+    background-image: -webkit-linear-gradient(bottom, #3A3A3A 50%, #444444 50%);
+    background-image: -ms-linear-gradient(bottom, #3A3A3A 50%, #444444 50%);
+    background-image: -webkit-gradient(
+      linear,
+      left bottom,
+      left top,
+      color-stop(0.5, #3A3A3A),
+      color-stop(0.5, #444444)
+    );
+  }
+  .digit {
+    position: absolute;
+    display: block;
+    width: 1em;
+    background-color: #444;
+    border-radius: 0.2em;
+    text-align: center;
+    color: #fff;
+    letter-spacing: -1px;
+  }
+
+  /*------------------------*/
   .button-group{
-    align-self: flex-end;
+    margin-top:5%;
   }
 
   .button {
     display: inline-block;
     position: relative;
-    margin: 10px;
+    margin: 5px;
     padding: 0 20px;
     text-align: center;
     text-decoration: none;
@@ -151,7 +262,6 @@
   .pause {
     color: #515151;
     background: #d3d3d3;
-
   }
 
 </style>
