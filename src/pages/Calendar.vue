@@ -16,6 +16,7 @@
   require("vue-simple-calendar/dist/static/css/default.css");
   require("vue-simple-calendar/dist/static/css/holidays-us.css");
 
+  //document.write(parseISOLocal('2015-11-24T19:40:00'));
   export default {
 
     data: function() {
@@ -26,12 +27,30 @@
           {
             id:'1',
             title:'Study abc',
-            startDate:'2017-12-28',
-            endDate:'2017-12-28',
+            startDate: new Date(2017,11,28),
+            endDate: new Date(2017,11,28),
           },
           {
             id:'2',
             title:'Read a book',
+            startDate:'2017-12-5',
+            endDate:'2017-12-5',
+          },
+          {
+            id:'3',
+            title:'CCC',
+            startDate:'2017-12-5',
+            endDate:'2017-12-5',
+          },
+          {
+            id:'4',
+            title:'DDD',
+            startDate:'2017-12-5',
+            endDate:'2017-12-5',
+          },
+          {
+            id:'5',
+            title:'FFF',
             startDate:'2017-12-5',
             endDate:'2017-12-5',
           }
