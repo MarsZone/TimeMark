@@ -12,7 +12,6 @@ import VueOnsen from 'vue-onsenui'; // This already imports 'onsenui'
 import CustomToolbar from './partials/CustomToolbar.vue';
 import AppNavigator from './AppNavigator.vue';
 
-
 Vue.use(Vuex);
 Vue.use(VueOnsen);
 Vue.config.productionTip = false;

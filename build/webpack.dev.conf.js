@@ -47,7 +47,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       template: 'index.html',
       inject: true
     }),
-    new FriendlyErrorsPlugin()
+    new FriendlyErrorsPlugin(),
     // new BundleAnalyzerPlugin({
     //   // Can be `server`, `static` or `disabled`.
     //   // In `server` mode analyzer will start HTTP server to show bundle report.
