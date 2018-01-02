@@ -70,7 +70,7 @@
             });
         },
         showError(msg){
-          this.$ons.notification.alert(msg);
+          this.$ons.notification.alert(msg,{title:'Warning'});
         }
 
       },
