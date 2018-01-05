@@ -12,8 +12,9 @@ const debug = process.env.NODE_ENV !== 'production'
 
 
 const state = {
-  userInfo: null, //用户信息
-  login: true,    //是否登录
+  userInfo: null,  //用户信息
+  name:'No one',   //用户名
+  login: false,    //是否登录
   count: 1,
   task_id: '0',
 }

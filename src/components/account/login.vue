@@ -40,6 +40,7 @@
 
 <script>
    import axios from 'axios';
+//   import account from ''
 
     export default {
       data() {
@@ -63,14 +64,27 @@
               if(response.data.code!='200')
               {
                 self.showError(response.data.msg);
+              }else {
+                //更新数据
+                self.updateData(response.data.name);
+                //成功返回
+                self.poplogin();
               }
             })
             .catch(function (error) {
               console.log(error);
             });
         },
+        updateData(name)
+        {
+          this.$store.state.login = true;
+          this.$store.state.name = name;
+        },
         showError(msg){
           this.$ons.notification.alert(msg,{title:'Warning'});
+        },
+        poplogin(){
+          this.$store.commit('navigator/pop');
         }
 
       },

@@ -2,26 +2,36 @@
   <v-ons-page>
     <div class="Account">
       <img style="width: 68px;height: 68px" class="list-item__thumbnail" src="http://placekitten.com/g/40/40">
-      <p>No one</p>
-      <v-ons-button v-bind:disabled="able_sign_in"
+      <p>{{this.$store.state.name}}</p>
+      <v-ons-button v-show ="ifSignIn"
                     @click="login()"
                     class="my-button button button--outline " >Sign in</v-ons-button>
-      <v-ons-button v-bind:disabled="able_Register"
+      <v-ons-button v-show ="ifRegister"
                     class="my-button button button--outline " >Register</v-ons-button>
-      <v-ons-button v-bind:disabled="able_sign_out"
+      <v-ons-button v-show ="ifSignOut"
+                    @click = "logout()"
                     class="my-button button button--outline " >Sign out</v-ons-button>
     </div>
   </v-ons-page>
 </template>
 
 <script>
-  import login from '../components/account/login.vue'
+  import login from '../components/account/login.vue';
+  import axios from 'axios';
   export default {
     data() {
       return {
-        able_sign_in: false,
-        able_Register:false,
-        able_sign_out:true,
+      }
+    },
+    computed:{
+      ifSignIn:function () {
+        return !this.$store.state.login;
+      },
+      ifRegister:function () {
+        return !this.$store.state.login;
+      },
+      ifSignOut:function () {
+        return this.$store.state.login;
       }
     },
     methods: {
@@ -40,6 +50,19 @@
             }
           }
         });
+      },
+      logout(){
+        //Send to Server.
+        axios.get('http://localhost:3000/logout')
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+        //clear data
+        this.$store.state.name  ='No one';
+        this.$store.state.login =false;
       }
     }
   };
