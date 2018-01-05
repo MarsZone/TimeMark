@@ -7,6 +7,7 @@
                     @click="login()"
                     class="my-button button button--outline " >Sign in</v-ons-button>
       <v-ons-button v-show ="ifRegister"
+                    @click="register()"
                     class="my-button button button--outline " >Register</v-ons-button>
       <v-ons-button v-show ="ifSignOut"
                     @click = "logout()"
@@ -17,6 +18,7 @@
 
 <script>
   import login from '../components/account/login.vue';
+  import register from '../components/account/register.vue';
   import axios from 'axios';
   export default {
     data() {
@@ -47,6 +49,22 @@
           data() {
             return {
              label : 'Sign-in'
+            }
+          }
+        });
+      },
+      register() {
+        this.$store.commit('navigator/options', {
+          // Sets animations
+          animation: 'lift-ios',
+          // Resets default options
+          callback: () => this.$store.commit('navigator/options', {})
+        });
+        this.$store.commit('navigator/push', {
+          extends: register,
+          data() {
+            return {
+              label : 'Register'
             }
           }
         });

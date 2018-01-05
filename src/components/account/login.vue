@@ -40,7 +40,6 @@
 
 <script>
    import axios from 'axios';
-//   import account from ''
 
     export default {
       data() {
@@ -68,7 +67,7 @@
                 //更新数据
                 self.updateData(response.data.name);
                 //成功返回
-                self.poplogin();
+                self.pop();
               }
             })
             .catch(function (error) {
@@ -83,7 +82,12 @@
         showError(msg){
           this.$ons.notification.alert(msg,{title:'Warning'});
         },
-        poplogin(){
+        pop(){
+          this.$ons.notification.toast({
+            message: 'Login success',
+            buttonLabel: 'Tips',
+            timeout: 1000
+          });
           this.$store.commit('navigator/pop');
         }
 
