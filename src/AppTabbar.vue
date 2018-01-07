@@ -25,6 +25,7 @@
   import Calendar from './pages/Calendar.vue';
   import Charts from './pages/Charts.vue';
   import Account from './pages/Account.vue';
+  import Bus from './components/bus.js';
 
   // Just a linear interpolation formula
   const lerp = (x0, x1, t) => parseInt((1 - t) * x0 + t * x1, 10);
@@ -79,6 +80,14 @@
         this.topPosition = lerp(this.tabs[a].top || 0, this.tabs[b].top || 0, ratio);
       },
       showTip(e, message) {
+        var i = 0;
+        var label ="";
+        i = e.index;
+        label = this.tabs[i].label;
+        console.log(label);
+
+        Bus.$emit('tabChange', label);
+
         if (!this.shutUp && !(e && e.swipe) && !this.showingTip) {
           this.showingTip = true;
           this.$ons.notification.toast({
@@ -90,7 +99,8 @@
             this.showingTip = false;
           });
         }
-      }
+      },
+
     },
     computed: {
       index: {

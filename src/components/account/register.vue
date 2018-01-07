@@ -83,11 +83,6 @@
         this.$ons.notification.alert(msg,{title:'Warning'});
       },
       pop(){
-        this.$ons.notification.toast({
-          message: 'Register success',
-          buttonLabel: 'Tips',
-          timeout: 1000
-        });
         this.$store.commit('navigator/pop');
       }
 
