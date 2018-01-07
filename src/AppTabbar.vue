@@ -84,7 +84,6 @@
         var label ="";
         i = e.index;
         label = this.tabs[i].label;
-        console.log(label);
 
         Bus.$emit('tabChange', label);
 

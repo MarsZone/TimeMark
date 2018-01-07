@@ -3,10 +3,19 @@
     <p class="intro">
       Click category to add task<br><br>
     </p>
-    <v-ons-card v-for="task of taskList" :key="task.label"
-    >
-      <div class="title">{{ task.label }}</div>
-    </v-ons-card>
+
+    <v-ons-list>
+      <v-ons-list-item tappable modifier="longdivider"
+                       style="height:50px; min-height: 50px"
+                       v-for="template in templateList" :key="template.label">
+        <!--<div class="left">-->
+          <!--<v-ons-icon icon="md-face" class="list-item__icon"></v-ons-icon>-->
+        <!--</div>-->
+        <div class="title" style="width: 100% ;text-align: center;">{{ template.label }}</div>
+      </v-ons-list-item>
+    </v-ons-list>
+
+
   </v-ons-page>
 </template>
 
@@ -16,48 +25,31 @@
   export default {
     data () {
       return {
-        taskList: [
+        templateList: [
           {
-            id : 1,
+            id : "100",
             tid:"1",
-            label: 'Default',
-          },
-          {
-            id : 2,
-            tid:"2",
-            label: 'Study',
-          },
-          {
-            id : 3,
-            tid:"3",
-            label: 'Project',
-          },
-          {
-            id : 4,
-            tid:"4",
-            label: 'Sports',
-          },
-          {
-            id : 5,
-            tid:"5",
-            label: 'Customer',
+            label: 'xDefault',
           }
         ]
       }
     },
     created(){
-      let self = this;
-      Bus.$on('tabChange', function (label) {
-        if(label == 'Task')
-        {
-          self.updateData();
-        }
-      });
+      Bus.$on('tabChange',this.tabHandler);
+    },
+    beforeDestroy () {
+      Bus.$off('tabChange', this.tabHandler)
     },
     mounted(){
 
     },
     methods:{
+      tabHandler(label){
+        if(label == 'Task')
+        {
+          this.updateData();
+        }
+      },
       updateData(){
         let self = this;
 
@@ -66,14 +58,23 @@
         })
           .then(function (response) {
             console.log(response);
-            console.log(response.data.code);
-            console.log(response.data.msg);
+            console.log("code:"+response.data.code+"|msg:"+response.data.msg);
             if(response.data.code!='200')
             {
               self.showError(response.data.msg);
             }else {
+              self.templateList.splice(0);
               //成功获取
-
+              for(let i in response.data.list)
+              {
+                var list = {};
+                list.id = i;
+                list.tid = response.data.list[i]._id;
+                list.label = response.data.list[i].templateName;
+                self.templateList.push(list);
+              }
+              console.log(self.templateList);
+              self.$forceUpdate();
             }
           })
           .catch(function (error) {
@@ -90,8 +91,7 @@
 </script>
 
 <style scoped>
-  .task {
-  }
+
   .intro {
     text-align: left;
     padding: 0 22px;
@@ -100,10 +100,9 @@
     line-height: 1.4;
     color: rgba(0, 0, 0, .54);
   }
-  ons-card {
-    cursor: pointer;
-    color: #333;
-    text-align: center;
+  v-ons-list{
+  }
+  .title{
   }
   .card__title, .card--material__title {
     font-size: 20px;
