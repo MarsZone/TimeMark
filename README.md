@@ -1,4 +1,4 @@
-##Introduction
+## Introduction
 
 About this Project.
 
@@ -10,12 +10,15 @@ This idea was come up with when I wondering how much time I waster in my life,
 So I need to record it.
 
 ## Technology
-Front end:
+Frontend:
 Vue + vuex + webpack + ES6/7 + vue-onsenui + axios + vue-simple-calendar + vue-echarts
 
-Back end(not on github):
+Backend(not on github):
 Node.js + Express + mongodb + mongoose + i18n etc.
 
 ## Todo
 * [X] Base UI layout.
+* [X] Sign in,Sign out,Register.
+* [X] Multiple languages support backend.
+* [ ] Multiple languages support frontend.
 * [X] Get Data from backend server.

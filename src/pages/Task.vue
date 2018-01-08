@@ -7,7 +7,8 @@
     <v-ons-list>
       <v-ons-list-item tappable modifier="longdivider"
                        style="height:50px; min-height: 50px"
-                       v-for="template in templateList" :key="template.label">
+                       v-for="template in templateList" :key="template.label"
+                       @click="push(template.tid, template.label)">
         <!--<div class="left">-->
           <!--<v-ons-icon icon="md-face" class="list-item__icon"></v-ons-icon>-->
         <!--</div>-->
@@ -21,7 +22,8 @@
 
 <script>
   import axios from 'axios';
-  import Bus from '../components/bus.js'
+  import Bus from '../components/bus.js';
+  import AddTask from '../components/Task/AddTask.vue';
   export default {
     data () {
       return {
@@ -44,6 +46,19 @@
 
     },
     methods:{
+      push(id, key) {
+        this.$store.commit('navigator/push', {
+          extends: AddTask,
+          data() {
+            return {
+              toolbarInfo: {
+                backLabel: 'Chart',
+                label: key
+              }
+            }
+          }
+        });
+      },
       tabHandler(label){
         if(label == 'Task')
         {
@@ -86,6 +101,7 @@
 
     },
     components: {
+      AddTask,
     }
   };
 </script>
