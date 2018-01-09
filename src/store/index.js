@@ -16,7 +16,10 @@ const state = {
   name:'No one',   //用户名
   login: false,    //是否登录
   count: 1,
-  task_id: '0',
+  task_id: '0',    //选择的Task
+  template_id: '', //TemplateID
+  template_label:'',
+  host: 'http://localhost:3000'
 }
 
 export default new Vuex.Store({

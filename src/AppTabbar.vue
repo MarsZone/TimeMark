@@ -82,10 +82,12 @@
       showTip(e, message) {
         var i = 0;
         var label ="";
-        i = e.index;
-        label = this.tabs[i].label;
-
-        Bus.$emit('tabChange', label);
+        if(e)
+        {
+          i = e.index;
+          label = this.tabs[i].label;
+          Bus.$emit('tabChange', label);
+        }
 
         if (!this.shutUp && !(e && e.swipe) && !this.showingTip) {
           this.showingTip = true;

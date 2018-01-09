@@ -11,9 +11,11 @@ import 'onsenui/css/onsen-css-components.css';
 import VueOnsen from 'vue-onsenui'; // This already imports 'onsenui'
 import CustomToolbar from './partials/CustomToolbar.vue';
 import AppNavigator from './AppNavigator.vue';
+import Datetime from 'vue-datetime';
 
 Vue.use(Vuex);
 Vue.use(VueOnsen);
+Vue.use(Datetime);
 Vue.config.productionTip = false;
 // Register components globally
 // Object.values(OnsenComponents).forEach(component => Vue.component(component.name, component)); // For ESM

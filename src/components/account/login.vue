@@ -51,8 +51,8 @@
       methods: {
         loginFromServer() {
           let self = this;
-
-          axios.post('http://localhost:3000/login', {
+          var req = this.$store.state.host + '/login';
+          axios.post(req, {
             username: this.name,
             password: this.password
           })

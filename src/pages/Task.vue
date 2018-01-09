@@ -47,12 +47,14 @@
     },
     methods:{
       push(id, key) {
+        this.$store.template_id = id;
+        this.$store.template_label = key;
         this.$store.commit('navigator/push', {
           extends: AddTask,
           data() {
             return {
               toolbarInfo: {
-                backLabel: 'Chart',
+                backLabel: 'Task',
                 label: key
               }
             }
@@ -67,8 +69,8 @@
       },
       updateData(){
         let self = this;
-
-        axios.post('http://localhost:3000/app/templateList', {
+        var req = this.$store.state.host + '/app/templateList';
+        axios.post(req, {
           username: this.$store.state.name
         })
           .then(function (response) {

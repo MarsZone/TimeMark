@@ -16,6 +16,9 @@ Vue + vuex + webpack + ES6/7 + vue-onsenui + axios + vue-simple-calendar + vue-e
 Backend(not on github):
 Node.js + Express + mongodb + mongoose + i18n etc.
 
+## My nice role.
+Work time : Entertainment time == 2:1
+
 ## Todo
 * [X] Base UI layout.
 * [X] Sign in,Sign out,Register.
