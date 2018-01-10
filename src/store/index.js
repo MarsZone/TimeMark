@@ -19,7 +19,8 @@ const state = {
   task_id: '0',    //选择的Task
   template_id: '', //TemplateID
   template_label:'',
-  host: 'http://localhost:3000'
+  host:'http://marszm.cn:3333'
+  // host: 'http://localhost:3000'
 }
 
 export default new Vuex.Store({
