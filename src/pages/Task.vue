@@ -108,7 +108,7 @@
   };
 </script>
 
-<style scoped>
+<style>
 
   .intro {
     text-align: left;

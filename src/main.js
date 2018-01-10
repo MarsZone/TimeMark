@@ -14,8 +14,8 @@ import AppNavigator from './AppNavigator.vue';
 import Datetime from 'vue-datetime';
 
 Vue.use(Vuex);
-Vue.use(VueOnsen);
 Vue.use(Datetime);
+Vue.use(VueOnsen);
 Vue.config.productionTip = false;
 // Register components globally
 // Object.values(OnsenComponents).forEach(component => Vue.component(component.name, component)); // For ESM
