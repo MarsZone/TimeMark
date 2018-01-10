@@ -91,7 +91,7 @@
                 self.templateList.push(list);
               }
               console.log(self.templateList);
-              self.$forceUpdate();
+              //self.$forceUpdate();
             }
           })
           .catch(function (error) {

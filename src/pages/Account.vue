@@ -20,10 +20,18 @@
   import login from '../components/account/login.vue';
   import register from '../components/account/register.vue';
   import axios from 'axios';
+  import Bus from '../components/bus.js';
+
   export default {
     data() {
       return {
       }
+    },
+    created(){
+      Bus.$on('tabChange',this.tabHandler);
+    },
+    beforeDestroy () {
+      Bus.$off('tabChange', this.tabHandler)
     },
     computed:{
       ifSignIn:function () {
@@ -37,6 +45,31 @@
       }
     },
     methods: {
+      tabHandler(label){
+        if(label == 'Me')
+        {
+          this.updateData();
+        }
+      },
+      updateData(){
+        let self = this;
+        var req = this.$store.state.host + '/app/cache';
+        axios.get(req)
+          .then(function (response) {
+            console.log(response);
+            console.log("code:"+response.data.code+"|msg:"+response.data.msg);
+            if(response.data.code!='200')
+            {
+              //self.showError(response.data.msg);
+            }else {
+              self.$store.state.name  =response.data.name;
+              self.$store.state.login =true;
+            }
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      },
       login() {
         this.$store.commit('navigator/options', {
           // Sets animations
@@ -70,8 +103,9 @@
         });
       },
       logout(){
+        var req = this.$store.state.host + '/logout';
         //Send to Server.
-        axios.get('http://localhost:3000/logout')
+        axios.get(req)
           .then(function (response) {
             console.log(response);
           })

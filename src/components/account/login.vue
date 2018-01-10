@@ -31,7 +31,8 @@
         </label>
       </v-ons-list-item>
 
-      <v-ons-button @click="loginFromServer"
+      <v-ons-button id="loginServer"
+        @click="loginFromServer"
         class="my-button button button--outline " >Login</v-ons-button>
     </div>
 
@@ -40,7 +41,7 @@
 
 <script>
    import axios from 'axios';
-
+   axios.defaults.withCredentials = true;
     export default {
       data() {
         return {
@@ -64,6 +65,8 @@
               {
                 self.showError(response.data.msg);
               }else {
+                //更新Token
+                //self.$store.state.token=response.data.token;
                 //更新数据
                 self.updateData(response.data.name);
                 //成功返回

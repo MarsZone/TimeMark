@@ -51,8 +51,8 @@
     methods: {
       RegisterToServer() {
         let self = this;
-
-        axios.post('http://localhost:3000/register', {
+        var req = this.$store.state.host + '/register';
+        axios.post(req, {
           username: this.name,
           password: this.password
         })

@@ -7,14 +7,14 @@
       <!--Title-->
       <v-ons-list-item modifier="nodivider">
         <div class="center">
-          <v-ons-input id="title-input" type="text" placeholder="Title" float></v-ons-input>
+          <v-ons-input id="title-input" v-model="title" type="text" placeholder="Title" float></v-ons-input>
         </div>
       </v-ons-list-item>
 
       <!--Description-->
       <v-ons-list-item modifier="nodivider">
         <div class="center">
-          <v-ons-input id="description-input" type="text" placeholder="Description" float></v-ons-input>
+          <v-ons-input id="description-input" v-model="description" type="text" placeholder="Description" float></v-ons-input>
         </div>
       </v-ons-list-item>
     </v-ons-list>
@@ -25,7 +25,7 @@
       <v-ons-list v-if="this.$store.template_label === 'Reading'">
         <v-ons-list-item modifier="nodivider">
           <div class="center">
-            <v-ons-input id="page-input" type="number" placeholder="Total Page" float></v-ons-input>
+            <v-ons-input id="page-input" v-model="totalPage" type="number" placeholder="Total Page" float></v-ons-input>
           </div>
         </v-ons-list-item>
       </v-ons-list>
@@ -59,27 +59,41 @@
           </label>
         </div>
         <div class="center">
-          <datetime class="datetimeStyle" v-model="startDate"></datetime>
+          <datetime class="datetimeStyle" v-model="startDate"
+                    :i18n="{ok:'确认', cancel:'取消'}"
+                    moment-locale="zh-cn">
+          </datetime>
         </div>
       </ons-list-item>
     </ons-list>
+
+    <!--Weight-->
+    <v-ons-list-item>
+      Set task weight: {{ weight /10 }}
+      <v-ons-row>
+        <v-ons-col>
+          <v-ons-range v-model="weight" style="width: 100%;"
+                       min="1" max="10"></v-ons-range>
+        </v-ons-col>
+      </v-ons-row>
+    </v-ons-list-item>
 
     <v-ons-list-title>Other options</v-ons-list-title>
     <v-ons-list>
       <v-ons-list-item modifier="nodivider">
         <label class="center" >
-          TaskRepeat ({{ switchOn ? 'on' : 'off' }})
+          TaskRepeat ({{ ifRepeat ? 'on' : 'off' }})
         </label>
         <div class="right">
           <v-ons-switch id="highlight-input" input-id="inner-highlight-input"
-                      v-model="switchOn"></v-ons-switch>
+                      v-model="ifRepeat"></v-ons-switch>
         </div>
       </v-ons-list-item>
     </v-ons-list>
 
     <!--<v-ons-list-header>Chose the day - {{checkedDays}}</v-ons-list-header>-->
     <transition name="fade">
-    <ons-list v-if="switchOn">
+    <ons-list v-if="ifRepeat">
     <v-ons-list-item v-for="(day, $index) in weeks" :key="day" tappable>
       <label class="left">
         <v-ons-checkbox
@@ -98,7 +112,7 @@
 
     <transition name="fade">
     <!--EndTime-->
-    <ons-list v-if="!switchOn">
+    <ons-list v-if="!ifRepeat">
       <ons-list-item modifier="nodivider">
         <div class="left">
           <label class="center">
@@ -112,26 +126,94 @@
     </ons-list>
     </transition>
 
-    <ons-if platform="ios other">
-      <ons-button class="button button--outline my-button" >Add New Task</ons-button>
-    </ons-if>
+    <!--Commit Button-->
+    <v-ons-button id="addNewTask"
+                  class="button button--outline my-button"
+                  @click="PushData">Add New Task</v-ons-button>
   </v-ons-page>
 </template>
 
 <script>
   import { Datetime } from 'vue-datetime';
-
+  import axios from 'axios';
+  axios.defaults.withCredentials = true;
     export default {
       data() {
         return {
-          progress: 25,
-          startDate:'2018-01-01 12:25:32',
-          endDate:'2018-01-01 12:25:32',
-          name: '',
-          switchOn: false,
+          title:'',
+          description:'',
+          totalPage: 1,
+          weight:10,
+          progress: 1,
+          extendsData:{},
+          startDate:(new Date()).toString(),
+          endDate:(new Date()).toString(),
+          ifRepeat: false,
           weeks: ['Monday', 'Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'],
-          checkedDays: ['Monday', 'Tuesday'],
+          checkedDays: [],
         };
+      },
+      methods:{
+        PushData(){
+          //check if title, description
+          if(this.title == ''){this.warningToast('Please fill the title');return;}
+          if(this.description == ''){this.warningToast('Please fill the description');return;}
+          //if book template check totalPage and set extends
+          if(this.$store.template_label == 'Reading')
+          {
+            this.extendsData = {
+              book:{
+                curPage:1,
+                totalPage:this.totalPage,
+              }
+            }
+          }
+          //if project check progress and set extends
+          if(this.$store.template_label == 'Project')
+          {
+            this.extendsData = {
+              Project:{
+                curProgress:this.progress,
+                maxProgress:100,
+              }
+            }
+          }
+          //StartDate,EndDate,ifRepeat
+          this.PostToServer();
+        },
+        PostToServer(){
+          //Post to server.
+          let self = this;
+          var req = this.$store.state.host + '/app/addTask';
+          axios.post(req, {
+            title: this.title,
+            description: this.description,
+            weight: this.weight,
+            startDate: this.startDate,
+            endDate: this.endDate,
+            ifRepeat:this.ifRepeat,
+            checkedDays:this.checkedDays,
+            extendsData:this.extendsData,
+          })
+            .then(function (response) {
+              if(response.data.code!='200')
+              {
+                self.showError(response.data.msg);
+              }else {
+                //成功返回
+                //self.pop();
+              }
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        },
+        showError(msg){
+          this.$ons.notification.alert(msg,{title:'Warning'});
+        },
+        warningToast(message){
+          this.$ons.notification.alert(message,{title:'Warning'});
+        }
       },
       components: {
         datetime: Datetime
@@ -153,13 +235,16 @@
     font-size:14px;
     color: #444;
   }
+  .datetimeStyle .vdatetime-popup__month-selector{
+    padding: 0px;
+  }
   .datetimeStyle .vdatetime-popup__header,
   .datetimeStyle .vdatetime-popup__date-picker__item--selected > span > span,
   .datetimeStyle .vdatetime-popup__date-picker__item--selected:hover > span > span {
     background: #FF9800;
   }
   .datetimeStyle .vdatetime-popup__list-picker__item--selected,
-  .datetimeStyle .vdatetime-popup__actions__button {
+  .datetimeStyle.vdatetime-popup__actions__button {
     color: #FF9800;
   }
 
