@@ -61,6 +61,8 @@
             if(response.data.code!='200')
             {
               //self.showError(response.data.msg);
+              self.$store.state.name  ='Who are you?';
+              self.$store.state.login =false;
             }else {
               self.$store.state.name  =response.data.name;
               self.$store.state.login =true;

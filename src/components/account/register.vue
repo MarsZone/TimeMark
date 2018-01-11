@@ -66,8 +66,14 @@
             }else {
               //更新数据
               self.updateData(response.data.name);
-              //成功返回
-              self.pop();
+              self.$ons.notification.toast({
+                message:response.data.msg,
+                buttonLabel: 'OK',
+                timeout: 1000
+              }).then(function () {
+                //成功返回
+                self.pop();
+              });
             }
           })
           .catch(function (error) {

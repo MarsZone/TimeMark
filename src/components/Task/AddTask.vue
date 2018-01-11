@@ -61,6 +61,7 @@
         <div class="center">
           <datetime class="datetimeStyle" v-model="startDate"
                     :i18n="{ok:'确认', cancel:'取消'}"
+                    input-format="YYYY-MM-DD"
                     moment-locale="zh-cn">
           </datetime>
         </div>
@@ -73,7 +74,7 @@
       <v-ons-row>
         <v-ons-col>
           <v-ons-range v-model="weight" style="width: 100%;"
-                       min="1" max="10"></v-ons-range>
+                       min="1" max="20"></v-ons-range>
         </v-ons-col>
       </v-ons-row>
     </v-ons-list-item>
@@ -120,7 +121,9 @@
           </label>
         </div>
         <div class="center">
-            <datetime class="datetimeStyle" v-model="endDate"></datetime>
+            <datetime class="datetimeStyle"
+                      input-format="YYYY-MM-DD"
+                      v-model="endDate"></datetime>
         </div>
       </ons-list-item>
     </ons-list>
@@ -136,6 +139,7 @@
 <script>
   import { Datetime } from 'vue-datetime';
   import axios from 'axios';
+  import moment from 'moment';
   axios.defaults.withCredentials = true;
     export default {
       data() {
@@ -146,10 +150,10 @@
           weight:10,
           progress: 1,
           extendsData:{},
-          startDate:(new Date()).toString(),
-          endDate:(new Date()).toString(),
+          startDate: moment().format(),
+          endDate:  moment().format(),
           ifRepeat: false,
-          weeks: ['Monday', 'Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'],
+          weeks: ['SomeDay','Monday', 'Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'],
           checkedDays: [],
         };
       },
@@ -182,18 +186,27 @@
           this.PostToServer();
         },
         PostToServer(){
+          var ife = false;
+          if(this.$store.template_label === '﻿Entertainment')
+          {
+            ife = true;
+          }
           //Post to server.
           let self = this;
           var req = this.$store.state.host + '/app/addTask';
           axios.post(req, {
             title: this.title,
             description: this.description,
-            weight: this.weight,
+            weight: (this.weight/10),
             startDate: this.startDate,
             endDate: this.endDate,
             ifRepeat:this.ifRepeat,
             checkedDays:this.checkedDays,
             extendsData:this.extendsData,
+            entertainment:ife,
+            templateId:this.$store.template_id,
+            extendsData:this.extendsData,
+
           })
             .then(function (response) {
               if(response.data.code!='200')
@@ -202,6 +215,14 @@
               }else {
                 //成功返回
                 //self.pop();
+                self.$ons.notification.toast({
+                  message:response.data.msg,
+                  buttonLabel: 'OK',
+                  timeout: 1000
+                }).then(function () {
+                  //成功返回
+                  self.pop();
+                });
               }
             })
             .catch(function (error) {
@@ -213,6 +234,9 @@
         },
         warningToast(message){
           this.$ons.notification.alert(message,{title:'Warning'});
+        },
+        pop(){
+          this.$store.commit('navigator/pop');
         }
       },
       components: {
