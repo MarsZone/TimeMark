@@ -97,7 +97,10 @@
           .catch(function (error) {
             console.log(error);
           });
-      }
+      },
+      showError(msg){
+        this.$ons.notification.alert(msg,{title:'Warning'});
+      },
     },
     computed: {
 
