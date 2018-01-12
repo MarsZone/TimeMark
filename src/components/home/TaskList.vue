@@ -12,7 +12,9 @@
             <span class="list-item__title">{{task.title}}</span><span class="list-item__subtitle">{{task.desc}}</span>
           </div>
           <div class="right">
-            <v-ons-icon size="25px" style="color: #ff0d26;" icon = "ion-ios-trash-outline"></v-ons-icon>
+            <v-ons-icon
+              @click = "runTask(task.taskid, task.title)"
+              size="30px" style="color: #14c748;" icon = "ion-play"></v-ons-icon>
           </div>
         </v-ons-list-item>
       </v-ons-list>
@@ -23,6 +25,7 @@
     import taskPanel from '../../components/Task/TaskPanel.vue';
     import axios from 'axios';
     import Bus from '../../components/bus';
+    import progress from '../../components/Task/Progress.vue';
     export default {
       data () {
         return {
@@ -48,7 +51,8 @@
               img:'http://marszm.cn/image/template/coding.png',
               desc: 'Dev make me smart'
             }
-          ]
+          ],
+          ifClickIcon:false,
         };
       },
       created(){
@@ -114,11 +118,12 @@
         showError(msg){
           this.$ons.notification.alert(msg,{title:'Warning'});
         },
-        push(id, key) {
+        runTask(id,key){
           this.$store.state.task_id = id;
           this.$store.state.task_label = key;
+          this.ifClickIcon = true;
           this.$store.commit('navigator/push', {
-            extends: taskPanel,
+            extends: progress,
             data() {
               return {
                 toolbarInfo: {
@@ -129,7 +134,27 @@
             }
           });
         },
-        components: {taskPanel}
+        push(id, key) {
+          if(this.ifClickIcon == true)
+          {
+            this.ifClickIcon = false;
+          }else{
+            this.$store.state.task_id = id;
+            this.$store.state.task_label = key;
+            this.$store.commit('navigator/push', {
+              extends: taskPanel,
+              data() {
+                return {
+                  toolbarInfo: {
+                    backLabel: 'Home',
+                    title: key
+                  }
+                }
+              }
+            });
+          }
+        },
+        components: {taskPanel,progress}
       },
     }
 </script>

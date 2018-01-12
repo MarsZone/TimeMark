@@ -151,7 +151,7 @@
           axios.post(req, {
             total_seconds:  self.timer,
             endTime:        moment().format(),
-            state:          'Stop',
+            state:          'End',
           })
             .then(function (response) {
               console.log(response);
