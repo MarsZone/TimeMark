@@ -58,6 +58,7 @@
 </template>
 
 <script>
+    import moment from 'moment';
     export default {
       data(){
         return{
@@ -75,6 +76,32 @@
       },
       methods: {
         startTimer(){
+          //Post to server.
+          let self = this;
+          var req = this.$store.state.host + '/app/createTask';
+          axios.post(req, {
+            task_id:this.$store.state.task_id,
+            total_seconds:1,
+            startTime:moment().format(),
+            endTime:moment().format(),
+          })
+            .then(function (response) {
+              console.log(response);
+              console.log(response.data.code);
+              console.log(response.data.msg);
+              if(response.data.code!='200')
+              {
+                self.showError(response.data.msg);
+              }else {
+                //StartTimer.
+                self.timerStart();
+              }
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        },
+        timerStart(){
           this.dis_start = true;
           this.dis_pause = false;
           this.dis_stop = false;
@@ -123,6 +150,9 @@
         },
         padNumber:function( n ) {
           return n < 10 ? '0' + String( n ) : String(n);
+        },
+        showError(msg){
+          this.$ons.notification.alert(msg,{title:'Warning'});
         },
       }
     }

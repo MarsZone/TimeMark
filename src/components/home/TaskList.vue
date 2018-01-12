@@ -77,7 +77,19 @@
               console.log("code:"+response.data.code+"|msg:"+response.data.msg);
               if(response.data.code!='200')
               {
-                self.showError(response.data.msg);
+                if(response.data.code=='401')
+                {
+                  self.$ons.notification.alert({
+                    message:response.data.msg,
+                    title:'Warning',
+                    callback:function () {
+                      console.log("tabbar.");
+                      self.$store.commit('tabbar/set', 4)
+                    }
+                  });
+                }else {
+                  self.showError(response.data.msg);
+                }
               }else {
                 self.list.splice(0);
                 //成功获取

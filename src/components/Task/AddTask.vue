@@ -193,7 +193,7 @@
           }
           //Post to server.
           let self = this;
-          var req = this.$store.state.host + '/app/addTask';
+          var req = this.$store.state.host + '/app/createTask';
           axios.post(req, {
             title: this.title,
             description: this.description,
