@@ -17,6 +17,7 @@ const state = {
   login: false,    //是否登录
   count: 1,
   task_id: '0',    //选择的Task
+  task_label:'',   //名称
   template_id: '', //TemplateID
   template_label:'',
   token:'',

@@ -20,7 +20,7 @@
 </template>
 
 <script>
-    import TaskProgress from '../../pages/Progress.vue';
+    import taskPanel from '../../components/Task/TaskPanel.vue';
     import axios from 'axios';
     import Bus from '../../components/bus';
     export default {
@@ -105,8 +105,9 @@
         },
         push(id, key) {
           this.$store.state.task_id = id;
+          this.$store.state.task_label = key;
           this.$store.commit('navigator/push', {
-            extends: TaskProgress,
+            extends: taskPanel,
             data() {
               return {
                 toolbarInfo: {
@@ -117,7 +118,7 @@
             }
           });
         },
-        components: { TaskProgress }
+        components: {taskPanel}
       },
     }
 </script>
