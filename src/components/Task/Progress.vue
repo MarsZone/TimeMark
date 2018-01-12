@@ -58,6 +58,7 @@
 </template>
 
 <script>
+    import axios from 'axios';
     import moment from 'moment';
     export default {
       data(){
@@ -72,18 +73,23 @@
           hour: '00',
           minutes: '00',
           seconds: '00',
+          toolbarInfo: {
+            backLabel: 'Panel',
+            title: 'Record'
+          },
         }
       },
       methods: {
         startTimer(){
           //Post to server.
           let self = this;
-          var req = this.$store.state.host + '/app/createTask';
+          var req = self.$store.state.host + '/app/createAction';
           axios.post(req, {
-            task_id:this.$store.state.task_id,
+            task_id:self.$store.state.task_id,
             total_seconds:1,
             startTime:moment().format(),
-            endTime:moment().format(),
+            endTime:  moment().format(),
+            state:          'Start',
           })
             .then(function (response) {
               console.log(response);
@@ -118,17 +124,48 @@
             self.seconds = self.padNumber(s % 60);
             self.minutes = self.padNumber(m % 60);
             self.hour = self.padNumber(h % 24);
+            //Every x seconds update the actions.
+            //Send Post update
           }, 1000);
+
+          //Update Action on 6s
+          this.updateAction = setInterval(function () {
+            var req = self.$store.state.host + '/app/updateAction';
+            axios.post(req, {
+              total_seconds:  self.timer,
+              endTime:        moment().format(),
+              state:          'updating',
+            })
+          },10000);
+
         },
         stopTimer(){
+          //Send Post Stop
           console.log("Stop");
           this.dis_pause = true;
           this.dis_stop =true;
           this.dis_start = false;
           let self = this;
+          //Send End First.
+          var req = self.$store.state.host + '/app/updateAction';
+          axios.post(req, {
+            total_seconds:  self.timer,
+            endTime:        moment().format(),
+            state:          'Stop',
+          })
+            .then(function (response) {
+              console.log(response);
+              console.log(response.data.code);
+              console.log(response.data.msg);
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
           clearInterval(self.si);
+          clearInterval(self.updateAction);
         },
         pauseTimer(){
+          //update server action
           this.isPause=true;
           console.log("pause");
           let self = this;

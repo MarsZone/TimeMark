@@ -1,7 +1,7 @@
 <template>
   <div>
       <v-ons-list v-for = "task of list" :key = "task.id"
-                  @click="push(task.id, task.title)"
+                  @click="push(task.taskid, task.title)"
       >
         <v-ons-list-item tappable
                         >
@@ -83,8 +83,7 @@
                     message:response.data.msg,
                     title:'Warning',
                     callback:function () {
-                      console.log("tabbar.");
-                      self.$store.commit('tabbar/set', 4)
+                      self.$store.commit('tabbar/set', 4)//4 is the index of me.
                     }
                   });
                 }else {

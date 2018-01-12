@@ -47,7 +47,11 @@
               label: 'ActionsList',
               desc: 'CheckTheList'
             },
-          ]
+          ],
+          toolbarInfo: {
+            backLabel: 'Home',
+            title: ''
+          },
         };
       },
       methods: {
