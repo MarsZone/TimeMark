@@ -53,6 +53,31 @@
         <button v-on:click='startTimer' v-bind:disabled="dis_start" class="button start">Start</button>
         <button v-on:click='stopTimer'  v-bind:disabled="dis_stop" class="button stop">Stop</button>
         </div>
+
+        <v-ons-alert-dialog modifier="rowfooter"
+                            :visible.sync="alertDialog1Visible"
+        >
+          <span slot="title">End Action</span>
+
+          <div class="center">
+            <textarea class="textarea" rows="3" placeholder="Remark"></textarea>
+          </div>
+          <v-ons-list-item>
+              Read Page: {{ readPage }}
+            <v-ons-row>
+              <v-ons-col>
+                <v-ons-range v-model="readPage" style="width: 80%;"
+                             min="1" max="20"></v-ons-range>
+              </v-ons-col>
+            </v-ons-row>
+          </v-ons-list-item>
+
+          <template slot="footer">
+            <div class="alert-dialog-button" @click="alertDialog1Visible = false">Cancel</div>
+            <div class="alert-dialog-button" @click="alertDialog1Visible = false">Ok</div>
+          </template>
+        </v-ons-alert-dialog>
+
       </div>
     </v-ons-page>
 </template>
@@ -63,7 +88,10 @@
     export default {
       data(){
         return{
+          alertDialog1Visible: false,
+          remark:'',
           states:'idle',
+          readPage:1,
           dis_start:false,
           dis_pause:true,
           dis_stop:true,
@@ -79,33 +107,35 @@
           },
         }
       },
+      
       methods: {
         startTimer(){
           //Post to server.
-          let self = this;
-          var req = self.$store.state.host + '/app/createAction';
-          axios.post(req, {
-            task_id:self.$store.state.task_id,
-            total_seconds:1,
-            startTime:moment().format(),
-            endTime:  moment().format(),
-            state:          'Start',
-          })
-            .then(function (response) {
-              console.log(response);
-              console.log(response.data.code);
-              console.log(response.data.msg);
-              if(response.data.code!='200')
-              {
-                self.showError(response.data.msg);
-              }else {
-                //StartTimer.
-                self.timerStart();
-              }
-            })
-            .catch(function (error) {
-              console.log(error);
-            });
+          this.alertDialog1Visible =true;
+//          let self = this;
+//          var req = self.$store.state.host + '/app/createAction';
+//          axios.post(req, {
+//            task_id:self.$store.state.task_id,
+//            total_seconds:1,
+//            startTime:moment().format(),
+//            endTime:  moment().format(),
+//            state:          'Start',
+//          })
+//            .then(function (response) {
+//              console.log(response);
+//              console.log(response.data.code);
+//              console.log(response.data.msg);
+//              if(response.data.code!='200')
+//              {
+//                self.showError(response.data.msg);
+//              }else {
+//                //StartTimer.
+//                self.timerStart();
+//              }
+//            })
+//            .catch(function (error) {
+//              console.log(error);
+//            });
         },
         timerStart(){
           this.dis_start = true;
@@ -140,12 +170,14 @@
 
         },
         stopTimer(){
+
           //Send Post Stop
           console.log("Stop");
           this.dis_pause = true;
           this.dis_stop =true;
           this.dis_start = false;
           let self = this;
+
           //Send End First.
           var req = self.$store.state.host + '/app/updateAction';
           axios.post(req, {

@@ -1,7 +1,7 @@
 <template>
   <div>
       <v-ons-list v-for = "task of list" :key = "task.id"
-                  @click="push(task.taskid, task.title)"
+                  @click="push(task.taskid, task.title,task.extends)"
       >
         <v-ons-list-item tappable
                         >
@@ -14,7 +14,7 @@
           <div class="right">
             <v-ons-icon
               @click = "runTask(task.taskid, task.title)"
-              size="30px" style="color: #14c748;" icon = "ion-play"></v-ons-icon>
+              size="30px" style="color: #bbcebb;" icon = "ion-play"></v-ons-icon>
           </div>
         </v-ons-list-item>
       </v-ons-list>
@@ -105,6 +105,7 @@
                   list.template = response.data.list[i].templateId;
                   list.desc = response.data.list[i].description;
                   list.img = response.data.list[i].imgUrl;
+                  list.extends = response.data.list[i].extends;
                   self.list.push(list);
                 }
                 //console.log(self.templateList);
@@ -134,13 +135,15 @@
             }
           });
         },
-        push(id, key) {
+        push(id, key,ext) {
           if(this.ifClickIcon == true)
           {
             this.ifClickIcon = false;
           }else{
             this.$store.state.task_id = id;
             this.$store.state.task_label = key;
+            this.$store.state.extends_data = ext;
+
             this.$store.commit('navigator/push', {
               extends: taskPanel,
               data() {

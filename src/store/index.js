@@ -21,6 +21,7 @@ const state = {
   template_id: '', //TemplateID
   template_label:'',
   token:'',
+  extends_data:{},
   //host:'http://marszm.cn:3333'
   host: 'http://localhost:3333'
 }

@@ -9,6 +9,8 @@ It's a web-apps that record your time.
 This idea was come up with when I wondering how much time I waster in my life,
 So I need to record it.
 
+And add a lot fun function.
+
 ## Technology
 Frontend:
 Vue + vuex + webpack + ES6/7 + vue-onsenui + axios + vue-simple-calendar + vue-echarts
