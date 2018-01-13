@@ -2,8 +2,6 @@
 #### Not ready to Release.
 ### Login
 <p align="center"><img height="500" src="https://user-images.githubusercontent.com/3784198/34903864-2cf5018a-f875-11e7-80e5-fbe6f26b5a09.gif" alt="Login"></p>
-![login](https://user-images.githubusercontent.com/3784198/34903864-2cf5018a-f875-11e7-80e5-fbe6f26b5a09.gif)
-
 
 
 ## Introduction
