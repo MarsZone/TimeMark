@@ -34,9 +34,12 @@ Work time : Entertainment time == 2:1
 * [X] Multiple languages support backend.
 * [ ] Multiple languages support frontend.
 * [X] Get Data from backend server.
+* [ ] Upload to npm.
 * [ ] Add a time actions with setting the date.
 * [ ] Release a demo version.
 * [ ] delete task actions.
+
+## More
 * [ ] Package to android apk.
 * [ ] Package to IOS.
 
