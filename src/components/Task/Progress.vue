@@ -62,12 +62,12 @@
           <div class="center">
             <textarea class="textarea" rows="3" placeholder="Remark"></textarea>
           </div>
-          <v-ons-list-item>
+          <v-ons-list-item v-if = "ifDisplayBook">
               Read Page: {{ readPage }}
             <v-ons-row>
               <v-ons-col>
                 <v-ons-range v-model="readPage" style="width: 80%;"
-                             min="1" max="20"></v-ons-range>
+                             v-bind:min="curPage" v-bind:max="maxPage" ></v-ons-range>
               </v-ons-col>
             </v-ons-row>
           </v-ons-list-item>
@@ -92,6 +92,8 @@
           remark:'',
           states:'idle',
           readPage:1,
+          curPage:'',
+          maxPage:'',
           dis_start:false,
           dis_pause:true,
           dis_stop:true,
@@ -107,7 +109,24 @@
           },
         }
       },
-      
+      computed:{
+        ifDisplayBook:function () {
+          if(this.$store.state.extends_data[0]!=null)
+          {
+            for(var data of this.$store.state.extends_data)
+            {
+              if(data.hasOwnProperty('book'))
+              {
+                this.readPage = data.book.curPage;
+                this.curPage = data.book.curPage;
+                this.maxPage = data.book.totalPage;
+                return true;
+              }
+            }
+          }
+          return false;
+        }
+      },
       methods: {
         startTimer(){
           //Post to server.
