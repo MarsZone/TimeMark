@@ -3,6 +3,9 @@
 ### Login
 <p align="center"><img height="500" src="https://user-images.githubusercontent.com/3784198/34903864-2cf5018a-f875-11e7-80e5-fbe6f26b5a09.gif" alt="Login"></p>
 
+### Add new task
+<p align="center"><img height="500" src="https://user-images.githubusercontent.com/3784198/34904078-bce618ee-f878-11e7-9b74-f6f20aedc009.gif" alt="Add new task"></p>
+
 
 ## Introduction
 
