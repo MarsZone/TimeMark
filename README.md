@@ -1,3 +1,8 @@
+## Demo 
+### Not ready to Release.
+
+
+
 ## Introduction
 
 About this Project.
@@ -8,8 +13,6 @@ It's a web-apps that record your time.
 
 This idea was come up with when I wondering how much time I waster in my life,
 So I need to record it.
-
-And add a lot fun function.
 
 ## Technology
 Frontend:
@@ -27,3 +30,7 @@ Work time : Entertainment time == 2:1
 * [X] Multiple languages support backend.
 * [ ] Multiple languages support frontend.
 * [X] Get Data from backend server.
+
+* [ ] Package to android apk.
+* [ ] Package to IOS.
+
