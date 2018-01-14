@@ -1,3 +1,14 @@
+## Introduction
+
+About this Project.
+
+Base on vue2.0
+
+It's a web-apps that record your time.
+
+This idea was come up with when I wondering how much time I waster in my life,
+So I need to record it.
+
 ## Demo 
 #### Not ready to Release.
 ### Login
@@ -10,16 +21,6 @@
 
 <p align="center"><img height="500" src="https://user-images.githubusercontent.com/3784198/34912669-0e591236-f922-11e7-80c8-470fdb700bd1.png" alt="mainview"></p>
 
-## Introduction
-
-About this Project.
-
-Base on vue2.0
-
-It's a web-apps that record your time.
-
-This idea was come up with when I wondering how much time I waster in my life,
-So I need to record it.
 
 ## Technology
 Frontend:
