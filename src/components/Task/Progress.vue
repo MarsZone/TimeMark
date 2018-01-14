@@ -60,7 +60,7 @@
           <span slot="title">End Action</span>
 
           <div class="center">
-            <textarea class="textarea" rows="3" placeholder="Remark"></textarea>
+            <textarea v-model="remark" class="textarea" rows="3" placeholder="Remark Write Something about this process."></textarea>
           </div>
           <v-ons-list-item v-if = "ifDisplayBook">
               Read Page: {{ readPage }}
@@ -183,6 +183,7 @@
               total_seconds:  self.timer,
               endTime:        moment().format(),
               state:          'updating',
+              remark:         '',
             })
           },10000);
 
@@ -210,6 +211,7 @@
             total_seconds:  self.timer,
             endTime:        moment().format(),
             state:          'End',
+            remark:         self.remark,
           })
             .then(function (response) {
               console.log(response);

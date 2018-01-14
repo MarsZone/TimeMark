@@ -51,7 +51,7 @@
 
     <!--/Expend-->
     <!--StartTime-->
-    <ons-list>
+    <v-ons-list>
       <ons-list-item modifier="nodivider">
         <div class="left">
           <label class="center" >
@@ -66,7 +66,7 @@
           </datetime>
         </div>
       </ons-list-item>
-    </ons-list>
+    </v-ons-list>
 
     <!--Weight-->
     <v-ons-list-item>
@@ -94,21 +94,21 @@
 
     <!--<v-ons-list-header>Chose the day - {{checkedDays}}</v-ons-list-header>-->
     <transition name="fade">
-    <ons-list v-if="ifRepeat">
-    <v-ons-list-item v-for="(day, $index) in weeks" :key="day" tappable>
-      <label class="left">
-        <v-ons-checkbox
-          :input-id="'checkbox-' + $index"
-          :value="day"
-          v-model="checkedDays"
-        >
-        </v-ons-checkbox>
-      </label>
-      <label class="center" :for="'checkbox-' + $index">
-        {{ day }}
-      </label>
-    </v-ons-list-item>
-    </ons-list>
+    <v-ons-list v-if="ifRepeat">
+      <v-ons-list-item v-for="(day, $index) in weeks" :key="day" tappable>
+        <label class="left">
+          <v-ons-checkbox
+            :input-id="'checkbox-' + $index"
+            :value="day"
+            v-model="checkedDays"
+          >
+          </v-ons-checkbox>
+        </label>
+        <label class="center" :for="'checkbox-' + $index">
+          {{ day }}
+        </label>
+      </v-ons-list-item>
+    </v-ons-list>
     </transition>
 
     <transition name="fade">

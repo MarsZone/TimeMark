@@ -44,7 +44,7 @@
               desc: 'Normal Record'
             },
             {
-              component: progress,
+              component: createAction,
               label: 'Create Action',
               desc: 'Add one action'
             },
