@@ -31,12 +31,12 @@ Work time : Entertainment time == 2:1
 ## Todo
 * [X] Base UI layout.
 * [X] Sign in,Sign out,Register.
+* [ ] Release a demo version.
 * [X] Multiple languages support backend.
 * [ ] Multiple languages support frontend.
 * [X] Get Data from backend server.
 * [ ] Upload to npm.
 * [ ] Add a time actions with setting the date.
-* [ ] Release a demo version.
 * [ ] delete task actions.
 
 ## More
