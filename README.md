@@ -6,6 +6,9 @@
 ### Add new task
 <p align="center"><img height="500" src="https://user-images.githubusercontent.com/3784198/34904078-bce618ee-f878-11e7-9b74-f6f20aedc009.gif" alt="Add new task"></p>
 
+### MainView
+
+<p align="center"><img height="500" src="https://user-images.githubusercontent.com/3784198/34912669-0e591236-f922-11e7-80c8-470fdb700bd1.png" alt="mainview"></p>
 
 ## Introduction
 
