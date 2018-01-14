@@ -11,7 +11,7 @@ So I need to record it.
 
 ## Demo 
 #### Not ready to Release.
-But there is a old version can test. http://marszm.cn/tm/
+But there is a old version can test. http://marszm.cn/tm/ It will load a while becasue the server not fast.
 ### Login
 <p align="center"><img height="500" src="https://user-images.githubusercontent.com/3784198/34903864-2cf5018a-f875-11e7-80e5-fbe6f26b5a09.gif" alt="Login"></p>
 
