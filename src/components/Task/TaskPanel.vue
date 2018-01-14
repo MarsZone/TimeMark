@@ -12,6 +12,11 @@
       <div style="width: 100% ;text-align: center;"class="content">{{ page.desc }}</div>
     </v-ons-card>
 
+    <div style="width: 100% ;text-align: center;" >
+      <v-ons-icon tappable size="40px" style="color: #ffaf53;" icon = "ion-checkmark-circled"></v-ons-icon>
+    </div>
+
+
     <p class="taskData">
       Created Date: 2018-1-1 12:00:01<br>
       Process Actions: 10 times<br>
@@ -28,6 +33,7 @@
 
 <script>
     import progress from './Progress.vue';
+    import createAction from './CreateAction.vue';
     export default {
       data () {
         return {
@@ -39,8 +45,8 @@
             },
             {
               component: progress,
-              label: 'Edit Actions',
-              desc: 'Add one actions'
+              label: 'Create Action',
+              desc: 'Add one action'
             },
             {
               component: progress,
