@@ -37,14 +37,15 @@ Work time : Entertainment time == 2:1
 * [X] Base UI layout.
 * [X] Sign in,Sign out,Register.
 * [ ] Release a demo version.
-* [X] Multiple languages support backend.
-* [ ] Multiple languages support frontend.
 * [X] Get Data from backend server.
-* [ ] Upload to npm.
-* [ ] Add a time actions with setting the date.
-* [ ] delete task actions.
+* [X] Add a time actions with setting the date.
+* [ ] delete task delete actions.
+* [X] Multiple languages support backend.
 
 ## More
+* [ ] Calendar
+* [ ] Charts
 * [ ] Package to android apk.
 * [ ] Package to IOS.
+* [ ] Multiple languages support frontend.
 
