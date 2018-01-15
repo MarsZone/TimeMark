@@ -34,6 +34,7 @@
 <script>
     import progress from './Progress.vue';
     import createAction from './CreateAction.vue';
+    import actionList from './ActionsList.vue';
     export default {
       data () {
         return {
@@ -49,7 +50,7 @@
               desc: 'Add one action'
             },
             {
-              component: progress,
+              component: actionList,
               label: 'ActionsList',
               desc: 'CheckTheList'
             },
