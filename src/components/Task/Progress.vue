@@ -62,6 +62,8 @@
           <div class="center">
             <textarea v-model="remark" class="textarea" rows="3" placeholder="Remark Write Something about this process."></textarea>
           </div>
+
+          <!--Book-->
           <v-ons-list-item v-if = "ifDisplayBook">
               Read Page: {{ readPage }}
             <v-ons-row>
@@ -73,7 +75,7 @@
           </v-ons-list-item>
 
           <template slot="footer">
-            <div class="alert-dialog-button" @click="alertDialog1Visible = false">Cancel</div>
+            <div class="alert-dialog-button" @click="cancelEnd">Cancel</div>
             <div class="alert-dialog-button" @click="endTimeAction">Ok</div>
           </template>
         </v-ons-alert-dialog>
@@ -110,6 +112,13 @@
         }
       },
       computed:{
+        ifExtendsData:function () {
+          if(this.$store.state.extends_data[0]!=null){
+            return true;
+          }else {
+            return false;
+          }
+        },
         ifDisplayBook:function () {
           if(this.$store.state.extends_data[0]!=null)
           {
@@ -133,11 +142,12 @@
           let self = this;
           var req = self.$store.state.host + '/app/createAction';
           axios.post(req, {
-            task_id:self.$store.state.task_id,
-            total_seconds:1,
-            startTime:moment().format(),
-            endTime:  moment().format(),
+            task_id:        self.$store.state.task_id,
+            total_seconds:  1,
+            startTime:      moment().format(),
+            endTime:        moment().format(),
             state:          'Start',
+            remark:          '',
           })
             .then(function (response) {
               console.log(response);
@@ -192,6 +202,9 @@
           this.alertDialog1Visible =true;
           //Send Post Stop
           console.log("Stop");
+          let self = this;
+          clearInterval(self.si);
+          clearInterval(self.updateAction);
         },
         pauseTimer(){
           //update server action
@@ -200,23 +213,61 @@
           let self = this;
           clearInterval(self.si);
         },
+        cancelEnd(){
+          this.alertDialog1Visible = false;
+          let self = this;
+          self.si = setInterval(function () {
+            self.timer++;
+            let h, m, s;
+            s = Math.floor( self.timer );
+            m = Math.floor( s / 60 );
+            h = Math.floor( m / 60 );
+            self.seconds = self.padNumber(s % 60);
+            self.minutes = self.padNumber(m % 60);
+            self.hour = self.padNumber(h % 24);
+          }, 1000);
+
+          self.updateAction = setInterval(function () {
+            var req = self.$store.state.host + '/app/updateAction';
+            axios.post(req, {
+              total_seconds:  self.timer,
+              endTime:        moment().format(),
+              state:          'updating',
+              remark:         '',
+            })
+          },10000);
+        },
         endTimeAction(){
           this.dis_pause = true;
           this.dis_stop =true;
           this.dis_start = false;
+          if(this.ifExtendsData)
+          {
+            for(var data of this.$store.state.extends_data)
+            {
+              if(data.hasOwnProperty('book'))
+              {
+                data.book.curPage = this.readPage;
+              }
+            }
+          }
           let self = this;
+          self.alertDialog1Visible = false;
           //Send End First.
           var req = self.$store.state.host + '/app/updateAction';
           axios.post(req, {
+            task_id:        self.$store.state.task_id,
             total_seconds:  self.timer,
             endTime:        moment().format(),
             state:          'End',
             remark:         self.remark,
+            extends_data:   self.$store.state.extends_data
           })
             .then(function (response) {
               console.log(response);
               console.log(response.data.code);
               console.log(response.data.msg);
+              self.remark = '';
             })
             .catch(function (error) {
               console.log(error);

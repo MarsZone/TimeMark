@@ -31,8 +31,10 @@
         </label>
       </v-ons-list-item>
 
+      <div style="width: 100%; text-align: center">
       <v-ons-button @click="RegisterToServer"
                     class="my-button button button--outline " >Register</v-ons-button>
+      </div>
     </div>
 
   </v-ons-page>
@@ -98,7 +100,7 @@
 
 <style>
   .my-button{
-    width: 100%;
+    width: 90%;
     margin: 10px auto;
     text-align: center;
   }

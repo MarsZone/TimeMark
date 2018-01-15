@@ -50,6 +50,13 @@
           </div>
         </v-ons-list-item>
       </v-ons-list>
+
+      <div style="width: 100%; text-align: center">
+        <v-ons-button id="createAction"
+                      @click="createAction"
+                      class="my-button button button--outline " >Create
+        </v-ons-button>
+      </div>
     </v-ons-page>
 </template>
 
@@ -77,6 +84,34 @@
         showError(msg){
           this.$ons.notification.alert(msg,{title:'Warning'});
         },
+        createAction(){
+          //Post to server.
+          let self = this;
+          var req = self.$store.state.host + '/app/createAction';
+          axios.post(req, {
+            task_id:self.$store.state.task_id,
+            total_seconds: this.diffSeconds,
+            startTime:     this.startDate,
+            endTime:       this.endDate,
+            remark:        this.remark,
+            state:         'End',
+          })
+            .then(function (response) {
+              console.log(response);
+              console.log(response.data.code);
+              console.log(response.data.msg);
+              if(response.data.code!='200')
+              {
+                self.showError(response.data.msg);
+              }else {
+                //StartTimer.
+                self.timerStart();
+              }
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        }
       },
       computed:{
         getDt:function () {
@@ -119,5 +154,10 @@
   .datetimeStyle .vdatetime-popup__list-picker__item--selected,
   .datetimeStyle.vdatetime-popup__actions__button {
     color: #FF9800;
+  }
+  .my-button{
+    width: 90%;
+    margin: 10px auto;
+    text-align: center;
   }
 </style>

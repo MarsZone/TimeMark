@@ -30,10 +30,12 @@
           </v-ons-input>
         </label>
       </v-ons-list-item>
-
-      <v-ons-button id="loginServer"
-        @click="loginFromServer"
-        class="my-button button button--outline " >Login</v-ons-button>
+      <div style="width: 100%; text-align: center">
+        <v-ons-button id="loginServer"
+          @click="loginFromServer"
+          class="my-button button button--outline " >Login
+        </v-ons-button>
+      </div>
     </div>
 
   </v-ons-page>
@@ -104,7 +106,7 @@
 
   }
   .my-button{
-    width: 100%;
+    width: 90%;
     margin: 10px auto;
     text-align: center;
   }
