@@ -73,13 +73,27 @@
           },
         }
       },
+      methods:{
+        showError(msg){
+          this.$ons.notification.alert(msg,{title:'Warning'});
+        },
+      },
       computed:{
         getDt:function () {
           var st = moment(this.startDate);
           var et = moment(this.endDate);
-          this.diffSeconds = Math.abs(st.diff(et)) / 1000;
-          this.diffMin = this.diffSeconds / 60;
-          this.diffHour = (this.diffMin / 24).toFixed(1);
+          //this.diffSeconds = st.diff(et) / 1000;
+          this.diffSeconds = moment(et - st) / 1000;
+          if(this.diffSeconds < 0)
+          {
+            this.showError("EndDate must after start date.");
+            this.startDate = moment().format();
+            this.endDate = moment().format();
+            this.diffSeconds = 0;
+          }else {
+            this.diffMin = this.diffSeconds / 60;
+            this.diffHour = (this.diffMin / 60).toFixed(1);
+          }
         }
       }
     }

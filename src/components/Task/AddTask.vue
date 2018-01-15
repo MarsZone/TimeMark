@@ -55,7 +55,7 @@
       <ons-list-item modifier="nodivider">
         <div class="left">
           <label class="center" >
-            Select the Start date.
+            Select the Start date. {{getDt}}{{diffDay}}Day
           </label>
         </div>
         <div class="center">
@@ -150,11 +150,19 @@
           weight:10,
           progress: 1,
           extendsData:{},
+          diffSeconds:0,
+          diffMin: 0,
+          diffHour: 0,
+          diffDay:0,
           startDate: moment().format(),
           endDate:  moment().format(),
           ifRepeat: false,
           weeks: ['SomeDay','Monday', 'Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'],
           checkedDays: [],
+          toolbarInfo: {
+            backLabel: 'Home',
+            title: 'New Task'
+          },
         };
       },
       methods:{
@@ -237,6 +245,23 @@
         },
         pop(){
           this.$store.commit('navigator/pop');
+        }
+      },
+      computed:{
+        getDt:function () {
+          var st = moment(this.startDate);
+          var et = moment(this.endDate);
+          //this.diffSeconds = st.diff(et) / 1000;
+          this.diffSeconds = moment(et - st) / 1000;
+          if(this.diffSeconds < 0)
+          {
+            this.endDate = this.startDate
+            this.diffSeconds = 0;
+          }
+          this.diffMin = this.diffSeconds / 60;
+          this.diffHour = this.diffMin / 60;
+          this.diffDay = this.diffHour /24;
+
         }
       },
       components: {
