@@ -85,6 +85,7 @@
           this.$ons.notification.alert(msg,{title:'Warning'});
         },
         createAction(){
+          //遇到个问题，如果action日期重复怎么办。暂时没什么好办法解决，先放着.
           //Post to server.
           let self = this;
           var req = self.$store.state.host + '/app/createAction';
@@ -104,13 +105,23 @@
               {
                 self.showError(response.data.msg);
               }else {
-                //StartTimer.
-                self.timerStart();
+                //self.pop();
+                self.$ons.notification.toast({
+                  message:response.data.msg,
+                  buttonLabel: 'OK',
+                  timeout: 500
+                }).then(function () {
+                  //成功返回
+                  self.pop();
+                });
               }
             })
             .catch(function (error) {
               console.log(error);
             });
+        },
+        pop(){
+          this.$store.commit('navigator/pop');
         }
       },
       computed:{
