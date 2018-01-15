@@ -113,6 +113,7 @@
               }
             })
             .catch(function (error) {
+              self.showError(error.toString());
               console.log(error);
             });
         },
