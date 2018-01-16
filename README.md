@@ -23,7 +23,7 @@ But there is a old version can test. http://marszm.cn/tm/ It will load a while b
 <p align="center"><img height="500" src="https://user-images.githubusercontent.com/3784198/34912669-0e591236-f922-11e7-80c8-470fdb700bd1.png" alt="mainview"></p>
 
 ### Android APK
-<p align="center"><img height="1104" src="https://user-images.githubusercontent.com/3784198/34983944-2b5abc76-faea-11e7-9fdb-3fddf0a4c6be.png" alt="Apk"></p>
+<p align="center"><img height="500" src="https://user-images.githubusercontent.com/3784198/34983944-2b5abc76-faea-11e7-9fdb-3fddf0a4c6be.png" alt="Apk"></p>
 
 ## Technology
 Frontend:
