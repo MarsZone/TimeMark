@@ -86,6 +86,7 @@
         },
         createAction(){
           //遇到个问题，如果action日期重复怎么办。暂时没什么好办法解决，先放着.
+          // 其实不解决也可以，因为同一时间确实可以做两件事
           //Post to server.
           let self = this;
           var req = self.$store.state.host + '/app/createAction';

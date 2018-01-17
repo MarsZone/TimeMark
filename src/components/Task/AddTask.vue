@@ -130,9 +130,11 @@
     </transition>
 
     <!--Commit Button-->
+    <div style="width: 100%; text-align: center">
     <v-ons-button id="addNewTask"
                   class="button button--outline my-button"
                   @click="PushData">Add New Task</v-ons-button>
+    </div>
   </v-ons-page>
 </template>
 
@@ -194,11 +196,6 @@
           this.PostToServer();
         },
         PostToServer(){
-          var ife = false;
-          if(this.$store.template_label === '﻿Entertainment')
-          {
-            ife = true;
-          }
           //Post to server.
           let self = this;
           var req = this.$store.state.host + '/app/createTask';
@@ -211,7 +208,6 @@
             ifRepeat:this.ifRepeat,
             checkedDays:this.checkedDays,
             extendsData:this.extendsData,
-            entertainment:ife,
             templateId:this.$store.template_id,
             extendsData:this.extendsData,
 
@@ -272,7 +268,7 @@
 
 <style>
   .my-button{
-    width: 100%;
+    width: 90%;
     margin: 10px auto;
     text-align: center;
   }

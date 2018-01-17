@@ -12,6 +12,13 @@
       <v-ons-button v-show ="ifSignOut"
                     @click = "logout()"
                     class="my-button button button--outline " >Sign out</v-ons-button>
+
+      <v-ons-button @click = "loadEtime()"
+                    class="my-button button button--outline " >
+        <label v-if="!eload">Load Etime</label>
+        <v-ons-icon v-if="eload" icon="ion-load-c" spin size="26px"></v-ons-icon>
+      </v-ons-button>
+      <label v-if="etime!=0">Etime:{{eHour}}h{{eMin}}m{{eSecond}}s</label>
     </div>
   </v-ons-page>
 </template>
@@ -25,6 +32,11 @@
   export default {
     data() {
       return {
+        eload:false,
+        eHour:0,
+        eMin:0,
+        eSecond:0,
+        etime:0,
       }
     },
     created(){
@@ -50,6 +62,32 @@
         {
           this.updateData();
         }
+      },
+      showError(msg){
+        this.$ons.notification.alert(msg,{title:'Warning'});
+      },
+      loadEtime(){
+        this.eload=true;
+        let self = this;
+        var req = this.$store.state.host + '/app/getEtime';
+        axios.post(req, {
+           some:'',
+        })
+          .then(function (response) {
+            console.log(response);
+            console.log("code:"+response.data.code+"|msg:"+response.data.msg);
+            if(response.data.code!='200')
+            {
+              this.eload=false;
+              self.showError(response.data.msg);
+            }else {
+              this.eload=false;
+
+            }
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
       },
       updateData(){
         let self = this;
