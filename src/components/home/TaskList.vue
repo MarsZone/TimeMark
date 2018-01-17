@@ -57,10 +57,12 @@
       },
       created(){
         Bus.$on('tabChange',this.tabHandler);
+        Bus.$on('removeTask',this.reloadTaskList);
         this.updateData();
       },
       beforeDestroy () {
-        Bus.$off('tabChange', this.tabHandler)
+        Bus.$off('tabChange', this.tabHandler);
+        Bus.$off('removeTask',this.reloadTaskList);
       },
       methods: {
         tabHandler(label){
@@ -68,6 +70,9 @@
           {
             this.updateData();
           }
+        },
+        reloadTaskList(){
+          this.updateData();
         },
         updateData(){
           let self = this;

@@ -36,6 +36,9 @@
     import progress from './Progress.vue';
     import createAction from './CreateAction.vue';
     import actionList from './ActionsList.vue';
+    import axios from 'axios';
+    import Bus from '../../components/bus';
+
     export default {
       data () {
         return {
@@ -112,6 +115,7 @@
               }else {
                 //清除ID
                 self.$store.state.task_id = '';
+                Bus.$emit('removeTask');
                 //remove success.
                 self.$ons.notification.toast({
                   message:response.data.msg,
