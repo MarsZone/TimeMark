@@ -113,23 +113,30 @@
       },
       computed:{
         ifExtendsData:function () {
-          if(this.$store.state.extends_data[0]!=null){
-            return true;
-          }else {
-            return false;
+          if(this.$store.state.extends_data!=null)
+          {
+            if(this.$store.state.extends_data[0]!=null){
+              return true;
+            }else {
+              return false;
+            }
           }
+
         },
         ifDisplayBook:function () {
-          if(this.$store.state.extends_data[0]!=null)
+          if(this.$store.state.extends_data!=null)
           {
-            for(var data of this.$store.state.extends_data)
+            if(this.$store.state.extends_data[0]!=null)
             {
-              if(data.hasOwnProperty('book'))
+              for(var data of this.$store.state.extends_data)
               {
-                this.readPage = data.book.curPage;
-                this.curPage = data.book.curPage;
-                this.maxPage = data.book.totalPage;
-                return true;
+                if(data.hasOwnProperty('book'))
+                {
+                  this.readPage = data.book.curPage;
+                  this.curPage = data.book.curPage;
+                  this.maxPage = data.book.totalPage;
+                  return true;
+                }
               }
             }
           }
