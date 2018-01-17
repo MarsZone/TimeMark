@@ -20,12 +20,13 @@
     <p class="taskData">
       Created Date: 2018-1-1 12:00:01<br>
       Process Actions: 10 times<br>
-      Total Time : 120min | 2H <br>
-      <br>
+      Total Time : 120min | 2H
     </p>
 
     <div style="width: 100% ;text-align: center;" >
-      <v-ons-icon size="40px" style="color: #ff0d26;" icon = "ion-ios-trash-outline"></v-ons-icon>
+      <v-ons-icon
+        @click="showAlert"
+        size="40px" style="color: #ff0d26;" icon = "ion-ios-trash-outline"></v-ons-icon>
     </div>
 
   </v-ons-page>
@@ -54,6 +55,11 @@
               label: 'ActionsList',
               desc: 'CheckTheList'
             },
+            {
+              component: actionList,
+              label: 'Edit Task',
+              desc: 'change task title etc.'
+            },
           ],
           toolbarInfo: {
             backLabel: 'Home',
@@ -74,6 +80,55 @@
               }
             }
           });
+        },
+        showAlert(){
+          //show alert confirm
+          let self = this;
+          self.$ons.notification.confirm({
+              message  :'Are you sure to remove task and all the task actions?',
+              callback :function (index) {
+                if(index == 1)
+                {
+                  self.removeTask();
+                }
+              }
+            });
+        },
+        removeTask(){
+          //this.$ons.notification.alert("Remove");
+          //Post to server.
+          let self = this;
+          var req = self.$store.state.host + '/app/removeTask';
+          axios.post(req, {
+            task_id:        self.$store.state.task_id,
+          })
+            .then(function (response) {
+              console.log(response);
+              console.log(response.data.code);
+              console.log(response.data.msg);
+              if(response.data.code!='200')
+              {
+                self.showError(response.data.msg);
+              }else {
+                //清除ID
+                self.$store.state.task_id = '';
+                //remove success.
+                self.$ons.notification.toast({
+                  message:response.data.msg,
+                  buttonLabel: 'OK',
+                  timeout: 1000
+                }).then(function () {
+                  //成功返回
+                  self.pop();
+                });
+              }
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        },
+        pop(){
+          this.$store.commit('navigator/pop');
         }
       }
 
