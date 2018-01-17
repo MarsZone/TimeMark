@@ -22,6 +22,7 @@ const state = {
   template_label:'',
   token:'',
   extends_data:{},
+  task:{},
   //host:'http://marszm.cn:3333'
   host: 'http://localhost:3333'
 }

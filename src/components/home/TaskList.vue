@@ -1,7 +1,7 @@
 <template>
   <div>
       <v-ons-list v-for = "task of list" :key = "task.id"
-                  @click="push(task.taskid, task.title,task.extends)"
+                  @click="push(task.taskid, task.title,task.extends,task)"
       >
         <v-ons-list-item tappable
                         >
@@ -110,6 +110,7 @@
                   list.template = response.data.list[i].templateId;
                   list.desc = response.data.list[i].description;
                   list.img = response.data.list[i].imgUrl;
+                  list.weight = response.data.list[i].weight;
                   list.extends = response.data.list[i].extends;
                   self.list.push(list);
                 }
@@ -141,7 +142,7 @@
             }
           });
         },
-        push(id, key,ext) {
+        push(id, key,ext,task) {
           if(this.ifClickIcon == true)
           {
             this.ifClickIcon = false;
@@ -149,6 +150,7 @@
             this.$store.state.task_id = id;
             this.$store.state.task_label = key;
             this.$store.state.extends_data = ext;
+            this.$store.state.task = task;
 
             this.$store.commit('navigator/push', {
               extends: taskPanel,

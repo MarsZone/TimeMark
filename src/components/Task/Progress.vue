@@ -76,7 +76,7 @@
 
           <template slot="footer">
             <div class="alert-dialog-button" @click="cancelEnd">Cancel</div>
-            <div class="alert-dialog-button" @click="endTimeAction">Ok</div>
+            <div class="alert-dialog-button" @click="endTimeAction">OK</div>
           </template>
         </v-ons-alert-dialog>
 

@@ -21,6 +21,7 @@
       Created Date: 2018-1-1 12:00:01<br>
       Process Actions: 10 times<br>
       Total Time : 120min | 2H
+      Weight:{{this.$store.state.task.weight}}
     </p>
 
     <div style="width: 100% ;text-align: center;" >

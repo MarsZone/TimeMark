@@ -78,15 +78,15 @@
             console.log("code:"+response.data.code+"|msg:"+response.data.msg);
             if(response.data.code!='200')
             {
-              this.eload=false;
               self.showError(response.data.msg);
             }else {
-              this.eload=false;
-
+              
             }
+            self.eload=false;
           })
           .catch(function (error) {
-            console.log(error);
+            self.eload=false;
+            self.showError(error.toString());
           });
       },
       updateData(){
@@ -107,7 +107,7 @@
             }
           })
           .catch(function (error) {
-            console.log(error);
+            self.showError(error);
           });
       },
       login() {
