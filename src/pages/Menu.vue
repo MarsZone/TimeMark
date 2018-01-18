@@ -58,14 +58,9 @@
       return {
         links: [
           {
-            title: 'Docs',
-            icon: 'ion-document-text',
-            url: 'https://onsen.io/v2/docs/guide/vue/'
-          },
-          {
-            title: 'Github',
-            icon: 'ion-social-github',
-            url: 'https://github.com/OnsenUI/OnsenUI'
+            title: 'Blog',
+            icon: 'ion-social-wordpress-outline',
+            url: 'http://marszm.cn/blog/wordpress/'
           }
         ],
         access: [
@@ -78,8 +73,8 @@
             icon: 'ion-calendar'
           },
           {
-            title: 'Animations',
-            icon: 'ion-film-marker'
+            title: 'Charts',
+            icon: 'ion-podium'
           }
         ]
       };

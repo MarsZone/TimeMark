@@ -1,7 +1,7 @@
 <template>
   <v-ons-page>
     <div class="Calendar">
-      <calendar-month
+      <calendar-view
         :show-date="showDate"
         :events = "events"
         @setShowDate="setShowDate"
