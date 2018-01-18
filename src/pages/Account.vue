@@ -13,12 +13,37 @@
                     @click = "logout()"
                     class="my-button button button--outline " >Sign out</v-ons-button>
 
-      <v-ons-button @click = "loadEtime()"
+      <v-ons-button v-bind:disabled="eload"
+                    v-show ="ifSignOut"
+                    @click = "loadEtime()"
                     class="my-button button button--outline " >
         <label v-if="!eload">Load Etime</label>
         <v-ons-icon v-if="eload" icon="ion-load-c" spin size="26px"></v-ons-icon>
       </v-ons-button>
-      <label v-if="etime!=0">Etime:{{eHour}}h{{eMin}}m{{eSecond}}s</label>
+
+      <v-ons-button v-show ="ifSignOut"
+                    @click = "alertDialog1Visible=true"
+                    class="my-button button button--outline " >Change Bonus</v-ons-button>
+
+      <v-ons-alert-dialog modifier="rowfooter"
+                          :visible.sync="alertDialog1Visible"
+      >
+        <span slot="title">Input bonus</span>
+
+        <div class="center">
+          <v-ons-input id="bonus-input" v-model="modifyBonus" type="number" placeholder="Unit minutes" float></v-ons-input>
+        </div>
+
+        <template slot="footer">
+          <div class="alert-dialog-button" @click="changeBonus(false)">Reduce</div>
+          <div class="alert-dialog-button" @click="changeBonus(true)">Add</div>
+        </template>
+      </v-ons-alert-dialog>
+
+      <label v-show ="ifSignOut" style="text-align: center">
+        Etime:    {{eHour}}h {{eMin}}m <br>
+        BonusTime:{{(bonus/60/60).toFixed(1)}}h {{(bonus/60).toFixed(1)}}m
+      </label>
     </div>
   </v-ons-page>
 </template>
@@ -32,11 +57,13 @@
   export default {
     data() {
       return {
+        modifyBonus:0,
         eload:false,
         eHour:0,
         eMin:0,
-        eSecond:0,
         etime:0,
+        bonus:0,
+        alertDialog1Visible: false,
       }
     },
     created(){
@@ -66,23 +93,56 @@
       showError(msg){
         this.$ons.notification.alert(msg,{title:'Warning'});
       },
-      loadEtime(){
-        this.eload=true;
+      changeBonus(ifadd){
+        if(this.modifyBonus<0)
+        {
+          this.modifyBonus =0;
+        }
         let self = this;
-        var req = this.$store.state.host + '/app/getEtime';
+        var req = this.$store.state.host + '/app/changeBonus';
         axios.post(req, {
-           some:'',
+          ifadd:ifadd,
+          modifyBonus:self.modifyBonus,
         })
           .then(function (response) {
-            console.log(response);
+            console.log("xxxxx");
             console.log("code:"+response.data.code+"|msg:"+response.data.msg);
             if(response.data.code!='200')
             {
               self.showError(response.data.msg);
             }else {
-              
+              self.bonus = response.data.bonus;
             }
-            self.eload=false;
+          })
+          .catch(function (error) {
+            self.showError(error.toString());
+          });
+
+        this.alertDialog1Visible=false;
+      },
+      loadEtime(){
+        let self = this;
+        self.eload=true;
+        var req = this.$store.state.host + '/app/getEtime';
+        axios.post(req, {
+           some:'',
+        })
+          .then(function (response) {
+            console.log("xxxxx");
+            console.log("code:"+response.data.code+"|msg:"+response.data.msg);
+            if(response.data.code!='200')
+            {
+              self.eload=false;
+              self.showError(response.data.msg);
+            }else {
+              setTimeout(() => {
+                self.eload=false;
+                self.etime = response.data.etime;
+                self.bonus = response.data.bonus;
+                self.eMin  = (self.etime/60).toFixed(1);
+                self.eHour = (self.eMin/60).toFixed(1);
+              }, 1000)
+            }
           })
           .catch(function (error) {
             self.eload=false;
@@ -94,7 +154,7 @@
         var req = this.$store.state.host + '/app/cache';
         axios.get(req)
           .then(function (response) {
-            console.log(response);
+            console.log("xxxxx");
             console.log("code:"+response.data.code+"|msg:"+response.data.msg);
             if(response.data.code!='200')
             {
@@ -147,7 +207,7 @@
         //Send to Server.
         axios.get(req)
           .then(function (response) {
-            console.log(response);
+            console.log("xxxxx");
           })
           .catch(function (error) {
             console.log(error);
@@ -176,3 +236,4 @@
   }
 
 </style>
+

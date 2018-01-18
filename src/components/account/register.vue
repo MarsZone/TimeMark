@@ -59,7 +59,7 @@
           password: this.password
         })
           .then(function (response) {
-            console.log(response);
+            console.log("xxxxx");
             console.log(response.data.code);
             console.log(response.data.msg);
             if(response.data.code!='200')

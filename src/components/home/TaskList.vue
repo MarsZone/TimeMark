@@ -82,7 +82,7 @@
             username: this.$store.state.name
           })
             .then(function (response) {
-              console.log(response);
+              console.log("xxxxx");
               console.log("code:"+response.data.code+"|msg:"+response.data.msg);
               if(response.data.code!='200')
               {

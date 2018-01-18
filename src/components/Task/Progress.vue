@@ -157,7 +157,7 @@
             remark:          '',
           })
             .then(function (response) {
-              console.log(response);
+              console.log("xxxxx");
               console.log(response.data.code);
               console.log(response.data.msg);
               if(response.data.code!='200')
@@ -271,7 +271,7 @@
             extends_data:   self.$store.state.extends_data
           })
             .then(function (response) {
-              console.log(response);
+              console.log("xxxxx");
               console.log(response.data.code);
               console.log(response.data.msg);
               self.remark = '';

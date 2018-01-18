@@ -71,7 +71,7 @@
             actionId:    aid,
           })
             .then(function (response) {
-              console.log(response);
+              console.log("xxxxx");
               console.log(response.data.code);
               console.log(response.data.msg);
               if(response.data.code!='200')
@@ -95,7 +95,7 @@
             count:       30,
           })
             .then(function (response) {
-              console.log(response);
+              console.log("xxxxx");
               console.log(response.data.code);
               console.log(response.data.msg);
               if(response.data.code!='200')
@@ -131,7 +131,7 @@
 //            count:       30,
 //          })
 //            .then(function (response) {
-//              console.log(response);
+//              console.log("xxxxx");
 //              console.log(response.data.code);
 //              console.log(response.data.msg);
 //              if(response.data.code!='200')
