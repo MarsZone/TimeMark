@@ -19,6 +19,20 @@
 
       <v-ons-list-item>
         <div class="left">
+          <v-ons-icon icon="ion-email" class="list-item__icon"></v-ons-icon>
+        </div>
+        <label class="center">
+          <v-ons-input float maxlength="20"
+                       placeholder="Email can help you reset password"
+                       type="email"
+                       v-model="email"
+          >
+          </v-ons-input>
+        </label>
+      </v-ons-list-item>
+
+      <v-ons-list-item>
+        <div class="left">
           <v-ons-icon icon="ion-locked" class="list-item__icon"></v-ons-icon>
         </div>
         <label class="center">
@@ -47,15 +61,24 @@
     data() {
       return {
         name: '',
+        email: '',
         password:'',
+        label:'',
       };
     },
     methods: {
       RegisterToServer() {
         let self = this;
         var req = this.$store.state.host + '/register';
+        //check email usename.
+        if(this.email == '' || this.name =='' || this.password == '')
+        {
+          this.showError('Email or name or password was must input.');
+          return;
+        }
         axios.post(req, {
           username: this.name,
+          email   : this.email,
           password: this.password
         })
           .then(function (response) {

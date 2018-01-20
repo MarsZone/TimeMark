@@ -12,6 +12,7 @@
           <v-ons-input float maxlength="20"
                        placeholder="User Name"
                        v-model="name"
+                       type="email"
           >
           </v-ons-input>
         </label>
@@ -34,6 +35,13 @@
         <v-ons-button id="loginServer"
           @click="loginFromServer"
           class="my-button button button--outline " >Login
+        </v-ons-button>
+      </div>
+
+      <div style="width: 100%; text-align: center">
+        <v-ons-button id="loginServer"
+                      @click="loginFromServer"
+                      class="my-button button button--outline " >Forget PassWord
         </v-ons-button>
       </div>
     </div>
