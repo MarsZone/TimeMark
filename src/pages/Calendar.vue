@@ -5,7 +5,8 @@
         <v-ons-segment
           active-index=1
           @postchange="displayChange"
-          class="ChoiceDisplay">
+          class="ChoiceDisplay"
+        >
           <button>Week</button>
           <button>Month</button>
           <button>Year</button>
@@ -17,6 +18,8 @@
       <calendar-view
         :show-date="showDate"
         :events = "events"
+        @clickDay="onClickDay"
+        @clickEvent="onClickEvent"
         :display-period-uom="displayMode"
         @setShowDate="setShowDate"
         class="holiday-us-traditional holiday-us-official"
@@ -29,10 +32,17 @@
   import CalendarView from "vue-simple-calendar";
   require("vue-simple-calendar/dist/static/css/default.css");
   require("vue-simple-calendar/dist/static/css/holidays-us.css");
+  import axios from 'axios';
+  import Bus from '../components/bus.js';
 
   //document.write(parseISOLocal('2015-11-24T19:40:00'));
   export default {
-
+    created(){
+      Bus.$on('tabChange',this.tabHandler);
+    },
+    beforeDestroy () {
+      Bus.$off('tabChange', this.tabHandler)
+    },
     data: function() {
       return {
         showDate: new Date(),
@@ -43,33 +53,9 @@
           {
             id:'e1',
             title:'Study abc',
-            startDate: new Date(2017,11,28),
-            endDate: new Date(2017,11,28),
+            startDate: '2018-1-22',
+            endDate: '2018-1-22',
           },
-          {
-            id:'e2',
-            title:'Read a book',
-            startDate:'2017-12-5',
-            endDate:'2017-12-5',
-          },
-          {
-            id:'e3',
-            title:'CCC',
-            startDate:'2017-12-5',
-            endDate:'2017-12-5',
-          },
-          {
-            id:'e4',
-            title:'DDD',
-            startDate:'2017-12-5',
-            endDate:'2017-12-5',
-          },
-          {
-            id:'e5',
-            title:'FFF',
-            startDate:'2017-12-5',
-            endDate:'2017-12-5',
-          }
         ]
       }
     },
@@ -80,6 +66,54 @@
       CalendarView
     },
     methods: {
+      onClickDay(d) {
+        console.log(`You clicked: ${d.toLocaleDateString()}`);//To day list
+      },
+      onClickEvent(e) {
+        console.log(`You clicked: ${e.title}`);//To event
+        console.log(`You clicked: ${e.startDate}`);//To event
+      },
+      tabHandler(label){
+        if(label == 'Task')
+        {
+          this.updateData();
+        }
+      },
+      updateData(){
+        let self = this;
+        var req = this.$store.state.host + '/app/calendarMonth';
+        axios.post(req, {
+          email:this.$store.state.email
+        })
+          .then(function (response) {
+            console.log(response.data);
+            console.log("code:"+response.data.code+"|msg:"+response.data.msg);
+            if(response.data.code!='200')
+            {
+              self.showError(response.data.msg);
+            }else {
+              self.events.splice(0);
+              //成功获取
+              for(let i in response.data.list)
+              {
+                var list = {};
+                list.id = 'e'+ i;
+                list.title = response.data.list[i]._id;
+                list.startDate = response.data.list[i]._id;
+                list.endDate = response.data.list[i]._id;
+                self.events.push(list);
+              }
+              console.log(self.events);
+              //self.$forceUpdate();
+            }
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      },
+      showError(msg){
+        this.$ons.notification.alert(msg,{title:'Warning'});
+      },
       displayChange(event){
         if(event.index == 0 )
         {
@@ -112,11 +146,15 @@
   }
   .calendar-view {
     flex: 1 1 auto;
-    margin-bottom: 1em;
+    font-size:0.7em;
   }
   .ChoiceDisplay{
     width: 90%;
   }
+  .calendar-view.period-year.weeks.week{
+    min-height: 4em;
+  }
+
 
 
 

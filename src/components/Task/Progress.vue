@@ -150,6 +150,7 @@
           var req = self.$store.state.host + '/app/createAction';
           axios.post(req, {
             task_id:        self.$store.state.task_id,
+            task_title:     this.$store.state.task_label,
             total_seconds:  1,
             startTime:      moment().format(),
             endTime:        moment().format(),

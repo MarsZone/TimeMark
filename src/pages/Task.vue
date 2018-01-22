@@ -71,7 +71,7 @@
         let self = this;
         var req = this.$store.state.host + '/app/templateList';
         axios.post(req, {
-          username: this.$store.state.name
+          email: this.$store.state.email
         })
           .then(function (response) {
             console.log("xxxxx");

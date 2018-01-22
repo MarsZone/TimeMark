@@ -89,13 +89,15 @@
           // 其实不解决也可以，因为同一时间确实可以做两件事
           //Post to server.
           let self = this;
-          var req = self.$store.state.host + '/app/createAction';
+          var req = self.$store.state.host + self.$store.state.net.NETREQ_createAction;
+          console.log(req);
           axios.post(req, {
-            task_id:self.$store.state.task_id,
-            total_seconds: this.diffSeconds,
-            startTime:     this.startDate,
-            endTime:       this.endDate,
-            remark:        this.remark,
+            task_id:        self.$store.state.task_id,
+            task_title:     self.$store.state.task_label,
+            total_seconds:  self.diffSeconds,
+            startTime:      self.startDate,
+            endTime:        self.endDate,
+            remark:         self.remark,
             state:         'End',
           })
             .then(function (response) {

@@ -21,7 +21,6 @@ Vue.config.productionTip = false;
 // Object.values(OnsenComponents).forEach(component => Vue.component(component.name, component)); // For ESM
 Vue.component('custom-toolbar', CustomToolbar); // Common toolbar
 
-
 /* eslint-disable no-new */
 new Vue({
   //el: '#app',
