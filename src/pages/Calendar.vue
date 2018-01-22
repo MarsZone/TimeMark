@@ -74,16 +74,16 @@
         console.log(`You clicked: ${e.startDate}`);//To event
       },
       tabHandler(label){
-        if(label == 'Task')
+        if(label == 'Calendar')
         {
           this.updateData();
         }
       },
       updateData(){
         let self = this;
-        var req = this.$store.state.host + '/app/calendarMonth';
+        var req = self.$store.state.host + self.$store.state.net.NETREQ_calendarMonth;
         axios.post(req, {
-          email:this.$store.state.email
+          email:self.$store.state.email
         })
           .then(function (response) {
             console.log(response.data);
@@ -93,16 +93,28 @@
               self.showError(response.data.msg);
             }else {
               self.events.splice(0);
-              //成功获取
-              for(let i in response.data.list)
-              {
-                var list = {};
-                list.id = 'e'+ i;
-                list.title = response.data.list[i]._id;
-                list.startDate = response.data.list[i]._id;
-                list.endDate = response.data.list[i]._id;
-                self.events.push(list);
+              for(let i in response.data.list){
+                for(var task in response.data.list[i])
+                {
+                  var event = {
+                      id : 'e'+i,
+                      title : task,
+                      taskId: response.data.list[i][task],
+                      startDate: i,
+                  }
+                  self.events.push(event);
+                }
               }
+//              //成功获取
+//              for(let i in response.data.list)
+//              {
+//                var list = {};
+//                list.id = 'e'+ i;
+//                list.title = response.data.list[i]._id;
+//                list.startDate = response.data.list[i]._id;
+//                list.endDate = response.data.list[i]._id;
+//                self.events.push(list);
+//              }
               console.log(self.events);
               //self.$forceUpdate();
             }
