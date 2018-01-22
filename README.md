@@ -52,6 +52,7 @@ Work time : Entertainment time == 2:1
 * [X] delete actions.
 * [X] Multiple languages support backend.
 * [X] Use Email login and use email to reset password.
+* [X] Etime function.
 * [ ] Release a demo version.->Release a public version.
 
 
