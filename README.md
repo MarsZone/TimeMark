@@ -46,11 +46,14 @@ Work time : Entertainment time == 2:1
 ### Todo
 * [X] Base UI layout.
 * [X] Sign in,Sign out,Register.
-* [ ] Release a demo version.->Release a public version.
 * [X] Get Data from backend server.
 * [X] Add a time actions with setting the date.
-* [X] delete task delete actions.
+* [X] delete task 
+* [X] delete actions.
 * [X] Multiple languages support backend.
+* [X] Use Email login and use email to reset password.
+* [ ] Release a demo version.->Release a public version.
+
 
 ### More
 * [X] Calendar
