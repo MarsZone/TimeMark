@@ -20,6 +20,8 @@ const state = {
   //Auth
   NETREQ_register:'/register',
   NETREQ_login:   '/login',
+  NETREQ_logout:  '/logout',
+  NETREQ_cache:   '/app/cache',
 }
 
 export default {

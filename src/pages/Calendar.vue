@@ -81,6 +81,7 @@
       },
       updateData(){
         let self = this;
+        self.events.splice(0);
         var req = self.$store.state.host + self.$store.state.net.NETREQ_calendarMonth;
         axios.post(req, {
           email:self.$store.state.email
@@ -97,7 +98,7 @@
                 for(var task in response.data.list[i])
                 {
                   var event = {
-                      id : 'e'+i,
+                      id : 'e'+task,
                       title : task,
                       taskId: response.data.list[i][task],
                       startDate: i,

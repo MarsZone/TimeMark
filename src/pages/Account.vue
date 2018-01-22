@@ -99,7 +99,7 @@
           this.modifyBonus =0;
         }
         let self = this;
-        var req = this.$store.state.host + '/app/changeBonus';
+        var req = this.$store.state.host + self.$store.state.net.NETREQ_changeBonus;
         axios.post(req, {
           ifadd:ifadd,
           modifyBonus:self.modifyBonus,
@@ -123,7 +123,7 @@
       loadEtime(){
         let self = this;
         self.eload=true;
-        var req = this.$store.state.host + '/app/getEtime';
+        var req = this.$store.state.host + self.$store.state.net.NETREQ_getEtime;
         axios.post(req, {
            some:'',
         })
@@ -151,7 +151,7 @@
       },
       updateData(){
         let self = this;
-        var req = this.$store.state.host + '/app/cache';
+        var req = this.$store.state.host + self.$store.state.net.NETREQ_cache;
         axios.get(req)
           .then(function (response) {
             console.log("xxxxx");
@@ -203,7 +203,7 @@
         });
       },
       logout(){
-        var req = this.$store.state.host + '/logout';
+        var req = this.$store.state.host + this.$store.state.net.NETREQ_logout;
         //Send to Server.
         axios.get(req)
           .then(function (response) {

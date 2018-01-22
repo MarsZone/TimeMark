@@ -147,7 +147,7 @@
         startTimer(){
           //Post to server.
           let self = this;
-          var req = self.$store.state.host + '/app/createAction';
+          var req = self.$store.state.host + self.$store.state.net.NETREQ_createAction;
           axios.post(req, {
             task_id:        self.$store.state.task_id,
             task_title:     this.$store.state.task_label,
@@ -196,7 +196,7 @@
 
           //Update Action on 6s
           this.updateAction = setInterval(function () {
-            var req = self.$store.state.host + '/app/updateAction';
+            var req = self.$store.state.host + self.$store.state.net.NETREQ_updateAction;
             axios.post(req, {
               total_seconds:  self.timer,
               endTime:        moment().format(),
@@ -236,7 +236,7 @@
           }, 1000);
 
           self.updateAction = setInterval(function () {
-            var req = self.$store.state.host + '/app/updateAction';
+            var req = self.$store.state.host + self.$store.state.net.NETREQ_updateAction;
             axios.post(req, {
               total_seconds:  self.timer,
               endTime:        moment().format(),
@@ -262,7 +262,7 @@
           let self = this;
           self.alertDialog1Visible = false;
           //Send End First.
-          var req = self.$store.state.host + '/app/updateAction';
+          var req = self.$store.state.host + self.$store.state.net.NETREQ_updateAction;
           axios.post(req, {
             task_id:        self.$store.state.task_id,
             total_seconds:  self.timer,

@@ -72,7 +72,7 @@
     methods: {
       RegisterToServer() {
         let self = this;
-        var req = this.$store.state.host + '/register';
+        var req = this.$store.state.host + self.$store.state.net.NETREQ_register;
         //check email usename.
         if(this.email == '' || this.name =='' || this.password == '')
         {

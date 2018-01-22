@@ -198,7 +198,7 @@
         PostToServer(){
           //Post to server.
           let self = this;
-          var req = this.$store.state.host + '/app/createTask';
+          var req = this.$store.state.host + self.$store.state.net.NETREQ_createTask;
           axios.post(req, {
             title: this.title,
             description: this.description,

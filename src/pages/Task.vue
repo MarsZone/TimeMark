@@ -69,7 +69,7 @@
       },
       updateData(){
         let self = this;
-        var req = this.$store.state.host + '/app/templateList';
+        var req = this.$store.state.host +self.$store.state.net.NETREQ_templateList;
         axios.post(req, {
           email: this.$store.state.email
         })

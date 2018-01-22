@@ -62,7 +62,7 @@
       methods: {
         loginFromServer() {
           let self = this;
-          var req = this.$store.state.host + '/login';
+          var req = this.$store.state.host + self.$store.state.net.NETREQ_login;
           axios.post(req, {
             email: this.email,
             password: this.password

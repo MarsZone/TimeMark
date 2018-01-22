@@ -102,7 +102,7 @@
           //this.$ons.notification.alert("Remove");
           //Post to server.
           let self = this;
-          var req = self.$store.state.host + '/app/removeTask';
+          var req = self.$store.state.host +self.$store.state.net.NETREQ_removeTask;
           axios.post(req, {
             task_id:        self.$store.state.task_id,
           })

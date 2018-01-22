@@ -66,7 +66,7 @@
         removeAction(aid){
           //this.showError(aid);
           let self = this;
-          var req = self.$store.state.host + '/app/removeAction';
+          var req = self.$store.state.host + self.$store.state.net.NETREQ_removeAction;
           axios.post(req, {
             actionId:    aid,
           })
@@ -88,7 +88,7 @@
         getActionList(){
           //LoadFromServer.Actions List
           let self = this;
-          var req = self.$store.state.host + '/app/getActionList';
+          var req = self.$store.state.host + self.$store.state.net.NETREQ_getActionList;
           axios.post(req, {
             task_id:     self.$store.state.task_id,
             start_index: 0,

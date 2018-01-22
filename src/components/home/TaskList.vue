@@ -76,7 +76,7 @@
         },
         updateData(){
           let self = this;
-          var req = this.$store.state.host + '/app/taskList';
+          var req = this.$store.state.host + self.$store.state.net.NETREQ_taskList;
           self.list.splice(0);
           axios.post(req, {
             username: this.$store.state.name
