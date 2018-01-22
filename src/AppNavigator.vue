@@ -14,6 +14,13 @@
     beforeCreate() {
       this.$store.commit('navigator/push', AppSplitter);
     },
+    created() {
+      try {
+        document.body.removeChild(document.getElementById('appLoading'));
+      } catch (e) {
+
+      }
+    },
     data() {
       return {
         shutUp: this.md

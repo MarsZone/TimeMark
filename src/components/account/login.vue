@@ -10,8 +10,8 @@
         </div>
         <label class="center">
           <v-ons-input float maxlength="20"
-                       placeholder="User Name"
-                       v-model="name"
+                       placeholder="Email"
+                       v-model="email"
                        type="email"
           >
           </v-ons-input>
@@ -24,7 +24,7 @@
         </div>
         <label class="center">
           <v-ons-input float maxlength="20"
-                       placeholder="password"
+                       placeholder="Password"
                        v-model="password"
                        type="password"
           >
@@ -55,7 +55,7 @@
     export default {
       data() {
         return {
-          name: '',
+          email: '',
           password:'',
         };
       },
@@ -64,7 +64,7 @@
           let self = this;
           var req = this.$store.state.host + '/login';
           axios.post(req, {
-            username: this.name,
+            email: this.email,
             password: this.password
           })
             .then(function (response) {
@@ -78,7 +78,7 @@
                 //更新Token
                 //self.$store.state.token=response.data.token;
                 //更新数据
-                self.updateData(response.data.name);
+                self.updateData(response.data.name,response.data.email);
                 self.$ons.notification.toast({
                   message:response.data.msg,
                   buttonLabel: 'OK',
@@ -93,10 +93,11 @@
               console.log(error);
             });
         },
-        updateData(name)
+        updateData(name,email)
         {
           this.$store.state.login = true;
           this.$store.state.name = name;
+          this.$store.state.email = email;
         },
         showError(msg){
           this.$ons.notification.alert(msg,{title:'Warning'});

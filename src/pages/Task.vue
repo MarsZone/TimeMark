@@ -29,9 +29,9 @@
       return {
         templateList: [
           {
-            id : "100",
-            tid:"1",
-            label: 'xDefault',
+            id : "",
+            tid:"",
+            label: '',
           }
         ]
       }

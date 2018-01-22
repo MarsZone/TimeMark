@@ -12,6 +12,7 @@
           <v-ons-input float maxlength="20"
                        placeholder="User Name"
                        v-model="name"
+                       required
           >
           </v-ons-input>
         </label>
@@ -22,10 +23,11 @@
           <v-ons-icon icon="ion-email" class="list-item__icon"></v-ons-icon>
         </div>
         <label class="center">
-          <v-ons-input float maxlength="20"
-                       placeholder="Email can help you reset password"
+          <v-ons-input float maxlength="30"
+                       placeholder="Email reset password"
                        type="email"
                        v-model="email"
+                       required
           >
           </v-ons-input>
         </label>
@@ -37,9 +39,10 @@
         </div>
         <label class="center">
           <v-ons-input float maxlength="20"
-                       placeholder="password"
+                       placeholder="Password"
                        v-model="password"
                        type="password"
+                       required
           >
           </v-ons-input>
         </label>
