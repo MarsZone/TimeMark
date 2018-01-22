@@ -46,15 +46,17 @@ Work time : Entertainment time == 2:1
 ### Todo
 * [X] Base UI layout.
 * [X] Sign in,Sign out,Register.
-* [ ] Release a demo version.
+* [ ] Release a demo version.->Release a public version.
 * [X] Get Data from backend server.
 * [X] Add a time actions with setting the date.
-* [ ] delete task delete actions.
+* [X] delete task delete actions.
 * [X] Multiple languages support backend.
 
 ### More
-* [ ] Calendar
+* [X] Calendar
+  * [ ] Calendar custom
 * [ ] Charts
+  * [ ] Charts custom
 * [X] Package to android apk.
 * [ ] Package to IOS.later~~ :)
 * [ ] Multiple languages support frontend.
