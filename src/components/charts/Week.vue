@@ -3,7 +3,7 @@
     <custom-toolbar v-bind="toolbarInfo"></custom-toolbar>
     <div class="Charts">
       <chart
-        :options="seriesdata"></chart>
+        :options="optionsData"></chart>
     </div>
   </v-ons-page>
 </template>
@@ -50,27 +50,6 @@
             data:[120, 132, 101, 134, 90, 230, 210]
           },
           {
-            name:'运动',
-            type:'line',
-            stack: 'Max',
-            areaStyle: {normal: {}},
-            data:[220, 182, 191, 234, 290, 330, 310]
-          },
-          {
-            name:'项目',
-            type:'line',
-            stack: 'Max',
-            areaStyle: {normal: {}},
-            data:[150, 232, 201, 154, 190, 330, 410]
-          },
-          {
-            name:'默认',
-            type:'line',
-            stack: 'Max',
-            areaStyle: {normal: {}},
-            data:[320, 332, 301, 334, 390, 330, 320]
-          },
-          {
             name:'搜索引擎',
             type:'line',
             stack: 'Max',
@@ -84,6 +63,7 @@
             data:[120, 932, 901, 934, 1290, 1330, 1320]
           }
         ],
+        legendLabelData:['学习','搜索引擎'],
         options:{
           title: {
             text: 'Week View'
@@ -98,7 +78,7 @@
             }
           },
           legend: {
-            data:['学习','运动','项目','默认','搜索引擎'],
+            data:[],
           },
           toolbox: {
             feature: {
@@ -115,7 +95,7 @@
             {
               type : 'category',
               boundaryGap : false,
-              data : ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
+              data : ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
             }
           ],
           yAxis : [
@@ -135,8 +115,9 @@
       }
     },
     computed: {
-      seriesdata: function () {
+      optionsData: function () {
         this.options.series = this.chartData;
+        this.options.legend.data = this.legendLabelData;
         return this.options;
       }
     },
@@ -147,6 +128,8 @@
         var req = self.$store.state.host + self.$store.state.net.NETREQ_chartWeekView;
         axios.post(req, {
 //          email:self.$store.state.email
+          mondayDate:mondayDate,
+          sundayDate:sundayDate,
         })
           .then(function (response) {
             console.log(response.data);
@@ -156,6 +139,36 @@
               self.showError(response.data.msg);
             }else {
               self.chartData.splice(0);
+              self.legendLabelData.splice(0);
+              //成功获取
+              for(let task in response.data.list){
+                var title = task.substr(0,8);
+                title = title +'...';
+                //console.log(title);
+                self.legendLabelData.push(title);//Label
+
+                let TaskWeekValue = [0,0,0,0,0,0,0];
+                for(let day in response.data.list[task])
+                {
+                  TaskWeekValue[(day - 1)] = (response.data.list[task][day].TotalS / 60).toFixed(1);
+                }
+                var oneTask = {
+                  name: title,
+                  type:'line',
+                  stack: 'Max',
+                  label: {
+                    normal: {
+                      show: true,
+                      position: 'top'
+                    }
+                  },
+                  areaStyle: {normal: {}},
+                  data:TaskWeekValue
+                }
+                console.log(TaskWeekValue);
+                self.chartData.push(oneTask);
+              }
+              console.log(self.chartData);
             }
           })
           .catch(function (error) {

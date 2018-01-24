@@ -135,9 +135,8 @@
           this.diffSeconds = moment(et - st) / 1000;
           if(this.diffSeconds < 0)
           {
-            this.showError("EndDate must after start date.");
-            this.startDate = moment().format();
-            this.endDate = moment().format();
+            //this.showError("EndDate must after start date.");
+            this.endDate = this.startDate;
             this.diffSeconds = 0;
           }else {
             this.diffMin = this.diffSeconds / 60;

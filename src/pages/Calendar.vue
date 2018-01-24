@@ -94,18 +94,21 @@
               self.showError(response.data.msg);
             }else {
               self.events.splice(0);
+              let index =0;
               for(let i in response.data.list){
                 for(var task in response.data.list[i])
                 {
                   var event = {
-                      id : 'e'+task,
+                      id : 'e' + index,
                       title : task,
                       taskId: response.data.list[i][task],
                       startDate: i,
                   }
+                  index++;
                   self.events.push(event);
                 }
               }
+              index =0;
 //              //成功获取
 //              for(let i in response.data.list)
 //              {
@@ -117,7 +120,6 @@
 //                self.events.push(list);
 //              }
 //              console.log(self.events);
-              //self.$forceUpdate();
             }
           })
           .catch(function (error) {
