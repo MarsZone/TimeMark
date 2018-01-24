@@ -17,6 +17,8 @@ const state = {
   NETREQ_changeBonus:  '/app/changeBonus',
   //Calendar
   NETREQ_calendarMonth:'/app/calendarMonth',
+  //Chart
+  NETREQ_chartWeekView:'/app/chartWeekView',
   //Auth
   NETREQ_register:'/register',
   NETREQ_login:   '/login',

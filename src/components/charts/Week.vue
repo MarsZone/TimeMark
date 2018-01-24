@@ -16,11 +16,28 @@
   // built-in theme
   import 'echarts/theme/dark'
   import axios from 'axios';
-  import Bus from '../../components/bus.js';
 
+  var mondayDate;
+  var sundayDate;
   export default {
     components: {
       chart: ECharts
+    },
+    created(){
+      //获取周一和周日的date
+      var now = new Date();
+      var nowTime = now.getTime() ;
+      var day = now.getDay();
+      var oneDayLong = 24*60*60*1000 ;
+      var MondayTime = nowTime - (day-1)*oneDayLong  ;
+      var SundayTime =  nowTime + (7-day)*oneDayLong ;
+      mondayDate = new Date(MondayTime);
+      sundayDate = new Date(SundayTime);
+      console.log(mondayDate) ;
+      console.log(sundayDate) ;
+    },
+    mounted(){
+      this.updateData();
     },
     data: function () {
       return {
@@ -98,7 +115,7 @@
             {
               type : 'category',
               boundaryGap : false,
-              data : ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
+              data : ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
             }
           ],
           yAxis : [
@@ -124,7 +141,30 @@
       }
     },
     methods: {
-
+      updateData(){
+        let self = this;
+        //self.chartData.splice(0);
+        var req = self.$store.state.host + self.$store.state.net.NETREQ_chartWeekView;
+        axios.post(req, {
+//          email:self.$store.state.email
+        })
+          .then(function (response) {
+            console.log(response.data);
+            console.log("code:"+response.data.code+"|msg:"+response.data.msg);
+            if(response.data.code!='200')
+            {
+              self.showError(response.data.msg);
+            }else {
+              self.chartData.splice(0);
+            }
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      },
+      showError(msg){
+        this.$ons.notification.alert(msg,{title:'Warning'});
+      },
     },
   }
 </script>

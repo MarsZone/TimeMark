@@ -116,7 +116,7 @@
 //                list.endDate = response.data.list[i]._id;
 //                self.events.push(list);
 //              }
-              console.log(self.events);
+//              console.log(self.events);
               //self.$forceUpdate();
             }
           })
