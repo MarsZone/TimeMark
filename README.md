@@ -30,6 +30,9 @@ But there is a old version can test. http://marszm.cn/tm/ It will load a while b
 
 <p align="center"><img height="500" src="https://user-images.githubusercontent.com/3784198/34912669-0e591236-f922-11e7-80c8-470fdb700bd1.png" alt="mainview"></p>
 
+### Calendar & Week Chart
+<p align="center"><img height="500" src="https://user-images.githubusercontent.com/3784198/35373393-262bea9a-01d9-11e8-9fde-b16839122106.gif" alt="mainview"></p>
+
 ### Android APK
 <p align="center"><img height="500" src="https://user-images.githubusercontent.com/3784198/34983944-2b5abc76-faea-11e7-9fdb-3fddf0a4c6be.png" alt="Apk"></p>
 
