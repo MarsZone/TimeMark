@@ -24,6 +24,9 @@ const state = {
   NETREQ_login:   '/login',
   NETREQ_logout:  '/logout',
   NETREQ_cache:   '/app/cache',
+
+  //Reset PassWord
+  NETREQ_resetEmail : '/app/resetEmail',
 }
 
 export default {

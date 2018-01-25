@@ -1,7 +1,7 @@
 <template>
   <v-ons-page>
     <p class="intro">
-      Click category to add task<br><br>
+      Click category to add new task<br><br>
     </p>
 
     <v-ons-list>
@@ -114,7 +114,7 @@
 <style>
 
   .intro {
-    text-align: left;
+    text-align: center;
     padding: 0 22px;
     margin-top: 20px;
     font-size: 14px;

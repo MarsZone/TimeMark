@@ -159,7 +159,7 @@
           startDate: moment().format(),
           endDate:  moment().format(),
           ifRepeat: false,
-          weeks: ['SomeDay','Monday', 'Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'],
+          weeks: ['LongTime','Monday', 'Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'],
           checkedDays: [],
           toolbarInfo: {
             backLabel: 'Home',

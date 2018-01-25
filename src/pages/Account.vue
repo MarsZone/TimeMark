@@ -44,12 +44,16 @@
         Etime:    {{eHour}}h {{eMin}}m <br>
         BonusTime:{{(bonus/60/60).toFixed(1)}}h {{(bonus/60).toFixed(1)}}m
       </label>
+
+      <v-ons-button @click = "Community()"
+                    class="my-button button button--outline " >Community</v-ons-button>
     </div>
   </v-ons-page>
 </template>
 
 <script>
   import login from '../components/account/login.vue';
+  import community from '../components/account/community.vue';
   import register from '../components/account/register.vue';
   import axios from 'axios';
   import Bus from '../components/bus.js';
@@ -169,6 +173,22 @@
           .catch(function (error) {
             self.showError(error);
           });
+      },
+      Community(){
+        this.$store.commit('navigator/options', {
+          // Sets animations
+          animation: 'lift-ios',
+          // Resets default options
+          callback: () => this.$store.commit('navigator/options', {})
+        });
+        this.$store.commit('navigator/push', {
+          extends: community,
+          data() {
+            return {
+              label : 'Community'
+            }
+          }
+        });
       },
       login() {
         this.$store.commit('navigator/options', {

@@ -9,7 +9,7 @@
           <v-ons-icon icon="md-face" class="list-item__icon"></v-ons-icon>
         </div>
         <label class="center">
-          <v-ons-input float maxlength="20"
+          <v-ons-input float maxlength="30"
                        placeholder="Email"
                        v-model="email"
                        type="email"
@@ -39,11 +39,36 @@
       </div>
 
       <div style="width: 100%; text-align: center">
-        <v-ons-button id="loginServer"
-                      @click="loginFromServer"
-                      class="my-button button button--outline " >Forget PassWord
+        <v-ons-button id="showDailog"
+                      v-bind:disabled="ifCanSend"
+                      @click="showResetDailog"
+                      class="my-button button button--outline "
+        >
+          <label v-if="!ifCanSend">Forget PassWord</label>
+          <v-ons-icon v-if="ifCanSend" icon="ion-load-c" spin size="26px"></v-ons-icon>
         </v-ons-button>
       </div>
+
+      <v-ons-alert-dialog modifier="rowfooter"
+                          :visible.sync="alertDialog1Visible"
+      >
+        <span slot="title">Send Email <br> to Reset Password</span>
+
+        <div class="center">
+          <v-ons-input float maxlength="30"
+                       placeholder="Email"
+                       v-model="reqEmail"
+                       type="email"
+          >
+          </v-ons-input>
+        </div>
+
+        <template slot="footer">
+          <div class="alert-dialog-button" @click="cancelReq">Cancel</div>
+          <div
+            class="alert-dialog-button" @click="sendEmail">Send</div>
+        </template>
+      </v-ons-alert-dialog>
     </div>
 
   </v-ons-page>
@@ -56,10 +81,48 @@
       data() {
         return {
           email: '',
+          reqEmail:'',
           password:'',
+          label:'login',
+          alertDialog1Visible: false,
+          ifCanSend:false,
         };
       },
       methods: {
+        cancelReq(){
+          this.alertDialog1Visible = false;
+        },
+        showResetDailog(){
+          this.alertDialog1Visible = true;
+        },
+        sendEmail(){
+          this.alertDialog1Visible = false;
+          this.ifCanSend = true;
+          let self = this;
+          var req = this.$store.state.host + self.$store.state.net.NETREQ_resetEmail;
+          axios.post(req, {
+            email: this.reqEmail,
+          })
+            .then(function (response) {
+              console.log(response.data.code);
+              console.log(response.data.msg);
+              self.ifCanSend = false;
+              if(response.data.code!='200')
+              {
+                self.showError(response.data.msg);
+              }else {
+                self.$ons.notification.toast({
+                  message:response.data.msg,
+                  buttonLabel: 'OK',
+                  timeout: 1000
+                }).then(function () {
+                });
+              }
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        },
         loginFromServer() {
           let self = this;
           var req = this.$store.state.host + self.$store.state.net.NETREQ_login;
