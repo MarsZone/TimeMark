@@ -1,27 +1,28 @@
 <template>
   <v-ons-page>
-    <div class="tabbar tabbar--top tabbar--top-border">
-      <label class="tabbar__item tabbar--top-border__item">
-        <input type="radio" name="top-tabbar-b" checked="checked">
-        <button class="tabbar__button tabbar--top-border__button">
-          <i class="tabbar__icon fa fa-history"></i>
-        </button>
-      </label>
+    <!--<div class="tabbar tabbar&#45;&#45;top tabbar&#45;&#45;top-border">-->
+      <!--<label class="tabbar__item tabbar&#45;&#45;top-border__item">-->
+        <!--<input type="radio" name="top-tabbar-b" checked="checked">-->
+        <!--<button class="tabbar__button tabbar&#45;&#45;top-border__button">-->
+          <!--<i class="tabbar__icon fa fa-history"></i>-->
+        <!--</button>-->
+      <!--</label>-->
 
-      <label class="tabbar__item tabbar--top-border__item">
-        <input type="radio" name="top-tabbar-b">
-        <button class="tabbar__button tabbar--top-border__button">
-          <i class="tabbar__icon ion-ios-book" ></i>
-        </button>
-      </label>
+      <!--<label class="tabbar__item tabbar&#45;&#45;top-border__item">-->
+        <!--<input type="radio" name="top-tabbar-b">-->
+        <!--<button class="tabbar__button tabbar&#45;&#45;top-border__button">-->
+          <!--<i class="tabbar__icon ion-ios-book" ></i>-->
+        <!--</button>-->
+      <!--</label>-->
 
-      <label class="tabbar__item tabbar--top-border__item">
-        <input type="radio" name="top-tabbar-b">
-        <button class="tabbar__button tabbar--top-border__button">
-          <i class="tabbar__icon ion-android-bicycle"></i>
-        </button>
-      </label>
-    </div>
+      <!--<label class="tabbar__item tabbar&#45;&#45;top-border__item">-->
+        <!--<input type="radio" name="top-tabbar-b">-->
+        <!--<button class="tabbar__button tabbar&#45;&#45;top-border__button">-->
+          <!--<i class="tabbar__icon ion-android-bicycle"></i>-->
+        <!--</button>-->
+      <!--</label>-->
+    <!--</div>-->
+
     <!--<v-ons-card v-for="page of pages" :key="page.label"-->
                 <!--@click="push(page.component, page.label)"-->
     <!--&gt;-->

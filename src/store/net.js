@@ -24,9 +24,15 @@ const state = {
   NETREQ_login:   '/login',
   NETREQ_logout:  '/logout',
   NETREQ_cache:   '/app/cache',
-
   //Reset PassWord
   NETREQ_resetEmail : '/app/resetEmail',
+  //Community
+  NETREQ_createTopic:'/createTopic',
+  NETREQ_removeTopic:'/removeTopic',
+  NETREQ_likeTopic:'/likeTopic',
+  NETREQ_closeTopic:'/closeTopic',
+  NETREQ_getTopicList:'/getTopicList',
+
 }
 
 export default {
