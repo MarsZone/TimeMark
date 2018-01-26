@@ -17,7 +17,7 @@
         <v-ons-list-item
           v-for = "topic of list" :key = "topic.id"
           tappable style="width: 100%;"
-          v-bind:class="typeClass:true"
+          v-bind:class=[topic.typeClass]
         >
           <div class="center">
             <span class="list-item__title">{{topic.content}}</span>
@@ -92,6 +92,7 @@
       data() {
         return {
           label:'',
+          isActive:true,
           dialogVisible: false,
           displayMode: 'open',
           selectValue:'Advise',
