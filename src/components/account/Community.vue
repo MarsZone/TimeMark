@@ -31,6 +31,52 @@
       </v-ons-list-item>
     </v-ons-list>
 
+    <v-ons-fab position="bottom right">
+      <v-ons-icon
+        @click = "showTopicDialog"
+        icon="md-plus"></v-ons-icon>
+    </v-ons-fab>
+
+    <v-ons-dialog v-bind:cancelable="ifCancelable"
+                  class="lorem-dialog"
+                  :visible.sync="dialogVisible"
+    >
+      <!-- Optional page. This could contain a Navigator as well. -->
+      <v-ons-page>
+        <v-ons-toolbar>
+          <div class="center">New Topic</div>
+        </v-ons-toolbar>
+
+        <p style="text-align: center">Say Something</p>
+
+        <v-ons-list-item>
+          <div class="center" style="text-align: center">
+            <v-ons-select style="width: 120px" v-model="selectedItem">
+              <option v-for="item in items" :value="item.value">
+                {{ item.text }}
+              </option>
+            </v-ons-select>
+          </div>
+        </v-ons-list-item>
+        <v-ons-list-item>
+          Topic Type:{{ selectedItem }}
+        </v-ons-list-item>
+
+        <v-ons-list-item modifier="nodivider">
+          <div class="center">
+          <textarea v-model="content" class="textarea" rows="4"
+                    style="width: 100%"
+                    placeholder="Write here."></textarea>
+          </div>
+        </v-ons-list-item>
+
+        <p style="text-align: center">
+          <v-ons-button modifier="light" @click="dialogVisible = false">Send</v-ons-button>
+          <v-ons-button modifier="light" @click="dialogVisible = false">Close</v-ons-button>
+        </p>
+      </v-ons-page>
+    </v-ons-dialog>
+
   </v-ons-page>
 </template>
 
@@ -40,7 +86,17 @@
       data() {
         return {
           label:'',
+          dialogVisible: false,
           displayMode: 'open',
+          selectedItem: 'Advise',
+          ifCancelable:false,
+          content:'',
+          items: [
+            { text: 'Advise', value: 'Advise' },
+            { text: 'Bug', value: 'Bug Report' },
+            { text: 'Improve', value: 'Something your want' },
+            { text: 'Anything', value: 'Anything want to talk' },
+          ],
           list:[
             {
               id: '0',
@@ -62,6 +118,12 @@
         dislike(){
 
         },
+        showTopicDialog(){
+          this.dialogVisible=true;
+        },
+        addNewTopic(){
+
+        },
         displayChange(event){
           if(event.index == 0 )
           {
@@ -77,9 +139,6 @@
           //self.chartData.splice(0);
           var req = self.$store.state.host + self.$store.state.net.NETREQ_getTopicList;
           axios.post(req, {
-//          email:self.$store.state.email
-            mondayDate:mondayDate,
-            sundayDate:sundayDate,
           })
             .then(function (response) {
               console.log(response.data);
@@ -88,37 +147,7 @@
               {
                 self.showError(response.data.msg);
               }else {
-                self.chartData.splice(0);
-                self.legendLabelData.splice(0);
-                //成功获取
-                for(let task in response.data.list){
-                  var title = task.substr(0,8);
-                  title = title +'...';
-                  //console.log(title);
-                  self.legendLabelData.push(title);//Label
 
-                  let TaskWeekValue = [0,0,0,0,0,0,0];
-                  for(let day in response.data.list[task])
-                  {
-                    TaskWeekValue[(day - 1)] = (response.data.list[task][day].TotalS / 60).toFixed(1);
-                  }
-                  var oneTask = {
-                    name: title,
-                    type:'line',
-                    stack: 'Max',
-                    label: {
-                      normal: {
-                        show: true,
-                        position: 'top'
-                      }
-                    },
-                    areaStyle: {normal: {}},
-                    data:TaskWeekValue
-                  }
-                  console.log(TaskWeekValue);
-                  self.chartData.push(oneTask);
-                }
-                console.log(self.chartData);
               }
             })
             .catch(function (error) {
@@ -135,5 +164,8 @@
 <style>
   .ChoiceDisplay{
     width: 100%;
+  }
+  .lorem-dialog .dialog-container {
+    height: 400px;
   }
 </style>
