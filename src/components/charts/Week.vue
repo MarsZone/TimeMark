@@ -9,34 +9,25 @@
 </template>
 
 <script>
-  import ECharts from 'vue-echarts/components/ECharts.vue'
-  // import ECharts modules manually to reduce bundle size
-  import 'echarts/lib/chart/bar'
-  import 'echarts/lib/component/tooltip'
-  // built-in theme
-  import 'echarts/theme/dark'
   import axios from 'axios';
+  //import ECharts from 'vue-echarts/components/ECharts.vue'
+  // import ECharts modules manually to reduce bundle size
+  //import 'echarts/lib/chart/bar'
+  //import 'echarts/lib/component/tooltip'
+  // built-in theme
+  //import 'echarts/theme/dark'
 
-  var mondayDate;
-  var sundayDate;
+
   export default {
     components: {
-      chart: ECharts
+      //chart: ECharts
     },
     created(){
-      //获取周一和周日的date
-      var now = new Date();
-      var nowTime = now.getTime() ;
-      var day = now.getDay();
-      var oneDayLong = 24*60*60*1000 ;
-      var MondayTime = nowTime - (day-1)*oneDayLong  ;
-      var SundayTime =  nowTime + (7-day)*oneDayLong ;
-      mondayDate = new Date(MondayTime);
-      sundayDate = new Date(SundayTime);
-      console.log(mondayDate) ;
-      console.log(sundayDate) ;
     },
     mounted(){
+
+      //console.log(mondayDate) ;
+      //console.log(sundayDate) ;
       this.updateData();
     },
     data: function () {
@@ -122,7 +113,18 @@
       }
     },
     methods: {
-      updateData(){
+      updateData:function(){
+        //获取周一和周日的date
+        var mondayDate;
+        var sundayDate;
+        var now = new Date();
+        var nowTime = now.getTime() ;
+        var day = now.getDay();
+        var oneDayLong = 24*60*60*1000 ;
+        var MondayTime = nowTime - (day-1)*oneDayLong  ;
+        var SundayTime =  nowTime + (7-day)*oneDayLong ;
+        mondayDate = new Date(MondayTime);
+        sundayDate = new Date(SundayTime);
         let self = this;
         //self.chartData.splice(0);
         var req = self.$store.state.host + self.$store.state.net.NETREQ_chartWeekView;

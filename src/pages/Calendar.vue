@@ -66,20 +66,20 @@
       CalendarView
     },
     methods: {
-      onClickDay(d) {
+      onClickDay:function(d) {
         console.log(`You clicked: ${d.toLocaleDateString()}`);//To day list
       },
-      onClickEvent(e) {
+      onClickEvent:function(e) {
         console.log(`You clicked: ${e.title}`);//To event
         console.log(`You clicked: ${e.startDate}`);//To event
       },
-      tabHandler(label){
+      tabHandler:function(label){
         if(label == 'Calendar')
         {
           this.updateData();
         }
       },
-      updateData(){
+      updateData:function(){
         let self = this;
         self.events.splice(0);
         var req = self.$store.state.host + self.$store.state.net.NETREQ_calendarMonth;
@@ -126,10 +126,10 @@
             console.log(error);
           });
       },
-      showError(msg){
+      showError:function(msg){
         this.$ons.notification.alert(msg,{title:'Warning'});
       },
-      displayChange(event){
+      displayChange:function(event){
         if(event.index == 0 )
         {
           this.displayMode = 'week';
@@ -143,7 +143,7 @@
           this.displayMode = 'year';
         }
       },
-      setShowDate(d) {
+      setShowDate:function(d) {
         this.showDate = d;
       },
     }

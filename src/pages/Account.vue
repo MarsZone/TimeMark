@@ -54,7 +54,7 @@
 
 <script>
   import login from '../components/account/login.vue';
-  import community from '../components/account/Community.vue';
+//  import community from '../components/account/Community.vue';
   import register from '../components/account/register.vue';
   import axios from 'axios';
   import Bus from '../components/bus.js';
@@ -89,16 +89,16 @@
       }
     },
     methods: {
-      tabHandler(label){
+      tabHandler:function(label){
         if(label == 'Me')
         {
           this.updateData();
         }
       },
-      showError(msg){
+      showError:function(msg){
         this.$ons.notification.alert(msg,{title:'Warning'});
       },
-      changeBonus(ifadd){
+      changeBonus:function(ifadd){
         if(this.modifyBonus<0)
         {
           this.modifyBonus =0;
@@ -125,7 +125,7 @@
 
         this.alertDialog1Visible=false;
       },
-      loadEtime(){
+      loadEtime:function(){
         let self = this;
         self.eload=true;
         var req = this.$store.state.host + self.$store.state.net.NETREQ_getEtime;
@@ -154,7 +154,7 @@
             self.showError(error.toString());
           });
       },
-      updateData(){
+      updateData:function(){
         let self = this;
         var req = this.$store.state.host + self.$store.state.net.NETREQ_cache;
         axios.get(req)
@@ -175,7 +175,7 @@
             self.showError(error);
           });
       },
-      Community(){
+      Community:function(){
         this.$store.commit('navigator/options', {
           // Sets animations
           animation: 'slide-ios',
@@ -191,7 +191,7 @@
           }
         });
       },
-      login() {
+      login:function() {
         this.$store.commit('navigator/options', {
           // Sets animations
           animation: 'lift-ios',
@@ -207,7 +207,7 @@
           }
         });
       },
-      register() {
+      register:function() {
         this.$store.commit('navigator/options', {
           // Sets animations
           animation: 'lift-ios',
@@ -223,7 +223,7 @@
           }
         });
       },
-      logout(){
+      logout:function(){
         var req = this.$store.state.host + this.$store.state.net.NETREQ_logout;
         //Send to Server.
         axios.get(req)

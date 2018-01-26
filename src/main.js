@@ -13,6 +13,14 @@ import CustomToolbar from './partials/CustomToolbar.vue';
 import AppNavigator from './AppNavigator.vue';
 import Datetime from 'vue-datetime';
 
+import ECharts from 'vue-echarts/components/ECharts'
+
+// import ECharts modules manually to reduce bundle size
+import 'echarts/lib/chart/bar'
+import 'echarts/lib/component/tooltip'
+import 'echarts/theme/dark'
+
+
 Vue.use(Vuex);
 Vue.use(Datetime);
 Vue.use(VueOnsen);
@@ -20,6 +28,9 @@ Vue.config.productionTip = false;
 // Register components globally
 // Object.values(OnsenComponents).forEach(component => Vue.component(component.name, component)); // For ESM
 Vue.component('custom-toolbar', CustomToolbar); // Common toolbar
+
+// register component to use
+Vue.component('chart', ECharts);
 
 /* eslint-disable no-new */
 new Vue({

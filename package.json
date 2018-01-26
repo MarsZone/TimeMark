@@ -1,6 +1,6 @@
 {
   "name": "TimeMark",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "A Vue.js project",
   "author": "mars <zm03322161@qq.com>",
   "private": true,
@@ -15,7 +15,7 @@
     "onsenui": "^2.8.3",
     "vue": "^2.5.9",
     "vue-datetime": "^0.7.1",
-    "vue-echarts": "^3.0.1",
+    "vue-echarts": "^2.6.0",
     "vue-onsenui": "^2.4.3",
     "vue-router": "^3.0.1",
     "vue-simple-calendar": "^2.0.0",
