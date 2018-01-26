@@ -27,11 +27,11 @@ const state = {
   //Reset PassWord
   NETREQ_resetEmail : '/app/resetEmail',
   //Community
-  NETREQ_createTopic:'/createTopic',
-  NETREQ_getTopicList:'/getTopicList',
-  NETREQ_closeTopic:'/closeTopic',
-  NETREQ_removeTopic:'/removeTopic',
-  NETREQ_likeTopic:'/likeTopic',
+  NETREQ_createTopic:'/app/community/createTopic',
+  NETREQ_getTopicList:'/app/community/getTopicList',
+  NETREQ_closeTopic:'/app/community/closeTopic',
+  NETREQ_removeTopic:'/app/community/removeTopic',
+  NETREQ_likeTopic:'/app/community/likeTopic',
 
 }
 
