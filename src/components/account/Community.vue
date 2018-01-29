@@ -196,6 +196,8 @@
           let self = this;
           //self.chartData.splice(0);
           self.list.splice(0);
+          self.listOpen.splice(0);
+          self.listClose.splice(0);
           var req = self.$store.state.host + self.$store.state.net.NETREQ_getTopicList;
           axios.post(req, {
           })
