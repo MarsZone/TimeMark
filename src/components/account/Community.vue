@@ -18,10 +18,10 @@
           v-for = "topic of list" :key = "topic.id"
           tappable style="width: 100%;"
           v-bind:class=[topic.typeClass]
-          @click="push(topic.topicId)"
+          @click="push(topic.topicId,topic.content,topic.title)"
         >
           <div class="center">
-            <span class="list-item__title">{{topic.content}}</span>
+            <span class="list-item__title">{{topic.title}}</span>
           </div>
 
           <div class="left">
@@ -40,11 +40,12 @@
         icon="md-plus"></v-ons-icon>
     </v-ons-fab>
 
+
+    <!--Add New topic-->
     <v-ons-dialog v-bind:cancelable="ifCancelable"
                   class="lorem-dialog"
                   :visible.sync="dialogVisible"
     >
-      <!-- Optional page. This could contain a Navigator as well. -->
       <v-ons-page>
         <v-ons-toolbar>
           <div class="center">New Topic</div>
@@ -65,6 +66,15 @@
           Topic Type:{{ selectText }}
         </v-ons-list-item>
 
+        <!--Input title-->
+        <v-ons-list-item modifier="nodivider">
+          <div class="center">
+            <textarea style="width: 100%;box-shadow: whitesmoke" class="textarea" rows="1"
+                         id="title-input" v-model="title" type="text" placeholder="Title" float></textarea>
+          </div>
+        </v-ons-list-item>
+
+        <!--Input Content-->
         <v-ons-list-item modifier="nodivider">
           <div class="center">
           <textarea v-model="content" class="textarea" rows="4"
@@ -102,6 +112,7 @@
           selectValue:'Advise',
           ifCancelable:false,
           ifCanSend:false,
+          title:'',
           content:'',
           items: [
             { text: 'Advise', value: 'Advise' },
@@ -147,9 +158,9 @@
           this.dialogVisible=true;
         },
         addNewTopic(){
-          if(this.content=='')
+          if(this.content==''|| this.title =='')
           {
-            this.showError("Input Some Content");
+            this.showError("Input Title and Content");
             return;
           }
           this.ifCanSend = true;
@@ -159,6 +170,7 @@
           axios.post(req, {
             createTime:moment().format(),
             content:self.content,
+            title:self.title,
             type:self.selectValue,
           })
             .then(function (response) {
@@ -211,6 +223,7 @@
                   var list = {};
                   list.id = response.data.list[i]._id;
                   list.topicId = response.data.list[i]._id;
+                  list.title = response.data.list[i].title;
                   list.content = response.data.list[i].content;
                   list.like = response.data.list[i].like;
                   list.likeList = response.data.list[i].likeList;
@@ -286,7 +299,7 @@
               console.log(error);
             });
         },
-        push(topicId) {
+        push(topicId,content,title) {
           if(this.ifClickIcon == true)
           {
             this.ifClickIcon = false;
@@ -298,11 +311,10 @@
               extends: comment,
               data() {
                 return {
-                  toolbarInfo: {
-                    backLabel: 'Topic',
-                    title: key,
-                    content:this.content,
-                  }
+                  backLabel: 'Topic',
+                  label:'Comment',
+                  content:content,
+                  title:title,
                 }
               }
             });
@@ -317,7 +329,7 @@
     width: 100%;
   }
   .lorem-dialog .dialog-container {
-    height: 400px;
+    height: 450px;
   }
   .bugLine{
     background: rgba(205, 206, 0, 0.2);
