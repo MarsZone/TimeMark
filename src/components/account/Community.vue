@@ -114,6 +114,8 @@
 //              desc: 'Reading make me happy'
             }
           ],
+          listOpen:[],
+          listClose:[],
         };
       },
       created(){
@@ -147,8 +149,14 @@
           this.dialogVisible=true;
         },
         addNewTopic(){
+          if(this.content=='')
+          {
+            this.showError("Input Some Content");
+            return;
+          }
           this.ifCanSend = true;
           let self = this;
+
           var req = self.$store.state.host + self.$store.state.net.NETREQ_createTopic;
           axios.post(req, {
             createTime:moment().format(),
@@ -176,10 +184,12 @@
           if(event.index == 0 )
           {
             this.displayMode = 'open';
+            this.list = this.listOpen;
           }
           if(event.index == 1 )
           {
             this.displayMode = 'close';
+            this.list = this.listClose;
           }
         },
         updateData(){
@@ -203,8 +213,10 @@
                   list.topicId = response.data.list[i]._id;
                   list.content = response.data.list[i].content;
                   list.like = response.data.list[i].like;
+                  list.state = response.data.list[i].state;
                   list.type = response.data.list[i].type;
                   list.createTime = response.data.list[i].createTime;
+
                   if(list.type == 'Bug')
                   {
                     list.typeClass = 'bugLine';
@@ -221,8 +233,23 @@
                   {
                     list.typeClass = 'AnythingLine';
                   }
-
-                  self.list.push(list);
+                  if(list.state == 'Open')
+                  {
+                    self.listOpen.push(list);
+                  }
+                  if(list.state == 'Close')
+                  {
+                    list.typeClass = 'CloseLine';
+                    self.listClose.push(list);
+                  }
+                  if(self.displayMode == 'open')
+                  {
+                    self.list = self.listOpen;
+                  }
+                  if(self.displayMode == 'close')
+                  {
+                    self.list = self.listClose;
+                  }
                 }
               }
             })
@@ -255,5 +282,8 @@
   }
   .AnythingLine{
     background: rgba(238, 0, 112, 0.2);
+  }
+  .CloseLine{
+    background: rgba(0, 5, 27, 0.3);
   }
 </style>

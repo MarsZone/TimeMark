@@ -13,7 +13,8 @@
                     @click = "logout()"
                     class="my-button button button--outline " >Sign out</v-ons-button>
 
-      <v-ons-button @click = "Community()"
+      <v-ons-button v-show ="ifSignOut"
+                    @click = "Community()"
                     class="my-button button button--outline " >Community</v-ons-button>
 
       <v-ons-button v-bind:disabled="eload"
@@ -54,7 +55,7 @@
 
 <script>
   import login from '../components/account/login.vue';
-//  import community from '../components/account/Community.vue';
+  import community from '../components/account/Community.vue';
   import register from '../components/account/register.vue';
   import axios from 'axios';
   import Bus from '../components/bus.js';
