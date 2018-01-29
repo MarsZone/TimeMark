@@ -18,6 +18,7 @@
           v-for = "topic of list" :key = "topic.id"
           tappable style="width: 100%;"
           v-bind:class=[topic.typeClass]
+          @click="push(topic.topicId)"
         >
           <div class="center">
             <span class="list-item__title">{{topic.content}}</span>
@@ -25,11 +26,9 @@
 
           <div class="left">
             <v-ons-icon
+              v-bind:class=[topic.likeClass]
               @click = "like(topic.topicId)"
-              size="24px" style="color: #6cce51;margin-right: 10px" icon = "ion-thumbsup"></v-ons-icon>
-            <v-ons-icon
-              @click = "dislike(topic.topicId)"
-              size="24px" style="color: #61adce;" icon = "ion-thumbsdown"></v-ons-icon>
+              size="24px" style="" icon = "ion-thumbsup"></v-ons-icon>
           </div>
         </v-ons-list-item>
       </v-ons-list>
@@ -92,6 +91,7 @@
       data() {
         return {
           label:'',
+          ifClickIcon:false,
           isActive:true,
           dialogVisible: false,
           displayMode: 'open',
@@ -135,12 +135,6 @@
         },
       },
       methods: {
-        like(){
-
-        },
-        dislike(){
-
-        },
         closeDialog(){
           this.dialogVisible = false;
         },
@@ -215,26 +209,29 @@
                   list.topicId = response.data.list[i]._id;
                   list.content = response.data.list[i].content;
                   list.like = response.data.list[i].like;
+                  list.likeList = response.data.list[i].likeList;
                   list.state = response.data.list[i].state;
                   list.type = response.data.list[i].type;
                   list.createTime = response.data.list[i].createTime;
 
-                  if(list.type == 'Bug')
-                  {
-                    list.typeClass = 'bugLine';
+                  var dateType = {
+                    'Bug': 'bugLine',
+                    'Advise': 'adviseLine',
+                    'Improve': 'ImproveLine',
+                    'Anything': 'AnythingLine',
                   }
-                  if(list.type == 'Advise')
+                  list.typeClass = dateType[list.type];
+                  list.likeClass = 'likeClass';
+                  //check if liked
+                  for(var i in list.likeList)
                   {
-                    list.typeClass = 'adviseLine';
+                    if(list.likeList[i] == self.$store.state.name)
+                    {
+                      //Change Like to cancel
+                      list.likeClass = 'disLikeClass';
+                    }
                   }
-                  if(list.type == 'Improve')
-                  {
-                    list.typeClass = 'ImproveLine';
-                  }
-                  if(list.type == 'Anything')
-                  {
-                    list.typeClass = 'AnythingLine';
-                  }
+
                   if(list.state == 'Open')
                   {
                     self.listOpen.push(list);
@@ -262,6 +259,53 @@
         showError(msg){
           this.$ons.notification.alert(msg,{title:'Warning'});
         },
+        like(topicId){
+          this.ifClickIcon = true;
+          console.log('Click Like:'+topicId);
+          let self = this;
+
+          var req = self.$store.state.host + self.$store.state.net.NETREQ_likeTopic;
+          axios.post(req, {
+            topicId : topicId
+          })
+            .then(function (response) {
+              console.log(response.data);
+              console.log("code:"+response.data.code+"|msg:"+response.data.msg);
+              if(response.data.code!='200')
+              {
+                self.showError(response.data.msg);
+              }else {
+                self.updateData();
+              }
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        },
+        push(id, key,ext,task) {
+          if(this.ifClickIcon == true)
+          {
+            this.ifClickIcon = false;
+          }else{
+              console.log('Click Item');
+//            this.$store.state.task_id = id;
+//            this.$store.state.task_label = key;
+//            this.$store.state.extends_data = ext;
+//            this.$store.state.task = task;
+//
+//            this.$store.commit('navigator/push', {
+//              extends: taskPanel,
+//              data() {
+//                return {
+//                  toolbarInfo: {
+//                    backLabel: 'Home',
+//                    title: key
+//                  }
+//                }
+//              }
+//            });
+          }
+        },
       },
     }
 </script>
@@ -287,5 +331,11 @@
   }
   .CloseLine{
     background: rgba(0, 5, 27, 0.3);
+  }
+  .likeClass{
+    color: #6cce51;margin-right: 10px
+  }
+  .disLikeClass{
+    color: #64696a;margin-right: 10px
   }
 </style>
