@@ -87,7 +87,11 @@
 <script>
     import axios from 'axios';
     import moment from 'moment';
+    import comment from './Comment.vue';
     export default {
+      components: {
+        comment
+      },
       data() {
         return {
           label:'',
@@ -161,8 +165,8 @@
               self.content='';
               self.dialogVisible = false;
               self.ifCanSend = false;
-              console.log(response.data);
-              console.log("code:"+response.data.code+"|msg:"+response.data.msg);
+              //console.log(response.data);
+              //console.log("code:"+response.data.code+"|msg:"+response.data.msg);
               if(response.data.code!='200')
               {
                 self.showError(response.data.msg);
@@ -196,8 +200,8 @@
           axios.post(req, {
           })
             .then(function (response) {
-              console.log(response.data);
-              console.log("code:"+response.data.code+"|msg:"+response.data.msg);
+              //console.log(response.data);
+              //console.log("code:"+response.data.code+"|msg:"+response.data.msg);
               if(response.data.code!='200')
               {
                 self.showError(response.data.msg);
@@ -282,28 +286,26 @@
               console.log(error);
             });
         },
-        push(id, key,ext,task) {
+        push(topicId) {
           if(this.ifClickIcon == true)
           {
             this.ifClickIcon = false;
           }else{
               console.log('Click Item');
-//            this.$store.state.task_id = id;
-//            this.$store.state.task_label = key;
-//            this.$store.state.extends_data = ext;
-//            this.$store.state.task = task;
-//
-//            this.$store.commit('navigator/push', {
-//              extends: taskPanel,
-//              data() {
-//                return {
-//                  toolbarInfo: {
-//                    backLabel: 'Home',
-//                    title: key
-//                  }
-//                }
-//              }
-//            });
+            this.$store.state.topicId = topicId;
+
+            this.$store.commit('navigator/push', {
+              extends: comment,
+              data() {
+                return {
+                  toolbarInfo: {
+                    backLabel: 'Topic',
+                    title: key,
+                    content:this.content,
+                  }
+                }
+              }
+            });
           }
         },
       },

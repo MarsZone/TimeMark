@@ -24,6 +24,7 @@ const state = {
   token:'',
   extends_data:{},
   task:{},
+  topicId:'',
   //host:'http://marszm.cn:3333'
   host: 'http://localhost:3333',
   net:this.net,
