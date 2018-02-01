@@ -27,6 +27,10 @@
           </div>
           <div class="right">
             <span style="font-size: 5px">Date:{{comment.date}}</span>
+            <v-ons-icon
+              v-show="comment.canDelete"
+              @click="removeComment(comment.id)"
+              size="32px" style="color: #ff0d26;" icon = "ion-ios-trash-outline"></v-ons-icon>
           </div>
 
         </v-ons-list-item>
@@ -34,21 +38,33 @@
     </v-ons-list>
     <div v-show = "ifCanDelete"
       style="width: 100%; text-align: center">
-      <v-ons-button v-show ="ifClosed"
+      <!--open-->
+      <v-ons-button v-bind:disabled="loading"
+                    v-show ="ifClosed"
                     id="openTopic"
                     @click="ReOpenTopic"
-                    class=" my-button button button--outline " >OpenTopic
+                    class=" my-button button button--outline " >
+        <label v-if="!loading">OpenTopic</label>
+        <v-ons-icon v-if="loading" icon="ion-load-c" spin size="26px"></v-ons-icon>
       </v-ons-button>
 
-      <v-ons-button v-show ="!ifClosed"
+      <!--Close-->
+      <v-ons-button v-bind:disabled="loading"
+                    v-show ="!ifClosed"
                     id="closeTopic"
                     @click="CloseTopic"
-                    class=" my-button button button--outline " >CloseTopic
+                    class=" my-button button button--outline " >
+        <label v-if="!loading">CloseTopic</label>
+        <v-ons-icon v-if="loading" icon="ion-load-c" spin size="26px"></v-ons-icon>
       </v-ons-button>
-      <v-ons-button
+
+      <!--Delete-->
+      <v-ons-button v-bind:disabled="loading"
                     id="deleteTopic"
                     @click=""
-                    class="delete my-button button button--outline " >DeleteTopic
+                    class="delete my-button button button--outline " >
+        <label v-if="!loading">DeleteTopic</label>
+        <v-ons-icon v-if="loading" icon="ion-load-c" spin size="26px"></v-ons-icon>
       </v-ons-button>
     </div>
     <v-ons-fab position="bottom center">
@@ -91,9 +107,11 @@
 <script>
     import axios from 'axios';
     import moment from 'moment';
+    import Bus from '../../components/bus.js';
     export default {
       data() {
         return {
+          loading:false,
           label:'',
           content:'',
           ifClosed:false,
@@ -118,14 +136,74 @@
         this.updateData();
       },
       methods: {
+        removeComment:function (id) {
+          let self = this;
+          self.loading = true;
+          var req = self.$store.state.host + self.$store.state.net.NETREQ_removeComment;
+          axios.post(req, {
+            cid:id
+          })
+            .then(function (response) {
+              //console.log(response.data);
+              //console.log("code:"+response.data.code+"|msg:"+response.data.msg);
+              if(response.data.code!='200')
+              {
+                self.loading = false;
+                self.showError(response.data.msg);
+              }else {
+                self.$ons.notification.toast({
+                  message:response.data.msg,
+                  buttonLabel: 'OK',
+                  timeout: 1000
+                }).then(function () {
+                  self.loading = false;
+                  self.updateData();
+                });
+              }
+            })
+            .catch(function (error) {
+              self.loading = false;
+              console.log(error);
+            });
+        },
         ReOpenTopic(){
-          this.SendDialog(false);
+          this.ResetTopic(false);
         },
         CloseTopic(){
-          this.SendDialog(true);
+          this.ResetTopic(true);
         },
-        SendDialog(ifClose){
-
+        ResetTopic(ifClose){
+          let self = this;
+          self.loading = true;
+          var req = self.$store.state.host + self.$store.state.net.NETREQ_closeTopic;
+          axios.post(req, {
+            topicId:self.$store.state.topicId,
+            ifClose:ifClose
+          })
+            .then(function (response) {
+              //console.log(response.data);
+              //console.log("code:"+response.data.code+"|msg:"+response.data.msg);
+              if(response.data.code!='200')
+              {
+                self.loading = false;
+                self.showError(response.data.msg);
+              }else {
+                Bus.$emit('reloadTopic','abc');
+                self.$ons.notification.toast({
+                  message:response.data.msg,
+                  buttonLabel: 'OK',
+                  timeout: 1000
+                }).then(function () {
+                  self.loading = false;
+                  //成功返回
+                  self.$store.commit('navigator/pop');
+                });
+              }
+            })
+            .catch(function (error) {
+              self.loading = false;
+              console.log(error);
+            });
         },
         closeDialog(){
           this.dialogVisible = false;
@@ -174,8 +252,8 @@
             topicId:self.$store.state.topicId
           })
             .then(function (response) {
-              console.log(response.data);
-              console.log("code:"+response.data.code+"|msg:"+response.data.msg);
+              //console.log(response.data);
+              //console.log("code:"+response.data.code+"|msg:"+response.data.msg);
               if(response.data.code!='200')
               {
                 self.showError(response.data.msg);
@@ -187,6 +265,12 @@
                   list.name = response.data.list[i].user_name;
                   list.content = response.data.list[i].content;
                   list.date = response.data.list[i].createTime;
+                  if(self.$store.state.name == list.name)
+                  {
+                    list.canDelete = true;
+                  }else{
+                    list.canDelete = false;
+                  }
                   self.list.push(list);
                 }
                 self.ifCanDelete = response.data.ifCanDelete;

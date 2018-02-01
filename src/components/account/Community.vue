@@ -98,6 +98,7 @@
     import axios from 'axios';
     import moment from 'moment';
     import comment from './Comment.vue';
+    import Bus from '../../components/bus.js';
     export default {
       components: {
         comment
@@ -134,7 +135,11 @@
         };
       },
       created(){
+        Bus.$on('reloadTopic',this.reloadTopic);
         this.updateData();
+      },
+      beforeDestroy () {
+        Bus.$off('reloadTopic', this.reloadTopic)
       },
       computed: {
         selectText: function () {
@@ -150,6 +155,10 @@
         },
       },
       methods: {
+        reloadTopic:function(some){
+          //console.log("Reload");
+          this.updateData();
+        },
         closeDialog(){
           this.dialogVisible = false;
         },
