@@ -148,7 +148,7 @@
         return {
           title:'',
           description:'',
-          totalPage: 1,
+          totalPage: '',
           weight:10,
           progress: 1,
           extendsData:{},
@@ -173,12 +173,19 @@
           if(this.title == ''){this.warningToast('Please fill the title');return;}
           if(this.description == ''){this.warningToast('Please fill the description');return;}
           //if book template check totalPage and set extends
+          if(this.totalPage == ''){this.warningToast('Please fill the totalPage');return;}
+          var thisTotalPage = Number(this.totalPage);
+          if(thisTotalPage<0)
+          {
+            thisTotalPage = 1;
+          }
           if(this.$store.template_label == 'Reading')
           {
+
             this.extendsData = {
               book:{
                 curPage:1,
-                totalPage:this.totalPage,
+                totalPage:thisTotalPage,
               }
             }
           }

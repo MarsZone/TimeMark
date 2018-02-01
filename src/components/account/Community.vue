@@ -21,7 +21,7 @@
           @click="push(topic.topicId,topic.content,topic.title)"
         >
           <div class="center">
-            <span class="list-item__title">{{topic.title}}</span>
+            <span class="list-item__title">[{{topic.type}}]{{topic.title}}</span>
           </div>
 
           <div class="left">
