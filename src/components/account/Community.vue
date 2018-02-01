@@ -18,7 +18,7 @@
           v-for = "topic of list" :key = "topic.id"
           tappable style="width: 100%;"
           v-bind:class=[topic.typeClass]
-          @click="push(topic.topicId,topic.content,topic.title)"
+          @click="push(topic.topicId,topic.content,topic.title,topic.createTime,topic.state)"
         >
           <div class="center">
             <span class="list-item__title">[{{topic.type}}]{{topic.title}}</span>
@@ -249,11 +249,11 @@
                     }
                   }
 
-                  if(list.state == 'Open')
+                  if(list.state == 'open')
                   {
                     self.listOpen.push(list);
                   }
-                  if(list.state == 'Close')
+                  if(list.state == 'close')
                   {
                     list.typeClass = 'CloseLine';
                     self.listClose.push(list);
@@ -299,14 +299,20 @@
               console.log(error);
             });
         },
-        push(topicId,content,title) {
+        push(topicId,content,title,date,state) {
           if(this.ifClickIcon == true)
           {
             this.ifClickIcon = false;
           }else{
-              console.log('Click Item');
+            console.log('Click Item');
+            //var tempDate = new Date(date);
+            //var formatDate = tempDate.getFullYear()+'-'+(tempDate.getMonth()+1)+'-'+tempDate.getDate();
             this.$store.state.topicId = topicId;
-
+            var ifclosed = false;
+            if(state == 'close')
+            {
+              ifclosed =true;
+            }
             this.$store.commit('navigator/push', {
               extends: comment,
               data() {
@@ -314,7 +320,9 @@
                   backLabel: 'Topic',
                   label:'Comment',
                   content:content,
+                  createTopicDate:date,
                   title:title,
+                  ifClosed:ifclosed,
                 }
               }
             });

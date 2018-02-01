@@ -33,6 +33,11 @@ const state = {
   NETREQ_removeTopic:'/app/community/removeTopic',
   NETREQ_likeTopic:'/app/community/likeTopic',
 
+  //Comments
+  NETREQ_createComment:'/app/community/createComment',
+  NETREQ_getComments:'/app/community/getComments',
+  NETREQ_removeComment:'/app/community/removeComment',
+
 }
 
 export default {
