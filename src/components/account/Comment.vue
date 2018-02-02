@@ -21,17 +21,17 @@
         >
           <div class="left">
             <v-ons-icon icon="md-face" class="list-item__icon"></v-ons-icon>
+            <v-ons-icon
+              v-show="comment.canDelete"
+              @click="removeComment(comment.id)"
+              size="32px" style="color: #ff0d26;" icon = "ion-ios-trash-outline"></v-ons-icon>
           </div>
           <div class="center">
             <span class="list-item__title">{{comment.name}}</span><span class="list-item__subtitle">{{comment.content}}</span>
           </div>
           <div class="right">
-            <span style="font-size: 5px">Date:{{comment.date}}</span>
             <!--delete comment-->
-            <v-ons-icon
-              v-show="comment.canDelete"
-              @click="removeComment(comment.id)"
-              size="32px" style="color: #ff0d26;margin-left: 5px" icon = "ion-ios-trash-outline"></v-ons-icon>
+            <span style="font-size: 5px">Date:{{comment.date}}</span>
           </div>
 
         </v-ons-list-item>
@@ -173,8 +173,36 @@
         CloseTopic(){
           this.ResetTopic(true);
         },
-        DeleteTopic(){
-
+        DeleteTopic:function(){
+          let self = this;
+          self.loading = true;
+          var req = self.$store.state.host + self.$store.state.net.NETREQ_removeTopic;
+          axios.post(req, {
+            topicId:self.$store.state.topicId
+          })
+            .then(function (response) {
+              //console.log(response.data);
+              //console.log("code:"+response.data.code+"|msg:"+response.data.msg);
+              if(response.data.code!='200')
+              {
+                self.loading = false;
+                self.showError(response.data.msg);
+              }else {
+                Bus.$emit('reloadTopic','abc');
+                self.$ons.notification.toast({
+                  message:response.data.msg,
+                  buttonLabel: 'OK',
+                  timeout: 1000
+                }).then(function () {
+                  self.loading = false;
+                  self.$store.commit('navigator/pop');
+                });
+              }
+            })
+            .catch(function (error) {
+              self.loading = false;
+              console.log(error);
+            });
         },
         ResetTopic(ifClose){
           let self = this;
