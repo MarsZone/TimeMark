@@ -87,7 +87,8 @@
           email:self.$store.state.email
         })
           .then(function (response) {
-            console.log(response.data);
+            //console.log(response.data);
+            console.log("Calendar");
             console.log("code:"+response.data.code+"|msg:"+response.data.msg);
             if(response.data.code!='200')
             {
