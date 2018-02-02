@@ -8,7 +8,7 @@
       <v-ons-list-header>Topic</v-ons-list-header>
       <v-ons-card >
         <div class="title">{{ title }}</div>
-        <div class="content">{{ content }}
+        <div class="content">:{{ content }}
           <br>Date:{{ createTopicDate }}
         </div>
       </v-ons-card>
@@ -27,10 +27,11 @@
           </div>
           <div class="right">
             <span style="font-size: 5px">Date:{{comment.date}}</span>
+            <!--delete comment-->
             <v-ons-icon
               v-show="comment.canDelete"
               @click="removeComment(comment.id)"
-              size="32px" style="color: #ff0d26;" icon = "ion-ios-trash-outline"></v-ons-icon>
+              size="32px" style="color: #ff0d26;margin-left: 5px" icon = "ion-ios-trash-outline"></v-ons-icon>
           </div>
 
         </v-ons-list-item>
@@ -61,7 +62,7 @@
       <!--Delete-->
       <v-ons-button v-bind:disabled="loading"
                     id="deleteTopic"
-                    @click=""
+                    @click="DeleteTopic"
                     class="delete my-button button button--outline " >
         <label v-if="!loading">DeleteTopic</label>
         <v-ons-icon v-if="loading" icon="ion-load-c" spin size="26px"></v-ons-icon>
@@ -171,6 +172,9 @@
         },
         CloseTopic(){
           this.ResetTopic(true);
+        },
+        DeleteTopic(){
+
         },
         ResetTopic(ifClose){
           let self = this;

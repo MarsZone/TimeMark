@@ -39,7 +39,8 @@
     </v-ons-list>
     <div>
       TimeMark Made By Mars. <br>
-      This is a open source project. <br>
+      This is the tools that made for myself. <br>
+      So the apps main goal is work for me~ ye~baby. <br>
       <a href="mailto:zm03322161@qq.com" title="Flaticon">Email</a>
       <br>
       <a href="https://github.com/MarsZone/" title="Flaticon">Github</a>
