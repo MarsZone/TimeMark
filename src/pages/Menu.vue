@@ -69,7 +69,7 @@
           {
             title: 'Blog',
             icon: 'ion-social-wordpress-outline',
-            url: 'http://marszm.cn/blog/wordpress/'
+            url: 'http://marszm.cn/blog/wordpress/2018/02/02/my-blog/'
           }
         ],
         access: [

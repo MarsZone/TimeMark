@@ -90,7 +90,7 @@
                 list.label = response.data.list[i].templateName;
                 self.templateList.push(list);
               }
-              console.log(self.templateList);
+              //console.log(self.templateList);
               //self.$forceUpdate();
             }
           })

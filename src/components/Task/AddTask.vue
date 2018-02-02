@@ -172,8 +172,7 @@
           //check if title, description
           if(this.title == ''){this.warningToast('Please fill the title');return;}
           if(this.description == ''){this.warningToast('Please fill the description');return;}
-          //if book template check totalPage and set extends
-          if(this.totalPage == ''){this.warningToast('Please fill the totalPage');return;}
+
           var thisTotalPage = Number(this.totalPage);
           if(thisTotalPage<0)
           {
@@ -181,7 +180,6 @@
           }
           if(this.$store.template_label == 'Reading')
           {
-
             this.extendsData = {
               book:{
                 curPage:1,
@@ -192,6 +190,8 @@
           //if project check progress and set extends
           if(this.$store.template_label == 'Project')
           {
+            //if book template check totalPage and set extends
+            if(this.totalPage == ''){this.warningToast('Please fill the totalPage');return;}
             this.extendsData = {
               Project:{
                 curProgress:this.progress,
