@@ -38,7 +38,7 @@ But there is a old version can test. http://marszm.cn/tm/ It will load a while b
 
 ### Technology
 Frontend:
-Vue + vuex + webpack + ES6/7 + vue-onsenui + axios + vue-simple-calendar + vue-echarts
+Vue + vuex + webpack + ES6/7 + vue-onsenui + axios + vue-simple-calendar + vue-echarts + Cordova
 
 Backend(not on github):
 Node.js + Express + mongodb + mongoose + i18n etc.
