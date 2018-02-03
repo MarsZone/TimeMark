@@ -66,7 +66,7 @@ const app = new Vue({
       self.$ons.setDefaultDeviceBackButtonListener(function(event) {
         var stack = self.$store.state.navigator.stack;
         console.log("Stack:"+stack.length);
-        if(stack.length > 0)
+        if(stack.length > 1)
         {
           self.$store.commit('navigator/pop');
         }else {
@@ -77,13 +77,26 @@ const app = new Vue({
               }
             });
         }
-
       });
       //document.addEventListener("backbutton", self.onBackKeyDown, false);
     });
   },
   methods:{
     onBackKeyDown:function () {
+      // var self = this;
+      // var stack = self.$store.state.navigator.stack;
+      // console.log("backbuttonStack:"+stack.length);
+      // if(stack.length > 1)
+      // {
+      //   //self.$store.commit('navigator/pop');
+      // }else {
+      //   self.$ons.notification.confirm('Do you want to close the app?') // Ask for confirmation
+      //     .then(function(index) {
+      //       if (index === 1) { // OK button
+      //         navigator.app.exitApp(); // Close the app
+      //       }
+      //     });
+      // }
       //console.log("Click Back");
     },
     init:function() {
