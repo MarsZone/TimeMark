@@ -3,6 +3,7 @@
                    :page-stack="pageStack"
                    :pop-page="storePop"
                    :options="options"
+                   @deviceBackButton="$event.preventDefault()"
                    @postpush="showPopTip"
   ></v-ons-navigator>
 </template>
@@ -26,6 +27,9 @@
         shutUp: this.md
       }
     },
+    mounted (){
+//      document.addEventListener("backbutton", onBackKeyDown, false);
+    },
     computed: {
       pageStack() {
         return this.$store.state.navigator.stack;
@@ -35,6 +39,9 @@
       }
     },
     methods: {
+      onBackKeyDown(){
+        //this.$store.commit('navigator/pop');
+      },
       storePop() {
         this.$store.commit('navigator/pop');
       },

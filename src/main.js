@@ -20,7 +20,6 @@ import 'echarts/lib/chart/bar'
 import 'echarts/lib/component/tooltip'
 import 'echarts/theme/dark'
 
-
 Vue.use(Vuex);
 Vue.use(Datetime);
 Vue.use(VueOnsen);
@@ -33,7 +32,7 @@ Vue.component('custom-toolbar', CustomToolbar); // Common toolbar
 Vue.component('chart', ECharts);
 
 /* eslint-disable no-new */
-new Vue({
+const app = new Vue({
   //el: '#app',
   router,
   store,
@@ -44,9 +43,51 @@ new Vue({
     Vue.prototype.md = null;
     // Set iPhoneX flag based on URL
     this.$ons.disableAutoStyling(); // Or any other method
+    // this.$ons.enableDeviceBackButtonHandler();
+    // this.$ons.setDefaultDeviceBackButtonListener(function(event) {
+    //   this.$ons.notification.confirm('Do you want to close the app?') // Ask for confirmation
+    //     .then(function(index) {
+    //       if (index === 1) { // OK button
+    //         this.navigator.app.exitApp(); // Close the app
+    //       }
+    //     });
+    // });
     if (window.location.search.match(/iphonex/i)) {
       document.documentElement.setAttribute('onsflag-iphonex-portrait', '');
       document.documentElement.setAttribute('onsflag-iphonex-landscape', '');
+    };
+  },
+  mounted(){
+    var self = this;
+    self.$ons.ready(function() {
+      console.log("On ready");
+      self.$ons.enableDeviceBackButtonHandler();
+      // Set a new handler
+      self.$ons.setDefaultDeviceBackButtonListener(function(event) {
+        var stack = self.$store.state.navigator.stack;
+        console.log("Stack:"+stack.length);
+        if(stack.length > 0)
+        {
+          self.$store.commit('navigator/pop');
+        }else {
+          self.$ons.notification.confirm('Do you want to close the app?') // Ask for confirmation
+            .then(function(index) {
+              if (index === 1) { // OK button
+                navigator.app.exitApp(); // Close the app
+              }
+            });
+        }
+
+      });
+      //document.addEventListener("backbutton", self.onBackKeyDown, false);
+    });
+  },
+  methods:{
+    onBackKeyDown:function () {
+      //console.log("Click Back");
+    },
+    init:function() {
+      this.status = true;
     }
   }
   //template: '<App/>',
