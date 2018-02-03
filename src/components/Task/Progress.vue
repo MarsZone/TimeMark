@@ -88,6 +88,10 @@
     import axios from 'axios';
     import moment from 'moment';
     export default {
+      beforeDestroy () {
+        this.endTimeAction();
+        this.stopTimer();
+      },
       data(){
         return{
           alertDialog1Visible: false,
