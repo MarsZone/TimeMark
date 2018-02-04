@@ -20,6 +20,8 @@ So I need to record it.
 ### Release
 
 GooglePlay:https://play.google.com/store/apps/details?id=com.marszm.timemark
+<img width="1083" alt="googleplay" src="https://user-images.githubusercontent.com/3784198/35777454-273385e8-09e9-11e8-9c78-8f47b8d35d86.png">
+
 
 ### Login
 <p align="center"><img height="500" src="https://user-images.githubusercontent.com/3784198/34903864-2cf5018a-f875-11e7-80e5-fbe6f26b5a09.gif" alt="Login"></p>
