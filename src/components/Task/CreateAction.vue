@@ -69,8 +69,8 @@
       data(){
         return{
           remark:'',
-          startDate: moment().format(),
-          endDate:  moment().format(),
+          startDate: new Date().toString(),
+          endDate:   new Date().toString(),
           diffSeconds:0,
           diffMin: 0,
           diffHour: 0,
@@ -89,6 +89,9 @@
           // 其实不解决也可以，因为同一时间确实可以做两件事
           //Post to server.
           let self = this;
+//          console.log(this.startDate);
+//          console.log(moment(this.startDate));
+//          console.log(new Date(this.startDate));
           var req = self.$store.state.host + self.$store.state.net.NETREQ_createAction;
           console.log(req);
           axios.post(req, {
@@ -136,7 +139,7 @@
           if(this.diffSeconds < 0)
           {
             //this.showError("EndDate must after start date.");
-            this.endDate = this.startDate;
+            this.endDate = new Date(this.startDate);
             this.diffSeconds = 0;
           }else {
             this.diffMin = this.diffSeconds / 60;

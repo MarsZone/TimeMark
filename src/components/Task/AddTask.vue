@@ -50,6 +50,8 @@
     <!--Entertainment-->
 
     <!--/Expend-->
+
+    <!--:i18n="{ok:'OK', cancel:'Cancel'}"-->
     <!--StartTime-->
     <v-ons-list>
       <ons-list-item modifier="nodivider">
@@ -59,10 +61,9 @@
           </label>
         </div>
         <div class="center">
-          <datetime class="datetimeStyle" v-model="startDate"
-                    :i18n="{ok:'确认', cancel:'取消'}"
-                    input-format="YYYY-MM-DD"
-                    moment-locale="zh-cn">
+          <datetime class="datetimeStyle"
+                    v-model="startDate"
+                    input-format="YYYY-MM-DD">
           </datetime>
         </div>
       </ons-list-item>
@@ -191,7 +192,7 @@
           if(this.$store.template_label == 'Project')
           {
             //if book template check totalPage and set extends
-            if(this.totalPage == ''){this.warningToast('Please fill the totalPage');return;}
+//            if(this.progress == ''){this.warningToast('Please fill the Progress');return;}
             this.extendsData = {
               Project:{
                 curProgress:this.progress,

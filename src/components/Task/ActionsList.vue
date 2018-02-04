@@ -111,6 +111,11 @@
                   list.aid = response.data.list[i]._id;
                   list.startTime = response.data.list[i].startTime;
                   list.endTime = response.data.list[i].endTime;
+//                  console.log(list.startTime);
+//                  console.log(moment(list.startTime));
+//                  console.log(new Date(list.startTime));
+                  list.startTime = new Date(list.startTime).toString();
+                  list.endTime = new Date(list.endTime).toString();
                   list.remark = response.data.list[i].remark;
                   list.total_min = (response.data.list[i].total_seconds / 60).toFixed(2);
                   self.list.push(list);

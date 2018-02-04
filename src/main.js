@@ -78,10 +78,124 @@ const app = new Vue({
             });
         }
       });
+      // banner: 'ca-app-pub-5136550274471376/3820744996',
+      // banner: 'ca-app-pub-3940256099942544/6300978111',
       //document.addEventListener("backbutton", self.onBackKeyDown, false);
+      let admobid = {};
+      if( /(android)/i.test(navigator.userAgent) ) {
+        admobid = { // for Android
+          banner: 'ca-app-pub-5136550274471376/3820744996',
+          interstitial: '',
+          rewardvideo: '',
+        };
+      } else if(/(ipod|iphone|ipad)/i.test(navigator.userAgent)) {
+        admobid = { // for iOS
+          banner: 'ca-app-pub-5136550274471376/3820744996',
+          interstitial: '',
+          rewardvideo: '',
+        };
+      } else {
+        admobid = { // for Windows Phone
+          banner: 'ca-app-pub-5136550274471376/3820744996',
+          interstitial: '',
+          rewardvideo: '',
+        };
+      }
+      //if (! AdMob) { alert( 'admob plugin not ready' );}
+
+      AdMob.getAdSettings(function(info){
+        console.log('adId: ' + info.adId + '\n' + 'adTrackingEnabled: ' + info.adTrackingEnabled);
+      }, function(){
+        console.log('failed to get user ad settings');
+      });
+
+      AdMob.setOptions({
+        // adSize: 'SMART_BANNER',
+        position: AdMob.AD_POSITION.BOTTOM_CENTER,
+        // isTesting: true, // set to true, to receiving test ad for testing purpose
+        bgColor: 'black', // color name, or '#RRGGBB'
+        // autoShow: true // auto show interstitial ad when loaded, set to false if prepare/show
+        // offsetTopBar: false, // avoid overlapped by status bar, for iOS7+
+      });
+
+      // new events, with variable to differentiate: adNetwork, adType, adEvent
+      $(document).on('onAdFailLoad', function(e){
+        // when jquery used, it will hijack the event, so we have to get data from original event
+        if(typeof e.originalEvent !== 'undefined') e = e.originalEvent;
+        var data = e.detail || e.data || e;
+
+        // alert('error: ' + data.error +
+        //   ', reason: ' + data.reason +
+        //   ', adNetwork:' + data.adNetwork +
+        //   ', adType:' + data.adType +
+        //   ', adEvent:' + data.adEvent); // adType: 'banner', 'interstitial', etc.
+
+        console.log('error: ' + data.error +
+          ', reason: ' + data.reason +
+          ', adNetwork:' + data.adNetwork +
+          ', adType:' + data.adType +
+          ', adEvent:' + data.adEvent);
+      });
+      $(document).on('onAdLoaded', function(e){
+        console.log("onAdLoaded");
+      });
+      $(document).on('onAdPresent', function(e){
+        console.log("onAdPresent");
+      });
+      $(document).on('onAdLeaveApp', function(e){
+        console.log("onAdLeaveApp");
+      });
+      $(document).on('onAdDismiss', function(e){
+        console.log("onAdDismiss");
+      });
+      let adsCount = 0;
+      let closeCount = 0;
+      let bannerRemoved = false;
+      if(AdMob) AdMob.createBanner({
+        adId: admobid.banner,
+        overlap: $('#overlap').is(':checked'),
+        offsetTopBar: $('#offsetTopBar').is(':checked'),
+        adSize: $('#adSize').val(),
+        position: $('#adPosition').val(),
+      });
+      let AdMobInstance = AdMob;
+      setInterval(() => {
+        if(adsCount>10)
+        {
+          console.log("ReCreate Banner");
+          closeCount=0;
+          if(AdMobInstance) AdMobInstance.createBanner({
+            adId: admobid.banner,
+            overlap: $('#overlap').is(':checked'),
+            offsetTopBar: $('#offsetTopBar').is(':checked'),
+            adSize: $('#adSize').val(),
+            position: $('#adPosition').val(),
+          });
+          adsCount=0;
+          bannerRemoved=false;
+        }
+        if(closeCount >4)
+        {
+          console.log("Remove Banner");
+          if(AdMobInstance){
+            AdMobInstance.removeBanner();
+          }
+          bannerRemoved = true;
+          closeCount=0;
+        }
+        adsCount = adsCount+1;
+        if(!bannerRemoved)
+        {
+          closeCount =closeCount +1;
+        }
+        console.log("ADSCount:"+adsCount+"|closeCount:"+closeCount);
+      }, 5000);
     });
   },
   methods:{
+    initApp(){
+
+    },
     onBackKeyDown:function () {
       // var self = this;
       // var stack = self.$store.state.navigator.stack;

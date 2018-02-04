@@ -116,8 +116,11 @@
         var oneDayLong = 24*60*60*1000 ;
         var MondayTime = nowTime - (day-1)*oneDayLong  ;
         var SundayTime =  nowTime + (7-day)*oneDayLong ;
-        mondayDate = new Date(MondayTime);
+        mondayDate = new Date(MondayTime).toString();
         sundayDate = new Date(SundayTime);
+        console.log("Monday:"+mondayDate );
+        console.log("Monday:"+new Date(MondayTime) );
+        console.log("SundayTime:"+ sundayDate );
         let self = this;
         //self.chartData.splice(0);
         var req = self.$store.state.host + self.$store.state.net.NETREQ_chartWeekView;

@@ -151,13 +151,17 @@
         startTimer(){
           //Post to server.
           let self = this;
+          console.log(new Date().toString());
+          console.log(moment(new Date()));
+          console.log(moment().format());
+
           var req = self.$store.state.host + self.$store.state.net.NETREQ_createAction;
           axios.post(req, {
             task_id:        self.$store.state.task_id,
             task_title:     this.$store.state.task_label,
             total_seconds:  1,
-            startTime:      moment().format(),
-            endTime:        moment().format(),
+            startTime:      new Date().toString(),
+            endTime:        new Date().toString(),
             state:          'Start',
             remark:          '',
           })
@@ -203,9 +207,9 @@
             var req = self.$store.state.host + self.$store.state.net.NETREQ_updateAction;
             axios.post(req, {
               total_seconds:  self.timer,
-              endTime:        moment().format(),
+              endTime:        new Date().toString(),
               state:          'updating',
-              remark:         '',
+              remark:         self.remark,
             })
           },10000);
 
@@ -243,9 +247,9 @@
             var req = self.$store.state.host + self.$store.state.net.NETREQ_updateAction;
             axios.post(req, {
               total_seconds:  self.timer,
-              endTime:        moment().format(),
+              endTime:        new Date().toString(),
               state:          'updating',
-              remark:         '',
+              remark:         self.remark,
             })
           },10000);
         },
@@ -270,7 +274,7 @@
           axios.post(req, {
             task_id:        self.$store.state.task_id,
             total_seconds:  self.timer,
-            endTime:        moment().format(),
+            endTime:        new Date().toString(),
             state:          'End',
             remark:         self.remark,
             extends_data:   self.$store.state.extends_data
@@ -279,7 +283,7 @@
               console.log("xxxxx");
               console.log(response.data.code);
               console.log(response.data.msg);
-              self.remark = '';
+              //self.remark = '';
             })
             .catch(function (error) {
               console.log(error);
