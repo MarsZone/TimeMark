@@ -1,6 +1,6 @@
 
 - [Introduction](#introduction)
-  - [Demo](#demo)
+  - [Release](#release)
   - [Technology](#technology)
   - [Some role](#some-role)
   - [Todo](#todo)
@@ -17,9 +17,10 @@ It's a web-apps that record your time.
 This idea was come up with when I wondering how much time I waster in my life,
 So I need to record it.
 
-### Demo 
-#### Ready to release and public
-But there is a old version can test. http://marszm.cn/tm/ It will load a while becasue the server not fast.
+### Release
+
+GooglePlay:https://play.google.com/store/apps/details?id=com.marszm.timemark
+
 ### Login
 <p align="center"><img height="500" src="https://user-images.githubusercontent.com/3784198/34903864-2cf5018a-f875-11e7-80e5-fbe6f26b5a09.gif" alt="Login"></p>
 
