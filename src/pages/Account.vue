@@ -46,8 +46,8 @@
 
       <label v-show ="ifSignOut" style="text-align: center">
         Etime:    {{eHour}}h {{eMin}}m <br>
-        BonusTime:{{(bonus/60/60).toFixed(1)}}h {{(bonus/60).toFixed(1)}}m
       </label>
+      <!--BonusTime:{{(bonus/60/60).toFixed(1)}}h {{(bonus/60).toFixed(1)}}m-->
 
     </div>
   </v-ons-page>

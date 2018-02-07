@@ -139,7 +139,7 @@
           if(this.diffSeconds < 0)
           {
             //this.showError("EndDate must after start date.");
-            this.endDate = new Date(this.startDate);
+            this.endDate = moment(this.startDate).format();
             this.diffSeconds = 0;
           }else {
             this.diffMin = this.diffSeconds / 60;

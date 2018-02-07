@@ -174,7 +174,7 @@ const app = new Vue({
           adsCount=0;
           bannerRemoved=false;
         }
-        if(closeCount >4)
+        if(closeCount >6)
         {
           console.log("Remove Banner");
           if(AdMobInstance){
@@ -189,7 +189,7 @@ const app = new Vue({
           closeCount =closeCount +1;
         }
         console.log("ADSCount:"+adsCount+"|closeCount:"+closeCount);
-      }, 5000);
+      }, 50000);
     });
   },
   methods:{

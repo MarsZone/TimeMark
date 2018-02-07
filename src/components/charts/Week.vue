@@ -111,16 +111,21 @@
         var mondayDate;
         var sundayDate;
         var now = new Date();
+        now.setHours(0,0,0,0);
         var nowTime = now.getTime() ;
         var day = now.getDay();
         var oneDayLong = 24*60*60*1000 ;
+        if(day == 0)
+        {
+          day =7;
+        }
         var MondayTime = nowTime - (day-1)*oneDayLong  ;
         var SundayTime =  nowTime + (7-day)*oneDayLong ;
-        mondayDate = new Date(MondayTime).toString();
+        mondayDate = new Date(MondayTime);
         sundayDate = new Date(SundayTime);
-        console.log("Monday:"+mondayDate );
-        console.log("Monday:"+new Date(MondayTime) );
-        console.log("SundayTime:"+ sundayDate );
+        console.log(mondayDate);
+        console.log(sundayDate);
+
         let self = this;
         //self.chartData.splice(0);
         var req = self.$store.state.host + self.$store.state.net.NETREQ_chartWeekView;

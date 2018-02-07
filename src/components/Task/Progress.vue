@@ -105,6 +105,8 @@
           dis_stop:true,
           isPause:false,
           timer: 0,
+          actionStartTime:'',
+          totalSeconds:0,
           si: '',
           hour: '00',
           minutes: '00',
@@ -154,6 +156,7 @@
           console.log(new Date().toString());
           console.log(moment(new Date()));
           console.log(moment().format());
+          self.actionStartTime = new Date();
 
           var req = self.$store.state.host + self.$store.state.net.NETREQ_createAction;
           axios.post(req, {
@@ -190,7 +193,8 @@
           self.timer = 0;
           self.seconds ='00';
           this.si = setInterval(function () {
-            self.timer++;
+            var curdate = new Date();
+            self.timer= parseInt((curdate.getTime() - self.actionStartTime.getTime())/1000);
             let d, h, m, s;
             s = Math.floor( self.timer );
             m = Math.floor( s / 60 );
@@ -233,7 +237,8 @@
           this.alertDialog1Visible = false;
           let self = this;
           self.si = setInterval(function () {
-            self.timer++;
+            var curdate = new Date();
+            self.timer= parseInt((curdate.getTime() - self.actionStartTime.getTime())/1000);
             let h, m, s;
             s = Math.floor( self.timer );
             m = Math.floor( s / 60 );
@@ -270,6 +275,7 @@
           let self = this;
           self.alertDialog1Visible = false;
           //Send End First.
+          console.log("Timer:"+self.timer);
           var req = self.$store.state.host + self.$store.state.net.NETREQ_updateAction;
           axios.post(req, {
             task_id:        self.$store.state.task_id,
@@ -295,7 +301,8 @@
           this.isPause=false;
           let self = this;
           this.si = setInterval(function () {
-            self.timer++;
+            var curdate = new Date();
+            self.timer= parseInt((curdate.getTime() - self.actionStartTime.getTime())/1000);
             let h, m, s;
             s = Math.floor( self.timer );
             m = Math.floor( s / 60 );
