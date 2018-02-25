@@ -120,7 +120,7 @@
           day =7;
         }
         var MondayTime = nowTime - (day-1)*oneDayLong  ;
-        var SundayTime =  nowTime + (7-day)*oneDayLong ;
+        var SundayTime =  nowTime + (8-day)*oneDayLong ; //因为设置了0点，所以是第八天
         mondayDate = new Date(MondayTime);
         sundayDate = new Date(SundayTime);
         console.log(mondayDate);
@@ -190,13 +190,13 @@
     width: 100%;
     /*height: 100%;*/
 
-    -webkit-transform: rotateZ(90deg);
-    -moz-transform: rotateZ(90deg);
-    -o-transform: rotateZ(90deg);
-    -ms-transform: rotateZ(90deg);
-    transform: rotateZ(90deg);
+    /*-webkit-transform: rotateZ(90deg);*/
+    /*-moz-transform: rotateZ(90deg);*/
+    /*-o-transform: rotateZ(90deg);*/
+    /*-ms-transform: rotateZ(90deg);*/
+    /*transform: rotateZ(90deg);*/
   }
   .echarts{
-    transform:scaleY(0.9);
+    /*transform:scaleY(0.9);*/
   }
 </style>

@@ -6,6 +6,7 @@ const state = {
   //Task
   NETREQ_createTask:'/app/createTask',
   NETREQ_removeTask:'/app/removeTask',
+  NETREQ_closeTask:'/app/closeTask',
   NETREQ_taskList:  '/app/taskList',
   //Actions
   NETREQ_createAction:  '/app/createAction',

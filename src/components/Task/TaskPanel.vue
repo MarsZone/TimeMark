@@ -13,7 +13,9 @@
     </v-ons-card>
 
     <div style="width: 100% ;text-align: center;" >
-      <v-ons-icon tappable size="40px" style="color: #ffaf53;" icon = "ion-checkmark-circled"></v-ons-icon>
+      <v-ons-icon
+        @click="showCloseAlert"
+        tappable size="40px" style="color: #ffaf53;" icon = "ion-checkmark-circled"></v-ons-icon>
     </div>
 
 
@@ -85,6 +87,19 @@
             }
           });
         },
+        showCloseAlert(){
+          //show alert confirm
+          let self = this;
+          self.$ons.notification.confirm({
+            message  :'Close this task?',
+            callback :function (index) {
+              if(index == 1)
+              {
+                //self.closeTask();
+              }
+            }
+          });
+        },
         showAlert(){
           //show alert confirm
           let self = this;
@@ -96,6 +111,37 @@
                   self.removeTask();
                 }
               }
+            });
+        },
+        closeTask(){
+          let self = this;
+          var req = self.$store.state.host +self.$store.state.net.NETREQ_closeTask;
+          axios.post(req, {
+            task_id:        self.$store.state.task_id,
+          })
+            .then(function (response) {
+              console.log(response.data.code);
+              console.log(response.data.msg);
+              if(response.data.code!='200')
+              {
+                self.showError(response.data.msg);
+              }else {
+                //清除ID
+                self.$store.state.task_id = '';
+                Bus.$emit('removeTask');//Also can use.
+                //remove success.
+                self.$ons.notification.toast({
+                  message:response.data.msg,
+                  buttonLabel: 'OK',
+                  timeout: 1000
+                }).then(function () {
+                  //成功返回
+                  self.pop();
+                });
+              }
+            })
+            .catch(function (error) {
+              console.log(error);
             });
         },
         removeTask(){

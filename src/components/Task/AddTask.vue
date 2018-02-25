@@ -84,7 +84,7 @@
     <v-ons-list>
       <v-ons-list-item modifier="nodivider">
         <label class="center" >
-          TaskRepeat ({{ ifRepeat ? 'on' : 'off' }})
+          LongTimeTask ({{ ifRepeat ? 'Yes' : 'No' }})
         </label>
         <div class="right">
           <v-ons-switch id="highlight-input" input-id="inner-highlight-input"
@@ -94,23 +94,23 @@
     </v-ons-list>
 
     <!--<v-ons-list-header>Chose the day - {{checkedDays}}</v-ons-list-header>-->
-    <transition name="fade">
-    <v-ons-list v-if="ifRepeat">
-      <v-ons-list-item v-for="(day, $index) in weeks" :key="day" tappable>
-        <label class="left">
-          <v-ons-checkbox
-            :input-id="'checkbox-' + $index"
-            :value="day"
-            v-model="checkedDays"
-          >
-          </v-ons-checkbox>
-        </label>
-        <label class="center" :for="'checkbox-' + $index">
-          {{ day }}
-        </label>
-      </v-ons-list-item>
-    </v-ons-list>
-    </transition>
+    <!--<transition name="fade">-->
+    <!--<v-ons-list v-if="ifRepeat">-->
+      <!--<v-ons-list-item v-for="(day, $index) in weeks" :key="day" tappable>-->
+        <!--<label class="left">-->
+          <!--<v-ons-checkbox-->
+            <!--:input-id="'checkbox-' + $index"-->
+            <!--:value="day"-->
+            <!--v-model="checkedDays"-->
+          <!--&gt;-->
+          <!--</v-ons-checkbox>-->
+        <!--</label>-->
+        <!--<label class="center" :for="'checkbox-' + $index">-->
+          <!--{{ day }}-->
+        <!--</label>-->
+      <!--</v-ons-list-item>-->
+    <!--</v-ons-list>-->
+    <!--</transition>-->
 
     <transition name="fade">
     <!--EndTime-->
@@ -159,9 +159,9 @@
           diffDay:0,
           startDate: moment().format(),
           endDate:  moment().format(),
-          ifRepeat: false,
-          weeks: ['LongTime','Monday', 'Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'],
-          checkedDays: [],
+          ifRepeat: true,
+          weeks: ['LongTime'],
+          checkedDays: ['LongTime'],
           toolbarInfo: {
             backLabel: 'Home',
             title: 'New Task'
